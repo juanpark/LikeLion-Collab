@@ -14,8 +14,6 @@
 /.idea/
 /.vscode/
 /*.iml
-.classpath
-.project
 
 # Build directories
 /target/

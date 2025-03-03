@@ -1,5 +1,6 @@
 package com.sec01;
 
+@SuppressWarnings("unused")
 public class DataType06 {
 	public static void main(String[] args) {
 		   byte b1=3;

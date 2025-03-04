@@ -2,6 +2,7 @@ package com.sec02;
 
 public class Comparison {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 
 		int num, assign;

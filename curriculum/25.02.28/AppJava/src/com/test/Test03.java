@@ -14,6 +14,5 @@ public class Test03 {
         System.out.println("AND = " + Integer.toBinaryString(a & b) + " (" + (a & b) + ")");
         System.out.println("OR  = " + Integer.toBinaryString(a | b) + " (" + (a | b) + ")");
         System.out.println("XOR = " + Integer.toBinaryString(a ^ b) + " (" + (a ^ b) + ")");
-        // test
     }
 }

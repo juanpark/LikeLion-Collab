@@ -1,0 +1,21 @@
+# macOS system files
+.DS_Store
+._*
+.Spotlight-V100/
+.Trashes
+
+# Java compiled files
+*.class
+*.jar
+*.war
+*.ear
+
+# IDE-specific files
+/.idea/
+/.vscode/
+/*.iml
+
+# Build directories
+/target/
+/out/
+/bin/

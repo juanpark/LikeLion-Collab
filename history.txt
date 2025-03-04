@@ -1,0 +1,31 @@
+*   e59e1f9 Merge pull request #5 from juanpark/curriculum/movefiles
+|\  
+| * da0c402 test commit
+|/  
+* 8cbb3a0 added git and java workshop files to etc/
+* 1ad4fb8 added additional class files (in progress
+* 4f196b7 added inclass src of com.sec02.exam (in progress)
+* af853f6 added sec02 to class src
+* 3b29746 changes made and committed on Eclipse
+* 772673a .gitignore deleted .project and .classpath to track
+* 623e4d2 testing copying whole Java project folder into git
+* 66c71a9 deleted all hidden files within above folder
+* b2692c2 deleted all files within curriculum/25.02.28/
+* 90ca4af .gitignore update eclipse files
+*   939ed2e Merge pull request #4 from juanpark/curriculum/fixgitignore
+|\  
+| * 416224d [curriculum] updated .gitignore and deleted compiled files
+|/  
+*   67fff9c Merge pull request #3 from juanpark/curriculum/addsrc
+|\  
+| * dd05800 [curriculum] add 25.02.28 class files
+|/  
+* 129ac3c Update README.md
+*   6965660 Merge pull request #2 from juanpark/test/test
+|\  
+| * bf26d85 [test] edited juanpark workspace README.md
+|/  
+* 597df44 chore: add .gitignore to exclude macOS system files
+* 53582ae chore: initialize repository with project structure and READMEs
+* 8de8cc9 Update README.md
+* 89a0d33 Initial commit

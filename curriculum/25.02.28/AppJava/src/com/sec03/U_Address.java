@@ -15,51 +15,57 @@ class U_Address {
 	private String name;
 	private String addr;
 	private String tel;
-	
-	// member method name
-	public void setName(String name) {
-		this.name = name;
-	}
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
-	
-	// member method addr
-	public void setAddr(String addr) {
-		this.addr = addr;
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
+	/**
+	 * @return the addr
+	 */
 	public String getAddr() {
 		return addr;
 	}
-	
-	// member method tel
-	public void setTel(String tel) {
-		this.tel = tel;
+	/**
+	 * @param addr the addr to set
+	 */
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
+	/**
+	 * @return the tel
+	 */
 	public String getTel() {
 		return tel;
 	}
-	
-	// create method to print
-	public void Prn() {
-		System.out.printf("%10s %10s %10s\n", this.getName(), this.getAddr(), this.getTel());
+	/**
+	 * @param tel the tel to set
+	 */
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
-	
-	// 재정의 : 상속 시 선조가 가진 메소드를 그대로 정의하고 내용만 다시 정의하는 것
-	// 원래 선조의 toString()은 주소를 프린트
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return String.format("%10s %10s %10s\n", this.getName(), this.getAddr(), this.getTel());
+		return String.format("U_Address [getName()=%s, getAddr()=%s, getTel()=%s]", getName(), getAddr(), getTel());
 	}
+	
 	public static void main(String[] args) {
 		U_Address a1 = new U_Address();
 		U_Address b1 = new U_Address();
-		// a1.Prn();
-		// b1.Prn();
 		
+		a1.setName("111");
+		a1.setAddr("111");
+		a1.setTel("111");
 		System.out.println(a1); //a1.toString()
-		System.out.println(b1); //b1.to.String()
+		System.out.println(b1); //a1.toString()
+		
 	}
 }
-
+	

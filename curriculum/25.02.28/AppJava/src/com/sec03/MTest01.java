@@ -69,27 +69,27 @@ public class MTest01 {
 		System.out.printf("%10s %10s %15s \n", c1.getName(), c1.getAddr(), c1.getTel());
 		
 		
-		Q1:
+		// Q1:
 		System.out.println("홍길동을 이길동으로 변경후 a1을 출력해보자. ");
 		a1.setName("이길동");
 		System.out.printf("%10s %10s %15s \n", a1.getName(), a1.getAddr(), a1.getTel());
 		
-		Q2:
+		// Q2:
 		System.out.println("인천을 제주도 변경후 정길동과 제주도만 출력해보자. ");
 		b1.setAddr("제주도");
 		System.out.printf("%10s %10s \n", b1.getName(), b1.getAddr());
 		
-		Q3:
+		// Q3:
 		System.out.println("부산을 대구로 변경 후 이름과 대구를 출력해보자. ");
 		c1.setAddr("대구");
 		System.out.printf("%10s %10s \n", c1.getName(), c1.getAddr());
 		
-		Q4:
+		// Q4:
 		System.out.println("최길동의 전화번호를 000으로 변경후 전체 c1의 레코드를 출력해보자. ");
 		c1.setTel("000");
 		System.out.printf("%10s %10s %15s \n", c1.getName(), c1.getAddr(), c1.getTel());
 		
-		Q5:
+		// Q5:
 		System.out.println("레코드의 3명의 이름만 출력 해보자. ");
 		
 		System.out.printf("%10s %10s %10s \n", a1.getName(), b1.getName(), c1.getName());

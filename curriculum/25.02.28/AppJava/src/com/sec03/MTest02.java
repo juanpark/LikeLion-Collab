@@ -37,7 +37,7 @@ public class MTest02 {
 		Random r2 = new Random();
 		System.out.println(r2.nextInt(101));
 		
-		// using java.util.Math
+		// already with java.lang package
 		int r3 = (int)(Math.random() * 101); // 0~100
 		System.out.println(r3);
 	}

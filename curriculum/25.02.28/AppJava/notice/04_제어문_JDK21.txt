@@ -1,0 +1,364 @@
+제 4 장
+
+자바의 제어문 (JDK 21 기준)
+
+4.1 조건문
+4.2 반복문
+4.3 분기문
+4.4 중첩문
+
+---
+
+## 4.1 조건문
+조건문은 프로그램이 특정 조건을 만족할 경우에만 특정 코드 블록을 실행하는 구조를 제공한다.
+
+### [1] if 문
+
+[선언형식]
+
+if (boolean expression) {
+    statement;
+} else if (boolean expression) {
+    statement;
+} else {
+    statement;
+}
+```
+
+exam)
+
+int num = 10;
+if (num > 0) {
+    System.out.println("양수");
+} else if (num < 0) {
+    System.out.println("음수");
+} else {
+    System.out.println("0 입니다");
+}
+```
+
+### [2] switch 문 (JDK 21 패턴 매칭 적용)
+JDK 21에서는 `switch` 문에서 패턴 매칭을 사용할 수 있다. 이는 다양한 타입을 처리하는 데 유용하다.
+
+[선언형식]
+
+switch (expression) {
+    case pattern1 -> statement;
+    case pattern2 when condition -> statement;
+    default -> statement;
+}
+```
+
+exam)
+
+public class PatternSwitchExample {
+    public static void main(String[] args) {
+        Object obj = 42;
+        switch (obj) {
+            case Integer i when i > 10 -> System.out.println("10보다 큰 정수: " + i);
+            case Integer i -> System.out.println("정수: " + i);
+            case String s -> System.out.println("문자열: " + s);
+            case null -> System.out.println("Null 값이 입력되었습니다.");
+            default -> System.out.println("기타 값: " + obj);
+        }
+    }
+}
+```
+
+---
+
+## 4.2 반복문
+
+### [1] while문
+[선언형식]
+
+while (condition) {
+    statement;
+}
+```
+
+exam)
+
+int i = 1;
+while (i <= 5) {
+    System.out.println(i);
+    i++;
+}
+```
+
+### [2] do~while문
+[선언형식]
+
+do {
+    statement;
+} while (condition);
+```
+
+exam)
+
+int i = 1;
+do {
+    System.out.println(i);
+    i++;
+} while (i <= 3);
+```
+
+### [3] for문
+[선언형식]
+
+for (initialization; condition; update) {
+    statement;
+}
+```
+
+exam)
+
+for (int i = 1; i <= 5; i++) {
+    System.out.println(i);
+}
+```
+
+---
+
+## 4.3 분기문
+
+### [1] break 문
+[선언형식]
+
+break;
+```
+
+exam)
+
+for (int i = 1; i <= 10; i++) {
+    if (i == 5) {
+        break;
+    }
+    System.out.println(i);
+}
+```
+
+### [2] continue 문
+[선언형식]
+
+continue;
+```
+
+exam)
+
+for (int i = 1; i <= 10; i++) {
+    if (i % 2 == 0) {
+        continue;
+    }
+    System.out.println(i);
+}
+```
+
+### [3] return 문
+[선언형식]
+
+return value;
+```
+
+exam)
+
+public class ReturnTest {
+    public static void main(String[] args) {
+        printMessage();
+    }
+    public static void printMessage() {
+        System.out.println("Hello, World!");
+        return;
+    }
+}
+```
+
+---
+
+## 4.4 중첩문
+중첩문은 하나의 제어문 안에 또 다른 제어문을 포함하는 구조이다.
+
+### [1] 기본 중첩문 예제:
+
+for (int i = 1; i <= 5; i++) {
+    for (int j = 1; j <= i; j++) {
+        System.out.print("*");
+    }
+    System.out.println();
+}
+```
+
+### [2] 중첩 for문을 이용한 별 피라미드 패턴:
+
+for (int i = 1; i <= 5; i++) {
+    for (int j = 1; j <= 5 - i; j++) {
+        System.out.print(" ");
+    }
+    for (int k = 1; k <= (2 * i - 1); k++) {
+        System.out.print("*");
+    }
+    System.out.println();
+}
+```
+
+### [3] 숫자 계단 패턴:
+
+for (int i = 1; i <= 5; i++) {
+    for (int j = 1; j <= i; j++) {
+        System.out.print(j + " ");
+    }
+    System.out.println();
+}
+```
+
+---
+
+위와 같은 반복문을 활용하여 다양한 패턴을 출력할 수 있다.
+
+JDK 21의 `switch` 패턴 매칭 (Pattern Matching for Switch)
+===========================================
+
+JDK 21에서는 `switch` 문에서 패턴 매칭(Pattern Matching)을 지원하여, 
+다양한 데이터 타입을 보다 직관적으로 처리할 수 있다
+이는 `if-else` 문을 대체할 수 있으며, 코드 가독성과 유지보수성을 크게 향상시킨다.
+
+온라인 리소스 https://openjdk.org/jeps/441
+
+--------------------------------------
+
+1. 기본적인 `switch` 패턴 매칭
+--------------------------------------
+기존의 `switch` 문에서는 정수형 (`int`)이나 열거형 (`enum`)만 사용할 수 있지만, 
+ JDK 21부터는 객체 타입과 `when` 조건을 함께 활용할 수 있다.
+
+[선언형식]
+
+switch (expression) {
+    case Type1 variable -> statement;
+    case Type2 variable -> statement;
+    case Type3 variable when condition -> statement;
+    default -> statement;
+}
+
+
+--------------------------------------
+
+2. 패턴 매칭을 활용한 `switch` 문 예제
+--------------------------------------
+
+>> 기본적인 객체 타입 매칭:
+
+public class SwitchPatternExample {
+    public static void main(String[] args) {
+        Object obj = "Hello";
+
+        switch (obj) {
+            case Integer i -> System.out.println("정수: " + i);
+            case String s -> System.out.println("문자열: " + s);
+            case Double d -> System.out.println("실수: " + d);
+            default -> System.out.println("알 수 없는 타입");
+        }
+    }
+}
+
+출력 예시:
+
+문자열: Hello
+
+
+--------------------------------------
+
+3. `when` 조건을 활용한 패턴 매칭
+--------------------------------------
+>> `when` 조건을 활용한 예제:
+
+public class SwitchWithWhenExample {
+    public static void main(String[] args) {
+        Object obj = 42;
+
+        switch (obj) {
+            case Integer i when i > 100 -> System.out.println("100보다 큰 정수: " + i);
+            case Integer i when i > 10 -> System.out.println("10보다 큰 정수: " + i);
+            case Integer i -> System.out.println("10 이하의 정수: " + i);
+            case String s -> System.out.println("문자열: " + s);
+            default -> System.out.println("알 수 없는 타입");
+        }
+    }
+}
+
+출력 예시:
+
+10보다 큰 정수: 42
+
+
+--------------------------------------
+
+4. `sealed` 클래스를 활용한 `switch` 패턴 매칭
+--------------------------------------
+>> `sealed` 클래스를 활용한 `switch` 패턴 매칭:
+
+sealed interface Shape permits Circle, Rectangle, Triangle {}
+
+record Circle(double radius) implements Shape {}
+record Rectangle(double width, double height) implements Shape {}
+record Triangle(double base, double height) implements Shape {}
+
+public class SealedSwitchExample {
+    public static void main(String[] args) {
+        Shape shape = new Circle(10.0);
+
+        switch (shape) {
+            case Circle c -> System.out.println("원: 반지름 " + c.radius());
+            case Rectangle r -> System.out.println("사각형: 너비 " + r.width() + ", 높이 " + r.height());
+            case Triangle t -> System.out.println("삼각형: 밑변 " + t.base() + ", 높이 " + t.height());
+            default -> throw new IllegalArgumentException("Unknown shape");
+        }
+    }
+}
+
+출력 예시:
+
+원: 반지름 10.0
+
+
+--------------------------------------
+
+5. 기존 `if-else`와 비교한 장점
+1) 가독성 향상
+기존 if-else 문: 여러 개의 if-else 블록이 길어지면서 코드가 복잡해짐.
+JDK 21 switch 패턴 매칭: case 문을 이용하여 더 깔끔하게 표현 가능.
+
+2) 유형 검사 (Type Checking) 자동화
+
+기존 if-else 문: instanceof를 사용하여 수동으로 타입을 확인해야 함.
+JDK 21 switch 패턴 매칭: switch 문이 자동으로 타입을 매칭하여 코드가 간결해짐.
+
+3) 조건 추가 (when)로 코드 단순화
+기존 if-else 문: 여러 개의 if 문을 중첩해야 해서 코드가 길어짐.
+JDK 21 switch 패턴 매칭: case Type variable when condition 형식을 사용하여 조건을 간결하게 표현 가능.
+
+4) 코드 유지보수성 향상
+기존 if-else 문: 조건이 많아질수록 코드가 복잡해지고 유지보수가 어려워짐.
+JDK 21 switch 패턴 매칭: switch 문을 활용하면 조건 추가가 용이하여 유지보수가 쉬워짐.
+
+---------------------------------------------------------------------------------------------------------------
+
+6. JDK 21 `switch` 패턴 매칭 정리
+--------------------------------------
+
+1. `switch` 문에서 객체 타입을 직접 매칭할 수 있음 (`Integer`, `String`, `Double` 등).
+2. `when` 조건을 추가하여 세부적인 조건 처리 가능.
+3. `sealed class`와 조합하여 더 안전한 패턴 매칭 가능.
+4. 기존 `if-else` 대비 가독성과 유지보수성 향상.
+
+>> 예제 코드 정리
+
+switch (expression) {
+    case Integer i when i > 10 -> System.out.println("10보다 큰 정수");
+    case String s -> System.out.println("문자열: " + s);
+    case null -> System.out.println("Null 값이 입력됨");
+    default -> System.out.println("기타 값");
+}
+
+
+

@@ -44,9 +44,24 @@ package com.sec02;
 			// 실수 타입을 구현할 때  ->  실수클래스의 비트로 변환한 다음 정수 클래스의 toBinaryString으로 작성한다.
 			// Double 클래스의 bits로 변환하는 메소드를 찾아보자 !!!
 			double 	doubleValue = 3.14159265359; // 8bytes
-			long 	bits = Double.___________; // 메소드 찾
-			String 	binaryString = Long.___________________; // 변환하
-			System.out.println(__________________); //출
+			long 	bits = Double.doubleToLongBits(doubleValue); // 메소드 찾기 
+			String 	binaryString = Long.toBinaryString(bits); // 변환하기 
+			System.out.println(doubleValue +"\n"+ bits +"\n" + binaryString); //출력 
+			
+			System.out.println("=================== NaN ===================");
+			
+			double non_value = Double.NaN; // not a number : 0.0/0/0 -> NaN, Math.sqrt(-1) -> NaN
+			long res03 = Double.doubleToLongBits(non_value);
+			long res04 = Double.doubleToRawLongBits(non_value);
+		
+			System.out.println(non_value + "\n" + res03 + "\n" + res04);
+			System.out.println(Long.toBinaryString(res03) + "\n" + Long.toBinaryString(res04));
+			
+			double non_value2 = 0.0 / 0.0;
+			System.out.println(non_value2);
+			
+			
+			
 		}
 		
 		// method to convert integer to 32 digit binary string with 0 padding in the front
@@ -55,7 +70,7 @@ package com.sec02;
 			return result;
 		}
 		public static String BinaryStringPadding(float res) {
-			String result = String.format("%32s", Float.toHexString(res)).replace(' ', '0');
+			String result = String.format("%32s", Float.floatToIntBits(res)).replace(' ', '0');
 			return result;
 		}
 	}

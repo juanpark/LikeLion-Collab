@@ -2,10 +2,10 @@
 
 자바의 제어문 (JDK 21 기준)
 
-4.1 조건문
-4.2 반복문
-4.3 분기문
-4.4 중첩문
+4.1 조건문	- if, switch ~ case
+4.2 반복문	- while(); do ~ while(); / for
+4.3 분기문	- return, continue, break
+4.4 중첩문	- nesting of above
 
 ---
 

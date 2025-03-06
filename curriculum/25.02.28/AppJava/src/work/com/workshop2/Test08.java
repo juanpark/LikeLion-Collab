@@ -1,4 +1,5 @@
 package work.com.workshop2;
+import java.util.List;
 
 /*Q8. String.lines() 메서드의 역할은 무엇인가?
 (1) 문자열을 한 줄씩 리스트로 반환한다.
@@ -13,9 +14,11 @@ public class Test08 {
 		
 		String multiLine = "Hello World\nBye World\nJava World\n";
 		
-		List<String> line = new List<> {
+		List<String> results = multiLine.lines().toList();
+		
+		System.out.println(results);
 			
-		}
+		
 	}
 
 }

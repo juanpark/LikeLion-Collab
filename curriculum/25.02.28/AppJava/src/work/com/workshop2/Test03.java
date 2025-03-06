@@ -6,22 +6,16 @@ package work.com.workshop2;
 (3) 문자열의 줄바꿈을 자동으로 제거한다.
 (4) 문자열을 JSON 형식으로 변환한다.
 */
-public class Test03 {
-
-	private static char[] translateEscapes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
+public class Test03 {
 	public static void main(String[] args) {
 
-		String str = ""Hello"";
+		String str = "\"Path: C:\\\\Users\\\\John\"";
+		String result = str.translateEscapes();
 		
+		System.out.printf("Original:\n%s\n", str);
+		System.out.printf("Translated Escape:\n%s", result);
 		
-		
-		System.out.println(str.translateEscapes());
-		
-	}
 
 
 	}

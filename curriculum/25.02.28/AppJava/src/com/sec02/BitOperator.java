@@ -39,6 +39,14 @@ package com.sec02;
 			
 			float res_aa = 7.2f;
 			System.out.println(BinaryStringPadding(res_aa));
+			
+			
+			// 실수 타입을 구현할 때  ->  실수클래스의 비트로 변환한 다음 정수 클래스의 toBinaryString으로 작성한다.
+			// Double 클래스의 bits로 변환하는 메소드를 찾아보자 !!!
+			double 	doubleValue = 3.14159265359; // 8bytes
+			long 	bits = Double.___________; // 메소드 찾
+			String 	binaryString = Long.___________________; // 변환하
+			System.out.println(__________________); //출
 		}
 		
 		// method to convert integer to 32 digit binary string with 0 padding in the front

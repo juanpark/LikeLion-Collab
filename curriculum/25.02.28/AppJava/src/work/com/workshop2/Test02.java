@@ -19,6 +19,14 @@ public class Test02 {
 		""";
 		
 		System.out.println(multiLine.stripIndent());
+		
+		String multiLine1 = 
+		"""
+		<h1>Hello, World</h1>
+		<p>This is a multiline section</p>
+		""";
+		
+		System.out.println(multiLine1.stripIndent());
 	}
 		
 }

@@ -10,7 +10,11 @@ public class Test16 {
 
 	public static void main(String[] args) {
 		
-
+		String[] textArray = {"Java", "World", "Is", "Here", "!!!"};
+		String joined = String.join("*", textArray);
+		String joined1 = String.join(" ", textArray);
+		
+		System.out.println(joined);
+		System.out.println(joined1);
 	}
-
 }

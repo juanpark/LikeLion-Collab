@@ -27,6 +27,7 @@ public class Test02 {
 		// Solution
 		System.out.println(s1 + s2);
 		System.out.println(!bnx);
+		System.out.println(bnx ? false : true);
 		// System.out.println(((int)c1) + ((int)c2));
 		System.out.println(c1 + c2);
 		// System.out.println(((int)c3) + inx);

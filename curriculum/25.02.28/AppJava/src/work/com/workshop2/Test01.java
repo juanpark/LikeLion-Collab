@@ -15,8 +15,7 @@ public class Test01 {
 		String s2 = "World";
 		
 		String s3 = s1 + s2;
-		
-		System.out.println(s3);
+		System.out.println(s3 == "HelloWorld");
 		
 	}
 

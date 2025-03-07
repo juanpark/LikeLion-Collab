@@ -1,4 +1,4 @@
-package workshop.com.work02;
+package work.com.workshop2;
 
 public class StringMethods {
 

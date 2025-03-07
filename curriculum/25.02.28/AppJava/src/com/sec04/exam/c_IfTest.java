@@ -34,8 +34,9 @@ public class c_IfTest {
 	}
 
 	// 2. 문자 범위 확인
-	public static void checkCharacterRange(char ch) {
-		if (ch >= 0 && ch <= 65535) {
+	public static void checkCharacterRange(char ch) { 
+//		if (ch >= 0 && ch <= 65535) {
+		if (ch >= ((int) Character.MIN_VALUE) && ch <= ((int) Character.MAX_VALUE)) {
 			System.out.println(ch + "는 유니코드 문자 범위 내에 있습니다.");
 		}
 	}

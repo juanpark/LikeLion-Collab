@@ -1,6 +1,6 @@
 package work.com.workshop3;
 // made by 송치호 배열 활용
-public class TvTest1 {
+public class TvTest_chiho {
 
     public static class Tv {
         private String name;

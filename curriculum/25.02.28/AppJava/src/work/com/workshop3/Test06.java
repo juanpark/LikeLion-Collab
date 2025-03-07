@@ -18,15 +18,18 @@ public class Test06 {
 		// 1부터 100까지 더하는 프로그램 작성. 
 		// 이클립스에서 argument로 1자리 정수형 데이터 입력 받아 입력 받은 수의 배수만 더한다.
 		int sum = 0; // 입력 받은 수의 배수만 더할 변수.
+		boolean flag = true;	// 프린트 할 때 첫 수에서 +를 빼기 위한 플래그
 		
 		for (int i = 1; i <= 100; i++) {
-			if (i % input == 0) { // 입력 받은 수의 배수인지 확인
+			if (i % input == 0) { 	// 입력 받은 수의 배수인지 확인
 				sum = sum + i;
+				System.out.print(flag ? i : " + " + i); // 첫 수에서 +를 빼고 나머지 수는 + 수 형태로 프린트
+				flag = false;
 			}
 		}
-		
-		System.out.println(sum);
-		
-		
+
+	
+		System.out.println(" = " + sum);
 	}
 }
+

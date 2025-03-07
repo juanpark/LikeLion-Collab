@@ -7,7 +7,9 @@ public class TvTest {
 		private int price;
 		private String descript;
 		
-		public Tv() {};
+		public Tv() {
+			
+		};
 		
 		// Constructor
 		public Tv(String name, int price, String description) {
@@ -72,7 +74,7 @@ public class TvTest {
 		
 		@Override
 		public String toString() {
-			return String.format("%10s %10d %10s", name, price, descript);
+			return String.format("%-10s %-10d %-10s", name, price, descript);
 		}
 	}
 
@@ -100,10 +102,23 @@ public class TvTest {
 			System.out.println(tv);
 		}
 		
-		int maxPrice = 0;
-		for (Tv tv : tvs) {
-			if tv
+		int maxPrice = tvs[0].price;
+		for (int i = 0; i < tvs.length; i++) {
+			if (tvs[i].price > maxPrice) {
+				maxPrice = i;
+			}
 		}
+		System.out.println("가격이 가장 비싼 제품: " + tvs[maxPrice].name);
+		
+		int minPrice = tvs[0].price;
+		for (int i = 0; i < tvs.length; i++) {
+			if (tvs[i].price < minPrice) {
+				minPrice = i;
+			}
+		}
+		System.out.println("가격이 가장 저렴한 제품: " + tvs[minPrice].name);
+	
+		
 		
 	}
 }

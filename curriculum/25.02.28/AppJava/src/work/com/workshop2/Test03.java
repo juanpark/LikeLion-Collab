@@ -10,7 +10,7 @@ package work.com.workshop2;
 public class Test03 {
 	public static void main(String[] args) {
 
-		String str = "\"Path: C:\\\\Users\\\\John\"";
+		String str = "\"Path: C:\\\\Users\\\\Juan\"";
 		String result = str.translateEscapes();
 		
 		System.out.printf("Original:\n%s\n", str);

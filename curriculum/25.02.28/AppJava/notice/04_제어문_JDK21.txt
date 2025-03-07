@@ -38,6 +38,18 @@ if (num > 0) {
 ```
 
 ### [2] switch 문 (JDK 21 패턴 매칭 적용)
+
+switch (변) {
+	case 값 : 명령 ; break;
+	case 값 : 명령 ; break;
+	case 값 : 명령 ; break;
+	default : 명령 ;
+}	
+- 하나의 switch의 char, short, int, String의 변수를 통해서 선언되고 값에 의한 분기로 명령을 수행한다.
+- 하나의 는 여러개의 case를 나열해서 사용한다.
+- break는 선택적으로 명시할 수 있고 case는 한번 선택 명시할 수 있다.
+- case값;은 정렬이 아니다.
+
 JDK 21에서는 `switch` 문에서 패턴 매칭을 사용할 수 있다. 이는 다양한 타입을 처리하는 데 유용하다.
 
 [선언형식]

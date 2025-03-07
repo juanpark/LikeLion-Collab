@@ -7,7 +7,8 @@ public class DoTest {
 		do {
 			System.out.println(i);
 			i++;
-		} while (i <= 3);
+		//} while (i <= 3);
+		} while (i >= 3); // 조건이 거짓이라도 한번은 수행
 	}
 }
 

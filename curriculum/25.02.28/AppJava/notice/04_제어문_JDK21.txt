@@ -89,7 +89,7 @@ while (i <= 5) {			// 1 <= 5 참, 	2 <= 5 참,	3 <= 5 참,	4 <= 5 참,	5 <= 5참
 
 ### [2] do~while문
 [선언형식]
-
+// 무조건 명령을 한번 수행한 다음 반복의 조건을 만단다. -> 예약시스템
 do {
     statement;
 } while (condition);
@@ -106,6 +106,8 @@ do {
 
 ### [3] for문
 [선언형식]
+
+for(;;){}	// 무한루프 모든 객체지향 언어 같은 syntax?
 
 for (initialization; condition; update) {
     statement;

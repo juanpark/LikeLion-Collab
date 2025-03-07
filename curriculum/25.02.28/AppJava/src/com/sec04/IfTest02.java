@@ -11,5 +11,7 @@ public class IfTest02 {
 		} else {
 			System.out.println(su + " 는  홀수입니다. ");
 		}
+		
+		sc.close();
 	}
 }

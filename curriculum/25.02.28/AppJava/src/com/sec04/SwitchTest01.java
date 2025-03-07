@@ -27,5 +27,7 @@ public class SwitchTest01 {
 			default :
 				System.out.println("연산자 error");
 		}// switch end
+		
+		sc.close();
 	}// main end
 }// SwticTest01 end

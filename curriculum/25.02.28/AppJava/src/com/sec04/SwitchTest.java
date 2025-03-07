@@ -28,6 +28,8 @@ public class SwitchTest {
 		default:
 			System.out.println("원하는 달이 없습니다");
 		}//switch end
+		
+		sc.close();
 	}//main end
 }//SwitchTest end
 

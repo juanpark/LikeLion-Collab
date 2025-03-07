@@ -12,6 +12,8 @@ public class ForTest02 {
 
 		for (int j = 1; j <= 9; j++) {
 			System.out.println(dan + "*" + j + "=" + (dan * j) + "	");
+			
+		sc.close();
 		}
 	}
 }

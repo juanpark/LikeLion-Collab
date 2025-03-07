@@ -14,6 +14,7 @@ public class MTest02 {
 		System.out.println(i.doubleValue());
 		
 		// Integer(String)
+		@SuppressWarnings("removal")
 		Integer i2 = new Integer("100");
 		System.out.println(i2.doubleValue());
 		

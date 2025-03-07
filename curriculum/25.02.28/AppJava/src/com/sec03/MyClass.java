@@ -21,6 +21,7 @@ public class MyClass {
 		// System.out.println(m);
 		
 		// overloading
+		@SuppressWarnings("unused")
 		MyClass m1 = new MyClass(200);
 	}
 

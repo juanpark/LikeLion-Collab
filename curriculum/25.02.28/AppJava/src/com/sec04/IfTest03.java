@@ -24,6 +24,8 @@ public class IfTest03 {
 		} else {
 			System.out.println("이도저도 아님");
 		}
+		
+		sc.close();
 	}
 }
 

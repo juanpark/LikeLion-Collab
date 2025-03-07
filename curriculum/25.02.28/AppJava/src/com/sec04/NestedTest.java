@@ -22,6 +22,8 @@ public class NestedTest {
 			}
 		}// while end
 		System.out.println(count + "번만에 정답입니다.");
+		
+		sc.close();
 	}// main end
 }// NestedTest end
 

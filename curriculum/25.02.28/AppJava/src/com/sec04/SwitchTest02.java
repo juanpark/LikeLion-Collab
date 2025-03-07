@@ -26,6 +26,8 @@ public class SwitchTest02 {
 			default :
 				System.out.println(dayOfWeek + "은 허망한 삶입니다.");
 		}
+		
+		sc.close();
 	}
 }
 

@@ -14,6 +14,8 @@ public class DoTest01 {
 			counter--;
 		} while (counter > 0);
 		System.out.println("counter is: " + counter);
+		
+		sc.close();
 	}
 }
 

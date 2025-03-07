@@ -3,6 +3,7 @@ package com.sec02;
 public class Comparison2 {
 
 	public static void test() {
+		@SuppressWarnings("unused")
 		int num, assign;
 		num = 10;
 

@@ -7,9 +7,8 @@ class Tv {
 	private int price;
 	private String descript;
 	
-	public Tv() {
-		
-	};
+	// needed when there is a constructor
+	public Tv() {};
 	
 	// Constructor
 	public Tv(String name, int price, String description) {

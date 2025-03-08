@@ -6,16 +6,17 @@ Hello
 World
 """;
 System.out.println(multiLine.stripIndent());
-(1) Hello\n World
-(2) Hello\n World
+(1) Hello\n		World
+(2) 	Hello\n		World
 (3) Hello\nWorld
-(4) Hello\n World*/
+(4) Hello\n World
+*/
 
 public class Test02 {
 	public static void main(String[] args) {
 		String multiLine = """
-				Hello
-					World
+             Hello
+                 World
 		""";
 		
 		System.out.println(multiLine.stripIndent());
@@ -27,6 +28,10 @@ public class Test02 {
 		""";
 		
 		System.out.println(multiLine1.stripIndent());
+		
+
+		
+		System.out.println(multiLine);
 	}
 		
 }

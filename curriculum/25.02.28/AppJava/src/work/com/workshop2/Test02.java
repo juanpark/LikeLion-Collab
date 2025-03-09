@@ -14,24 +14,21 @@ System.out.println(multiLine.stripIndent());
 
 public class Test02 {
 	public static void main(String[] args) {
-		String multiLine = """
+		String multiLine1 = """
              Hello
                  World
 		""";
-		
-		System.out.println(multiLine.stripIndent());
-		
-		String multiLine1 = 
-		"""
-		<h1>Hello, World</h1>
-		<p>This is a multiline section</p>
-		""";
-		
+		System.out.println(multiLine1);
 		System.out.println(multiLine1.stripIndent());
 		
-
 		
-		System.out.println(multiLine);
+		System.out.println("============================");
+		
+		
+		String multiLine2 = "		Hello\n			World";
+		
+		System.out.println(multiLine2);
+		System.out.println(multiLine2.stripIndent());	
 	}
 		
 }

@@ -2,6 +2,13 @@ package com.sec05;
 
 import java.util.Arrays;
 
+// 상속구조, 타입으로 선택을 구현하는 switch(Object){} -> 객체의 캐스팅 
+/*
+ * switch (expression) {
+ * case pattern1 -> statement;
+ * case pattern2 when condition -> statement;
+ * default -> statement;
+ */
 public class b_ArrayInitTest3 {
 	public static void main(String[] args) {
 		// 각 기본형 타입 배열 선언 및 초기화 (기본값을 확인하기 위해)

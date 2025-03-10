@@ -1,6 +1,6 @@
 package com.sec05;
 
-import java.util.Arrays;
+// import java.util.Arrays;
 
 public class d_ArrayTest02 {
 	public static void main(String[] args) {
@@ -16,8 +16,20 @@ public class d_ArrayTest02 {
 				System.out.printf("%5d", ar[i][j]);
 			}
 			System.out.println();
+		}		
+		
+		prn(ar);
+	}
+	
+	// use for each loop
+	private static void prn(int[][] ar) {
+		System.out.println("=======================================");
+		for (int[] i : ar) {	// row
+			for (int j : i) {	// column
+				System.out.printf("%5d", j);
+			}
+			System.out.println();
 		}
-
 	}
 
 }

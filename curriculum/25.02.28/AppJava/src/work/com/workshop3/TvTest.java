@@ -5,7 +5,7 @@ package work.com.workshop3;
 class Tv {
 	private String name;
 	private int price;
-	private String descript;
+	private String description;
 	
 	// needed when there is a constructor
 	public Tv() {};
@@ -14,7 +14,7 @@ class Tv {
 	public Tv(String name, int price, String description) {
 		this.name = name;
 		this.price = price;
-		this.descript = descript;
+		this.description = description;
 	}
 	
 
@@ -56,24 +56,24 @@ class Tv {
 
 
 	/**
-	 * @return the descript
+	 * @return the description
 	 */
-	public String getDescript() {
-		return descript;
+	public String getDescription() {
+		return description;
 	}
 
 
 
 	/**
-	 * @param descript the descript to set
+	 * @param descript the description to set
 	 */
-	public void setDescript(String descript) {
-		this.descript = descript;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	@Override
 	public String toString() {
-		return String.format("%-10s %-10d %-10s", name, price, descript);
+		return String.format("%-10s %-10d %-10s", name, price, description);
 	}
 }
 
@@ -85,15 +85,15 @@ public class TvTest{
 		
 		tv1.setName("INFINIA");
 		tv1.setPrice(1500000);
-		tv1.setDescript("LED TV");
+		tv1.setDescription("LED TV");
 		
 		tv2.setName("XCANVAS");
 		tv2.setPrice(1000000);
-		tv2.setDescript("LCD TV");
+		tv2.setDescription("LCD TV");
 		
 		tv3.setName("CINEMA");
 		tv3.setPrice(2000000);
-		tv3.setDescript("3D TV");
+		tv3.setDescription("3D TV");
 		
 		Tv[] tvs = {tv1, tv2, tv3};
 		

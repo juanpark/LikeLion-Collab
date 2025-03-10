@@ -13,6 +13,8 @@ public class g_ArrayCopyTest {
 			System.out.print(hold[j] + "  ");
 		}
 		System.out.println();
+//		- 배열 복사를 위한 System.arraycopy 활용:
+//			  System.arraycopy(source, srcIndex, destination, destIndex, length);
 		System.arraycopy(myArray, 0, hold, 0, myArray.length);
 
 		System.out.println("<==arraycopy result ==>");

@@ -48,12 +48,12 @@
 - 배열 비교 및 정렬:
   boolean isEqual = Arrays.equals(ar, copy);
   Arrays.sort(ar);
-
-- 배열을 List로 변환:
+================================================
+- 배열을 List로 변환: -> 일괄 처리를 컬렉션의 객체를 통해 빠르게 처리하기 위함 
   List<Integer> list = List.of(1, 2, 3, 4, 5);
   Integer[] array = list.toArray(new Integer[0]);
 
-- Stream API 활용한 배열 변환:
+- Stream API [연산자, 제어문 -> 메소드] 활용한 배열 변환:   
   int[] numbers = {1, 2, 3, 4, 5};
   int sum = Arrays.stream(numbers).sum();
 

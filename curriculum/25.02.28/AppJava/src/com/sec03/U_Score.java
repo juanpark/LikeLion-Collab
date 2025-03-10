@@ -16,6 +16,29 @@ public class U_Score {
 	private int eng;
 	private int mat;
 	
+	
+	
+	public U_Score() { // 기본생성자 추가  
+		// 내부 생성자 호출 가능 생성자의 첫줄에 명시  
+		this("noname", 50, 50, 50);
+	}
+	
+	
+
+
+
+	public U_Score(String name, int kor, int eng, int mat) {
+		super();
+		this.name = name;
+		this.kor = kor;
+		this.eng = eng;
+		this.mat = mat;
+	}
+
+
+
+
+
 	/**
 	 * @return the name
 	 */
@@ -101,8 +124,8 @@ public class U_Score {
 	
 	@Override
 	public String toString() {
-		return String.format("U_Score [getName()=%s, getEng()=%d, getMat()=%d, getTot()=%d, getAvg()=%d]", getName(),
-				getEng(), getMat(), getTot(), getAvg());
+		return String.format("U_Score %s, %d, %d, %d, %d, = %d", getName(),
+				getEng(), getMat(), getKor(), getTot(), getAvg());
 	}
 
 	/*

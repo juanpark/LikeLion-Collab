@@ -14,8 +14,11 @@ public class Work4_3 {
 		int total = 0;
 		double avg = 0;
 		
-		double arrayNumber = arr2[0].length * arr2.length;
-		
+		// 다차원 배열 크기 파악하기 = 
+		// arr2.length = 5 (행의 개수)
+		// arr2[0].length = 4 (행 0의 개수 즉 열의 개수)
+		// 행의 개수 * 열의 개수
+		double arrayNumber = arr2.length * arr2[0].length; 
 		
 		
 		for (int[] row : arr2) {

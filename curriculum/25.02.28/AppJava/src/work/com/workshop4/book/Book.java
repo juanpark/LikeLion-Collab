@@ -37,5 +37,15 @@ public class Book {
 	public double getDiscountBookPrice() {
 		return getBookPrice() * ((100 - getBookDiscountRate()) * 0.01);
 	}
+	@Override
+	public String toString() {
+		
+		System.out.printf("%-15s %5s %5s %10s\n", "책 이름", "가격", "할인율", "할인후금액");
+	    System.out.println("--------------------------------------------");
+	    
+		return String.format(
+				"%-15s %6d원 %5.1f%% \t%10.1f원\n",
+				getBookName(), getBookPrice(), getBookDiscountRate(),getDiscountBookPrice());
+	}
 	
 }

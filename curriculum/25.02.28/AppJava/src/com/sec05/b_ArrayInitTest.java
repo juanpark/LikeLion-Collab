@@ -1,5 +1,6 @@
 package com.sec05;
 
+// 모든 자료형의 배열을 선언 -> 생성 -> 호출 확인!
 public class b_ArrayInitTest {
 	public static void main(String[] args) {
 		int j = 0;

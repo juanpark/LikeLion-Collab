@@ -19,7 +19,7 @@ public class c_ArrayTest01 {
         int sum = sumArray(num);
         System.out.println("\n합=" + sum);
 
-        // 정렬 후 출력
+        // 정렬 후 출력 -> 사용자 클래스 값을 기점으로 정렬 할 수 있다.
         Arrays.sort(num);
         System.out.println("\n[정렬 후]");
         printArray(num);

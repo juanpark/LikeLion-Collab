@@ -1,5 +1,7 @@
 package com.sec05;
 
+// java.util -> List<E>, Set<E>, Map<K, V> -> depends on whether it uses index, value, key
+// Arrays -> CRUD methods API : 정렬_sort(), 검색_binarySearch(), 복사_copyOf() copyOfRange(), 변환등을 제공_toString(), fill() 
 import java.util.Arrays;
 
 public class b_ArrayInitTest2 {

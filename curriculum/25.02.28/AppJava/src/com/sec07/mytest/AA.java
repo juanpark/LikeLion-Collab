@@ -1,11 +1,17 @@
 package com.sec07.mytest;
 
+// class for: a, b, a + b
 public class AA {
 	private int a;
 	private int b;
 	
 	public AA() {
 		System.out.println("AA' 기본생성자. ");
+	}
+
+	public AA(int i, int j) {
+		this.a = i;
+		this.b = j;
 	}
 
 	public int getA() {

@@ -9,5 +9,9 @@ public class StaticInitTest {
 
 	public static void main(String[] args) {
 		System.out.println("Main  " + StaticInitTest.i);
+		for (int i = 0; i < 5; i++) {
+			new StaticInitTest();
+		}
+		System.out.println("Main  " + StaticInitTest.i);
 	}
 }

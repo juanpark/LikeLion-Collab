@@ -8,7 +8,8 @@ package com.sec07.mytest01;
 public class Theater {
     private Movie[] movieList;
 
-    public Theater(Movie[] movies) {
+
+	public Theater(Movie[] movies) {
         movieList = new Movie[movies.length];
         for (int i = 0; i < movies.length; i++) {
             movieList[i] = movies[i];

@@ -1,8 +1,8 @@
 package com.sec07.mytest02;
 
 class Employee {
-    private final String name;
-    private final int salary;
+    private final String name;	// final, 재정의 하지 않고 초기값만 가진 상수 
+    private final int salary;   // final, 재정의 하지 않고 초기값만 가진 상수
 
     public Employee(String name, int salary) {
         this.name = name;
@@ -18,7 +18,7 @@ class Employee {
     }
 
     public String getDetails() {
-        return "Name: " + name + "\nSalary: " + salary;
+        return "Name: " + this.getName() + "\nSalary: " + this.getSalary();
     }
 
     public void prn() {
@@ -36,7 +36,8 @@ class Manager extends Employee {
 
     @Override
     public String getDetails() {
-        return "Name: " + getName() + "\nManager of: " + department;
+        // return "Name: " + getName() + "\nManager of: " + department;
+    	return super.getDetails() + "\nManager of: " + department;
     }
 
     public void disp() {

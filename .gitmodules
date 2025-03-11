@@ -1,0 +1,3 @@
+[submodule "external/java-study"]
+	path = external/java-study
+	url = git@github.com:daeun-ops/java-study.git

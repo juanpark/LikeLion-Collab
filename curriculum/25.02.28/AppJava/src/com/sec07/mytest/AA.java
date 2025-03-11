@@ -3,6 +3,10 @@ package com.sec07.mytest;
 public class AA {
 	private int a;
 	private int b;
+	
+	public AA() {
+		System.out.println("AA' 기본생성자. ");
+	}
 
 	public int getA() {
 		return a;

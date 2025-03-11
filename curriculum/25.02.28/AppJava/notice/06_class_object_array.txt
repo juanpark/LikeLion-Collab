@@ -132,12 +132,12 @@ class Child extends Parent {
 
 
 4)  접근 제한자(Access Modifier)
-| 제한자    | 같은 클래스 | 같은 패키지 | 자식 클래스 | 전체 접근 |
-|----------- |---------------|-------------|-------------|-----------|
-| private     | O             | X           | X             | X         |
-| default     | O             | O           | X             | X         |
-| protected | O             | O           | O            | X         |
-| public     | O              | O           | O            | O         |
+| 제한자       | 같은 클래스      | 같은 패키지    | 자식 클래스   | 전체 접근   |
+|------------|---------------|-------------|-------------|-----------|
+| private    | O             | X           | X           | X         |
+| default    | O             | O           | X           | X         |
+| protected  | O             | O           | O           | X         |
+| public     | O             | O           | O           | O         |
 --> 정리
 - private → 해당 클래스 내부에서만 접근 가능  
 - default → 같은 패키지 내에서만 접근 가능  

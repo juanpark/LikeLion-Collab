@@ -23,6 +23,7 @@
   - 멤버 변수 (속성 Attributes)
   - 멤버 메서드 (행동 Behavior)
   - 생성자 (초기화)  
+  class = 필드 + 메소드    -> UserDataType
 
 4) 객체 생성과 사용
 - new 키워드를 사용하여 클래스 인스턴스를 생성  

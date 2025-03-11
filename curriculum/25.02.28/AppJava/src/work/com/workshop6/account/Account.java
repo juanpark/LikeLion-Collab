@@ -7,7 +7,6 @@ public class Account {
 	
 	public Account() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Account(String account, int balance, double interestRate) {
@@ -50,7 +49,7 @@ public class Account {
 	}
 	
 	public void withdraw(int money) {
-		if ((this.balance - money) < 0) {
+		if ((this.balance - money) < 0) {	// 만일 잔액보다 인출하는 금액이 많다면 
 			System.out.println("출금 할 수 없습니다.");
 		} else {
 			this.balance -= money;
@@ -58,7 +57,7 @@ public class Account {
 	}
 	
 	public void accountInfo() {
-		System.out.printf("계좌번호: %s 잔액: %d원  이자율: %.1f%%\n", this.getAccount(), this.getBalance(), this.interestRate);
+		System.out.printf("계좌번호: %s 잔액: %d원  이자율: %.1f%%", this.getAccount(), this.getBalance(), this.interestRate);
 	}
 	
 	

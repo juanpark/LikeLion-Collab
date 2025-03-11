@@ -1,0 +1,205 @@
+클래스와 객체 배열
+
+ 객체와 객체지향 프로그래밍 개념, 클래스 선언과 활용법, 객체 배열확인
+
+1)객체(Object)와 객체 지향 프로그래밍
+- 객체란 데이터와 데이터를 처리하는 메서드를 묶은 개념  
+- 객체 지향 프로그래밍(OOP)은 데이터를 처리하는 메서드를 하나의 프로그램으로 설계하는 방식  
+- 절차 지향(Procedural) vs 객체 지향(Object-Oriented)  
+  - 절차 지향: 함수 중심 설계, 순차적 실행 (ex. C, Pascal)  
+  - 객체 지향: 이벤트 기반 실행, 클래스와 객체를 통한 코드재사용  (ex. Java, C++)  
+
+2)객체 지향 프로그래밍의 특징
+  
+-캡슐화 (Encapsulation):	데이터를 보호하고, 외부에서 직접 접근을 제한
+-상속 (Inheritance)	 :  기존 클래스를 재사용하여 새로운 클래스를 생성
+-다형성 (Polymorphism) :	하나의 인터페이스로 여러 객체를 다룰 수 있음
+-추상화 (Abstraction)	 :  불필요한 부분을 숨기고, 중요한 부분만 노출 
+
+3)  클래스(Class)와 객체(Object)  
+- 클래스: 객체를 정의하는 틀, 속성(멤버 변수)과 기능(메서드) 포함  
+- 객체: 클래스를 기반으로 생성된 인스턴스  
+- 클래스의 주요 요소
+  - 멤버 변수 (속성 Attributes)
+  - 멤버 메서드 (행동 Behavior)
+  - 생성자 (초기화)  
+
+4) 객체 생성과 사용
+- new 키워드를 사용하여 클래스 인스턴스를 생성  
+- 참조 변수 활용하여 객체 조작  
+- this 키워드를 사용하여 멤버 변수와 지역 변수 구분  
+
+5.  객체 배열(Object Array)  
+- 하나의 클래스에서 여러 개의 객체를 배열로 관리  
+- 일반 배열과 다르게 객체의 참조(주소)만 저장  
+- 객체 생성 후 각 배열 요소에 개별적으로 new 연산자를 사용해야 함    
+
+class Person {
+    String name;
+    int age;
+
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    void display() {
+        System.out.println("이름: " + name + ", 나이: " + age);
+    }
+}
+
+public class ObjectArrayExample {
+    public static void main(String[] args) {
+        Person[] people = new Person[3];
+        people[0] = new Person("홍길동", 25);
+        people[1] = new Person("이순신", 30);
+        people[2] = new Person("강감찬", 35);
+
+        for (Person p : people) {
+            p.display();
+        }
+    }
+}
+===============================================================================
+>>상속(Inheritance)
+ 상속(Inheritance)이란?
+- 기존 클래스(부모 클래스)의 기능을 재사용하고, 새로운 기능을 추가하는 기법
+- 부모 클래스(Super Class)와 자식 클래스(Sub Class) 관계 형성
+- extends 키워드를 사용하여 클래스 상속 가능  
+
+ 자바 상속의 주요 특징
+1. 코드 재사용이 가능하고 유지보수 용이  
+2. 자바는 단일 상속만 지원 (다중 상속 불가)  
+3. 생성자는 상속되지 않음 (자식 클래스에서 직접 정의 필요)  
+4. private 멤버는 직접 접근할 수 없음 (getter/setter 사용 필요)  
+
+ 예제 코드
+class Parent {
+    int a = 10;
+}
+
+class Child extends Parent {
+    int b = 20;
+}
+
+---
+
+2)super와 this 키워드
+- super 키워드: 부모 클래스의 멤버(변수, 메서드)에 접근할 때 사용  
+- this 키워드: 현재 인스턴스를 가리킬 때 사용  
+- super(): 부모 클래스의 생성자를 호출  
+- this(): 현재 클래스의 다른 생성자 호출  
+
+ex)
+class Parent {
+    Parent() {
+        System.out.println("부모 생성자");
+    }
+}
+
+class Child extends Parent {
+    Child() {
+        super(); // 부모 생성자 호출
+        System.out.println("자식 생성자");
+    }
+}
+
+
+3) 오버라이딩(Overriding)
+- 부모 클래스의 메서드를 자식 클래스에서 재정의하는 기법
+- 메서드 이름, 반환형, 매개변수가 동일해야 함
+- @Override 어노테이션을 사용하여 컴파일러가 검증 가능  
+
+ex) 예제 코드
+class Parent {
+    void show() {
+        System.out.println("부모 클래스 메서드");
+    }
+}
+
+class Child extends Parent {
+    @Override
+    void show() {
+        System.out.println("자식 클래스 메서드");
+    }
+}
+
+ >>  오버라이딩의 특징
+- static, final, private 메서드는 오버라이딩 불가능  
+-  접근 지정자는 부모 메서드보다 더 넓거나 같아야 함  
+
+
+
+4)  접근 제한자(Access Modifier)
+| 제한자    | 같은 클래스 | 같은 패키지 | 자식 클래스 | 전체 접근 |
+|----------- |---------------|-------------|-------------|-----------|
+| private     | O             | X           | X             | X         |
+| default     | O             | O           | X             | X         |
+| protected | O             | O           | O            | X         |
+| public     | O              | O           | O            | O         |
+--> 정리
+- private → 해당 클래스 내부에서만 접근 가능  
+- default → 같은 패키지 내에서만 접근 가능  
+- protected → 같은 패키지 + 자식 클래스에서 접근 가능  
+- public → 모든 클래스에서 접근 가능  
+
+
+
+5)static과 final 키워드
+ static 변수와 메서드
+- 클래스 로딩 시 메모리에 단 한 번 할당됨  
+- 객체 생성 없이 클래스명으로 접근 가능 (클래스명.변수명)  
+
+ex) class Test {
+    static int count = 0; // 모든 객체가 공유
+}
+System.out.println(Test.count); // 객체 생성 없이 사용 가능
+
+---
+
+final 키워드
+- 변수: 값 변경 불가 (상수화)  
+- 메서드: 오버라이딩 불가  
+- 클래스: 상속 불가  
+
+ex)
+final class FinalClass {} // 상속 불가
+
+class Parent {
+    final void method() {} // 오버라이딩 불가
+}
+
+
+==============================================================================
+>>  다형성(Polymorphism)
+
+1. 다형성이란?
+- 여러 개의 클래스가 같은 메소드에 대해 서로 다른 방식으로 작동할 수 있도록 설계됨.
+- 하나의 데이터 유형 변수를 여러 유형의 객체 참조 가능.
+- 오버로딩(Overloading)과 오버라이딩(Overriding)을 통해 구현 가능.  
+
+2. 다형성의 필요 조건
+1) 상속 관계의 클래스에서 사용됨.
+2) 후손 클래스 객체의 메소드 호출은 선조 클래스 유형의 변수를 통해야 함.
+3) 선조 클래스와 후손 클래스에서 메소드 원형이 동일해야 함.
+4) 접근 제한자가 후손 클래스에서 선조 클래스보다 커야 함.
+
+3. 추상 클래스 (Abstract Class) = 코드 재사용 목적 
+- 추상 클래스는 객체를 직접 생성할 수 없으며, 상속받은 후손 클래스에서 추상 메소드를 반드시 구현해야 함.
+- 추상 메소드는 바디 없이 선언만 이루어짐 (ex: `abstract void method();`).
+- 추상 클래스를 상속받은 후손 클래스는 반드시 추상 메소드를 구현해야 함.
+ *공통된 기능을 구현하고, 일부만 강제하려면 → 추상 클래스 사용
+ 
+4. 인터페이스 (Interface) = 기능을 강제 재정의 하는 목적  
+- 완벽한 추상화를 제공하며, 객체가 가져야 할 기능을 정의.
+- implements 키워드를 사용하여 클래스에서 구현 가능.
+- 인터페이스는 다중 상속을 허용하며, default 메소드와 static 메소드를 가질 수 있음.
+* 여러 클래스에서 동일한 동작을 강제하려면 → 인터페이스 사용
+
+5. 정적 바인딩 vs 동적 바인딩
+- 정적 바인딩 (Static Binding): 컴파일 타임에 결정됨 (`new` 키워드로 직접 객체 생성).
+   컴파일 타임에 호출될 메소드가 결정되며 ,주로 final, static, private 메소드에서 발생된다.  
+ - 동적 바인딩 (Dynamic Binding): 실행 시점에 객체의 메소드가 결정됨 (선조 클래스의 참조 변수를 통해 후손 클래스 메소드 호출).
+
+
+    

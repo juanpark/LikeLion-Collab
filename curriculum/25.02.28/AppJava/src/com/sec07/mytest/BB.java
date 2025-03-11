@@ -1,6 +1,6 @@
 package com.sec07.mytest;
 
-public class BB extends AA {
+public class BB extends AA{
 	private int c;
 
 	public int getC() {
@@ -11,11 +11,8 @@ public class BB extends AA {
 		this.c = c;
 	}
 	
-	public int getRes() {
-		
-		return getHap() - getC();
+	public int getRes() {		
+		return  getHap()-getC(); 
 	}
-	
+
 }
-
-

@@ -21,5 +21,6 @@ public class Test06_chiho {
                 System.out.print(" + ");
         }
         System.out.print(" = "+sum);
+        sc.close();
     }
 }

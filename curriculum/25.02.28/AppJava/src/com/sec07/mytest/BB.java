@@ -7,6 +7,12 @@ public class BB extends AA{
 		System.out.println("BB' 기본생성자. ");
 	}
 	
+	public BB(int i, int j, int k) {
+		super(i, j);
+		this.c = k;
+		
+	}
+
 	public int getC() {
 		return c;
 	}

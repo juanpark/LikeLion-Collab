@@ -14,13 +14,13 @@ public class Triangle extends Shape implements Resize {
 	
 	@Override
 	public double getArea() {
-		return 0.5 * this.width * this.height;
+		return (this.getWidth() * this.getHeight()) / 2;
 	}
 
 	@Override
 	public void setResize(int size) {
 		// Triangle에서의 setResize() 함수는 세로(height)의 값에 size 값을 더한다
-		this.height = this.height + size;	
+		this.setHeight(this.getHeight() + size);	
 	}
 	
 	

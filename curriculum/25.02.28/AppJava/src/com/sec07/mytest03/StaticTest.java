@@ -14,10 +14,10 @@ public class StaticTest {
 	}*/
 
 	public static void main(String[] args) {
-		StaticTest st1 = new StaticTest();
-		StaticTest st2 = new StaticTest();
-		StaticTest st3 = new StaticTest();
-		StaticTest st4 = new StaticTest();
+//		StaticTest st1 = new StaticTest();
+//		StaticTest st2 = new StaticTest();
+//		StaticTest st3 = new StaticTest();
+//		StaticTest st4 = new StaticTest();
 		
 		for (int i = 0; i < 5; i++) {
 			new StaticTest();

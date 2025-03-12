@@ -2,9 +2,9 @@ package com.sec06;
 
 public class TvTest {
 	public static void main(String[] args) {
-		Tv tv1 = new Tv("INFINIA", 1500000,"LED TV");
-		Tv tv2 = new Tv("XCANVAS",1000000,"LCD TV");
-		Tv tv3 = new Tv("CINEMA",2000000,"3D TV");
+//		Tv tv1 = new Tv("INFINIA", 1500000,"LED TV");
+//		Tv tv2 = new Tv("XCANVAS",1000000,"LCD TV");
+//		Tv tv3 = new Tv("CINEMA",2000000,"3D TV");
 	
 
 		//case 1 :각 객체 생성된 주소를 배열에 담아서 처리 

@@ -14,13 +14,13 @@ public class Rectangle extends Shape implements Resize {
 	
 	@Override
 	public double getArea() {
-		return this.width * this.height;
+		return this.getWidth() * this.getHeight();
 	}
 
 	@Override
 	public void setResize(int size) {
 		// Rectangle에서의 setResize() 함수는 가로(width)의 값에 size 값을 더한다
-		this.width = this.width + size;	
+		this.setWidth(this.getWidth() + size);	
 	}
 	
 	

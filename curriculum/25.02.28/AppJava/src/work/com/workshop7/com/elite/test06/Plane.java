@@ -15,7 +15,9 @@ public abstract class Plane {
 		this.fuelSize = fuelSize;
 	}
 	
-	public void refuel(int fuel) {}
+	public void refuel(int fuel) {
+		this.setFuelSize((this.getFuelSize() + fuel));
+	}
 	
 	public void flight(int distance) {}
 

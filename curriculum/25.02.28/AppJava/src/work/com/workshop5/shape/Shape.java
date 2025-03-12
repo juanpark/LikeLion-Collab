@@ -1,5 +1,6 @@
 package work.com.workshop5.shape;
 
+// abstract class Shape implements Resize{
 abstract class Shape {
 
 	int width;

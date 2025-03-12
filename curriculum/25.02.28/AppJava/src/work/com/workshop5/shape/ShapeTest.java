@@ -1,7 +1,5 @@
 package work.com.workshop5.shape;
 
-import work.com.workshop6.account.Account;
-
 public class ShapeTest {
 
 	public static void main(String[] args) {
@@ -21,20 +19,23 @@ public class ShapeTest {
 			System.out.printf("%-10s  %5.1f    %-5s\n", shape.getClass().getSimpleName(), shape.getArea(), shape.getColors());
 		}
 		
+		System.out.println();
+		System.out.println("사이즈를 변경 후 정보");
 		// 각 객체 배열 내 모양 크기 변경
 		for (Shape shape : shapes) {
 			// Shape 추상클래스에는 없는 부분이기에 Resize 인터페이스로 동적 바인딩
-			((Resize) shape).setResize(5); 
-		}
-		
-		System.out.println();
-		
-		// 각 객체 배열 내 모양 정보 프린트
-		System.out.println("사이즈를 변경 후 정보");
-		for (Shape shape : shapes) {
-			System.out.printf("%-10s  %5.1f    %-5s\n", shape.getClass().getSimpleName(), shape.getArea(), shape.getColors());
-		}		
+//			((Resize) shape).setResize(5); 
 			
+			// 강사님 추천 형변환 후 호출 
+			if (shape instanceof Resize r) {
+				r.setResize(5);;
+			}
+			
+			// 각 객체 배열 내 모양 정보 프린트
+			System.out.printf("%-10s  %5.1f    %-5s\n", shape.getClass().getSimpleName(), shape.getArea(), shape.getColors());
+		}
 	}
 
 }
+
+

@@ -11,9 +11,9 @@ public class Cargoplane extends Plane {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void flight(int distance) {
-		
-	}
-	
+	  @Override public void flight(int distance) { 
+		  
+		  this.setFuelSize(this.getFuelSize() - (distance / 10) * 50);
+	  }
+
 }

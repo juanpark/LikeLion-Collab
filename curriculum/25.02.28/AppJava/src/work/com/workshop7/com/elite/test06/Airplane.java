@@ -11,11 +11,10 @@ public class Airplane extends Plane {
 		// TODO Auto-generated constructor stub
 	}
 	
-	/*
-	 * @Override public void flight(int distance) { this.setFuelSize(distance);
-	 * this.getFuelSize() - 30;
-	 * 
-	 * distance 100 / 10 = 10 * 30 }
-	 */
+	
+	  @Override public void flight(int distance) { 
+		  
+		  this.setFuelSize(this.getFuelSize() - (distance / 10) * 30);
+	  }
 
 }

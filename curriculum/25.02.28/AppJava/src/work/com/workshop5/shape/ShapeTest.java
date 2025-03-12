@@ -28,7 +28,7 @@ public class ShapeTest {
 			
 			// 강사님 추천 형변환 후 호출 
 			if (shape instanceof Resize r) {
-				r.setResize(5);;
+				r.setResize(5);
 			}
 			
 			// Shape abstract implements Resize interface (no need for casting?)

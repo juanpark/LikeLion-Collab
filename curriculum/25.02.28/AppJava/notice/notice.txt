@@ -1,0 +1,118 @@
+- src : 코드
+- etc : 문제
+- notice : 정리
+
+- com.test			<< 클래스 만들기, 메소드 호출해 보기 >>
+	메소드 선언 및 호출
+	- 접근제한자 static 리턴타입 userName(){}
+	** public static void sleep(long millis) throws InterruptedException
+	*메소드 뒤에 선언되는 throws 키워드는 프로그램이 실행되면서 발생되는 상황을 클래스로 생성해서 
+	 JVM이 알려주는 예외처리 위임
+	 
+	- 리턴데이터타입 [ 7가지 자료형과 참조자료형 return 키워드 / void ]
+	public static void prn() {
+		System.out.println("안녕하세요");
+	}
+	- 호출 클래스명.메소드
+	
+	- public static void UserName(매개인자*){}
+	
+	- public static [datatype] UserName(매개인자*){
+		return [datatype_value]
+	}
+	
+	
+- com.sec01			<< 기본 자료형, 값 >>
+https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html
+	DataType.java - boolean 타입 확인
+	
+- com.sec02			<< 연산자와 래퍼 클래스 사용 >>
+- com.sec02.exam
+Wrapper class	: 기본 데이터 타입(primitive type)을 객체로 다루기 위해 제공되는 클래스
+Boxing			: 기본형		-> 래퍼 객체 변환 (Integet.valueOf(10))
+Unboxing		: 래퍼 객체	-> 기본형 변환 (obj.intValue())
+Auto-Boxing		: Integer obj = 10; (자동 변환) => jdk 5부터 자동 변환
+Auto-Unboxing	: int num = obj; (자동 변환)
+
+- BitOperator.java
+	진리지표확인, 각 래퍼클래스의 변환메소드 확인, String.format(), 비트 자리 수 표현
+	정수, 실수 각각 리턴변환 메소드 API 확인
+	NaN 처리하는 메소드 확인 -> 변환값 확인!!!
+			
+
+- com.sec03			<< 클래스 선언, 생성, 멤버 호출 >>
+class - userDataType : 자주 사용하는 변수와 메소드를 하나의 이름으로 등록해서 필요할 때 마다 생성해서 사용하는 것
+	  - 선언된 멤버변수는 은닉(private)하고 오픈된 메소드(public)를 통해 값 전달 및 변경(setter)하고 리턴(getter)하는 구조를 가진다.
+	  - class 멤버 = 필드 + 메소드
+	  
+	  [선언방법]
+	  	접근제한자 [abstract] class userName{
+	  		필드 + 메소드
+	  	}
+	  	
+ex) 정수 두 수를 관리하는 Test 클래스를 만들어 보자.
+	class Test{
+  		private int a;
+  		private int b;
+  		
+  		// setter - void
+  		public void setA(int a){
+  			this.a = a;	// 전달 및 변경
+  		}
+  		public void setB(int b){
+  			this.b = b;
+		}
+		//getter
+		public int getA(){
+			return a;	// this.a
+		}
+		public int getB(){
+			return b;	// this.b
+		}
+	}
+
+===========================================================
+
+오버로딩(Overloading) : 하나의 클래스 내에서 같은 이름의 메서드를 { 매개변수 개수, 타입을 다르게} 여러 개 정의하는 것
+목적 : 같은 긴으을 다양한 입력값에 적용
+
+오버라이딩(Overriding) : 상속시 부모 클래스의 메서드를 자식 클래스에서 {메서드명, 매개변수, 반환 타입을 동일} 재정의 하는 것
+목적 : 부모 클래스의 동작을 자식 클래스에서 변경해서 기능에 사용
+
+===========================================================
+- 생성자 ?
+	- 클래스 이름과 동일하되 반환형은 없다.
+	- 오버로드 할 수 있다.
+	- 생성자는 객체를 생성할 때 단 한번만 호출된다. new ClassName();
+	- 메서드처럼 명시호출 할 수 없다.
+	- 생성자는 상속되지 않으며 객체를 생성할 때 단 한번 호출되어 메모리에 할당된다.
+	- 생성자를 명시하지 않으면 기본 생성자가 호출되고 명시하면 명시된 생성자가 호출된다.
+	- 생성자는 멤버변수 초기화를 목적으로 한다.
+===========================================================
+
+- com.sec07.mytest
+	- 단일 상속
+	- getRes() 재정의 개념
+	- 상속관계 기본 생성자, 오버로드 생성자 추가
+	- 객체와 주소간의 영역 제한
+	- 동적바인딩, 캐스팅
+	- API를 확인 후 [상속구조, 필드, 메소드, 생성자 등], 단일상속을 받자.
+	  	
+- com.sec07.mytest
+	- has-a 관계도를 확인했다. : 클래스가 다른 클래스의 객체를 포함한다.
+		class my제어판{
+			private java.io.File myfile;
+			}
+	- is - a : 클래스가 다른 클래스를 상속 받는다.
+		class my extends File{}
+		
+===========================================================
+다이어그램 설치
+https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2024-06
+
+- com.sec09	예외처리
+	1) try ~ catch : 예외를 직접 처리하는 구문
+	2) finally
+	3) throws
+	4) throw
+	5) try - with - resource

@@ -9,7 +9,8 @@ public class a_Test {
 		
 		try {
 		res = a / b;
-		} catch (ArithmeticException AE) { // ArithmethicException AE = new java.lang.ArtithmeticException("/ by zero")
+		// ArithmethicException AE = new java.lang.ArtithmeticException("/ by zero")
+		} catch (ArithmeticException AE) { 
 			System.out.println("Exception: " + AE.getMessage());
 		}
 		System.out.printf("a = %5d  b=%5d  res=%5d \n", a, b, res);

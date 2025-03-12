@@ -31,6 +31,9 @@ public class ShapeTest {
 				r.setResize(5);;
 			}
 			
+			// Shape abstract implements Resize interface (no need for casting?)
+			// shape.setResize(5);
+			
 			// 각 객체 배열 내 모양 정보 프린트
 			System.out.printf("%-10s  %5.1f    %-5s\n", shape.getClass().getSimpleName(), shape.getArea(), shape.getColors());
 		}

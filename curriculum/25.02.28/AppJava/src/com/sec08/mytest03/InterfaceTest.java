@@ -1,6 +1,6 @@
 package com.sec08.mytest03;
 
-import java.util.List;
+// import java.util.List;
 
 interface IShape {
 	static final String COLOR = "red"; // final 명시적 선언

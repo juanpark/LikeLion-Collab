@@ -4,6 +4,9 @@ public class a_StringBufferTest {
     public static void main(String[] args) {
         // 1. StringBuffer 객체 생성
         StringBuffer sb = new StringBuffer("Hello");
+        
+        System.out.println(" ==> 문자열 길이: " + sb.length()); // 10
+        System.out.println(" ==> 버퍼 크기: "+ sb.capacity()); // 기본 용량(16) + 초기 문자열 길이, (2배수 +2)로 증가 
 
         // 2️. append(): 문자열 추가
         sb.append(" Java");

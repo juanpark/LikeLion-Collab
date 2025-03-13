@@ -1,4 +1,4 @@
-package com.set09;
+package com.sec09;
 import java.util.Scanner;
 
 public class c_Test {

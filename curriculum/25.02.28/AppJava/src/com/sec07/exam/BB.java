@@ -1,6 +1,6 @@
-package com.set07.exam;
+package com.sec07.exam;
 
-import com.set07.exam02.AA;
+import com.sec07.exam02.AA;
 
 public class BB extends AA{
 	private int c;

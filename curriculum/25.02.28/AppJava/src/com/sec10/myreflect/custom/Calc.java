@@ -29,7 +29,7 @@ public class Calc {
 		return a-b;
 	}
 	
-	@NotMyNo
+//	@NotMyNo
 	public int getMul(int a, int b){
 		return a*b;
 	}
@@ -41,7 +41,7 @@ public class Calc {
 	
 	@Override
 	public String toString() {
-		return ToCalcHelper.toString(this);
+		return ToCalcHelper.toString(this);    // 전체 객체를 (시작주소를) 대입한다.
 	}
 
 	public static void main(String[] args) {

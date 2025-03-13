@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class LinkedListTest {
 
 	public static void main(String[] args) {
-		LinkedList<String> m_List = new LinkedList<>();
+		LinkedList<String> m_List = new LinkedList<>(); // polymorphism
 
 		m_List.add("java");
 		m_List.add("servlet/jsp");

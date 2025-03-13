@@ -4,26 +4,29 @@ public class GenericsTest {
 
 	public static void main(String[] args) {		
 
-		MyClass<? extends A> m_c = new MyClass<C>(new C());		
-		m_c.doTest();
-		
-		m_c = new MyClass<B>(new B());
-		m_c.doTest();
-		
-		m_c = new MyClass<A>(new A());
-		m_c.doTest();
+//		MyClass<? extends A> m_c = new MyClass<>(new C());		
+//		m_c.doTest();
+//		
+//		m_c = new MyClass<>(new B());
+//		m_c.doTest();
+//		
+//		m_c = new MyClass<>(new A());
+//		m_c.doTest();
 		
 
-		MyClass<? super C> m_T = new MyClass<A>(new A());		
+		MyClass<? super C> m_T = new MyClass<>(new A());		
 		m_T.doTest();
 		
-	   m_T = new MyClass<C>(new C());		
+		m_T = new MyClass<>(new A());		
+		m_T.doTest();
+		
+	   m_T = new MyClass<>(new C());		
 	   m_T.doTest();
        
     }
 }
 
-class MyClass<T extends A>{     
+class MyClass<T extends A>{  // all sub-classes that extends A
    private T obj;
   
 	public MyClass(T obj){

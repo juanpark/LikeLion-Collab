@@ -11,11 +11,15 @@ public class ArrayTest {
 		arr1.add(80);
 		arr1.add(90);
 		arr1.add(100);
+		arr1.add(200);
 
 		System.out.println(" for 문을 이용한 반복 ");
 		for (int r : arr1) {
 			System.out.printf("%5d", r);
 		}
+		
+		arr1.remove(2);
+		
 		System.out.println("\n listIterator 문을 이용한 반복 ");
 
 		ListIterator<Integer> res = arr1.listIterator();

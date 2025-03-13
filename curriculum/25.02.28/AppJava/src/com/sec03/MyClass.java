@@ -17,7 +17,7 @@ public class MyClass {
 	
 	public static void main(String[] args) {
 
-		// MyClass m = new MyClass();
+		// b_MyClass m = new b_MyClass();
 		// System.out.println(m);
 		
 		// overloading

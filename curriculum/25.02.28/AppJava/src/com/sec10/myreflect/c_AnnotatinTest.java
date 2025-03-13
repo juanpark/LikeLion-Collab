@@ -15,8 +15,8 @@ public class c_AnnotatinTest {
 		System.out.println("This method is deprecated");
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T> T unsafeOperation(Object obj) {
-		return (T) obj;
+	@SuppressWarnings("unchecked")  // 타입 체크하지 말고 경고 내지 말아줘 
+	public <T> T unsafeOperation(Object obj) {  // @SafeVarargs -> used only for static method and final
+		return (T) obj;   // T : value에 의해 타입을 결정하겠다.  ... 가변인자 : 몇개를 받을지 보자, <T> T ->  제네릭 타입 : 내용물에 따라 다르듯이  
 	}
 }

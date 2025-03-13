@@ -19,8 +19,7 @@ public class ExTest {
 		try {
 			result = Calc.getSum(num);
 		} catch (InvalidException IE) {
-			System.out.println("입력 값에 오류가 있습니다.");
-			return;
+			System.err.println("사용자 정의 예외 발생: " + IE.getMessage());
 		}
 		System.out.println("결과 값: " + result);
 		

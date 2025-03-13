@@ -1,4 +1,4 @@
-package com.set07.exam02;
+package com.sec07.exam02;
 
 // class for: a, b, a + b
 public class AA {

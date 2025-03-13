@@ -1,4 +1,4 @@
-package com.set07.exam;
+package com.sec07.exam;
 
 public class MTest {
 

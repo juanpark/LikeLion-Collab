@@ -1,4 +1,4 @@
-package work.com.workshop9.PrintMessage;
+package work.com.workshop9.printmessage;
 
 import static java.lang.annotation.ElementType.METHOD;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package work.com.workshop9.PrintMessage;
+package work.com.workshop9.printmessage;
 
 
 public class TestClass {

@@ -16,6 +16,10 @@ public class SupplierTest {
 
 		DoubleSupplier d = () -> 90.7;
 		System.out.println(d.getAsDouble());//90.7을 리턴
+		
+		
+		Supplier<String> gettysburg = () -> "Four scores and seven years ago, out forefathers came upon this nation conceived in liberty";
+		System.out.println(gettysburg.get());
 
 	}
 

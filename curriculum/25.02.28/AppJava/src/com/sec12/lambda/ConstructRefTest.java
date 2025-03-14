@@ -4,12 +4,25 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+/*	메소드 생성자 참조 jdk8 ::
+ * 
+ *  생성자 참조  class명::new 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+
+
 class MyConstruct {
 	String name;
 	int age;
 
 	public MyConstruct() {
-		name = "길동";
+		name = "길동_default constructor";
 		age = 23;
 	}
 
@@ -34,21 +47,22 @@ class MyConstruct {
 public class ConstructRefTest {
 	public static void main(String[] args) {
 
-		Supplier<MyConstruct> func = MyConstruct::new;
+		Supplier<MyConstruct> func = MyConstruct::new; // 매개인자 없는 기본 생성자를 호출 하곘다.
 		//람다식  		Supplier<MyConstruct> func = () -> new MyConstruct(); 		
 		MyConstruct res = func.get();
 		System.out.println(res);
 
-		Function<String, MyConstruct> func1 = MyConstruct::new;
+		Function<String, MyConstruct> func1 = MyConstruct::new; // 매개인자 하나로 생성자를 호출 하겠다.
 		
 		//람다식 	Function<String, MyConstruct> func1 =(name) ->new MyConstruct(name);
 		System.out.println(func1.apply("Dominica"));
 
-        BiFunction<String, Integer, MyConstruct> func3 = MyConstruct::new;		
+        BiFunction<String, Integer, MyConstruct> func3 = MyConstruct::new;	// 매개인자 두개로 생성자를 호출 하곘다.
 		// 람다식  BiFunction<String, Integer, MyConstruct> func3=(name, age)->new MyConstruct(name,age);
 		System.out.println(func3.apply("RuRi", 10));
 	}
 }
+
 
 
 

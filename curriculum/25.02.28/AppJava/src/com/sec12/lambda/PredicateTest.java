@@ -1,4 +1,4 @@
-package com.sec12.labmbda;
+package com.sec12.lambda;
 
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;

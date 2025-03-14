@@ -12,13 +12,13 @@ public class DateTest {
 		long time1 = System.currentTimeMillis();
 		System.out.println(time1);
 
-		Date today = new Date(); // 현재시간 출력
+		Date today = new Date(); // 현재시간 출력_ cmd
 		System.out.println(today);
 
 		long time2 = System.currentTimeMillis();
 		System.out.println((time2 - time1) / 1000.0);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Zone
 		System.out.println("현재날짜 : " + sdf.format(today));
 	}
 }

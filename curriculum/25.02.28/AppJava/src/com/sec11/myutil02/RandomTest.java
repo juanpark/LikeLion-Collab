@@ -14,8 +14,8 @@ public class RandomTest {
 		System.out.println("정수형  3 ~  8:  r2 = " + r2);
 
 	
-			int r3 = (int) (Math.random() * 21) - 10;
-			System.out.println("정수형  -10  ~  10: r3 = " + r3);
+		int r3 = (int) (Math.random() * 21) - 10;
+		System.out.println("정수형  -10  ~  10: r3 = " + r3);
 		
 			
 

@@ -5,8 +5,8 @@ import java.util.Calendar;
 public class CalendarTest {
 
 	public static void main(String[] args) {
-
-		Calendar cal = Calendar.getInstance();
+		// 추상클래스 -> 필드 -> 생성자, 메서드 ->
+		Calendar cal = Calendar.getInstance(); // 싱글톤 패턴 
 
 		int year = cal.get(Calendar.YEAR);
 		int mon = cal.get(Calendar.MONTH);

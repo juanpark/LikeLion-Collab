@@ -1,4 +1,4 @@
-package com.sec12.labmbda;
+package com.sec12.lambda;
 
 import java.util.function.DoubleSupplier;
 import java.util.function.IntSupplier;

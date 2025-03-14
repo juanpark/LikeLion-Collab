@@ -1,4 +1,4 @@
-package work.com.workshop9.MaxValue;
+package work.com.workshop9.maxvalue;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

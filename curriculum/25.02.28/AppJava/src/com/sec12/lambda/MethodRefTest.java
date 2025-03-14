@@ -8,6 +8,7 @@ import java.util.function.IntSupplier;
 public class MethodRefTest {
 
 	public static void main(String[] args) {
+		
 		String s = "java8"; 
 		IntSupplier supplier = s :: length; //매개인자 없는 메소드 
 		System.out.println(supplier.getAsInt());

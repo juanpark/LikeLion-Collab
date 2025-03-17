@@ -27,7 +27,7 @@ public class StreamTest {
         printStream("▶ Stream.of(배열 값)", streamFromArray2);
     }
    
-    private static void printStream(String title, Stream<String> stream) {
+    public static void printStream(String title, Stream<String> stream) {
         System.out.println(title);
         stream.forEach(e -> System.out.printf("%5s", e)); // 요소 출력
         System.out.println("\n============================\n");

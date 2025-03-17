@@ -1,0 +1,7 @@
+package com.sec12.mstream;
+
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;	// study
+import java.nio.file.Paths; // study
+import java.util.stream.Stream;

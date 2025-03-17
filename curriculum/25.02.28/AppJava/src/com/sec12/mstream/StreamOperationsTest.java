@@ -10,8 +10,8 @@ public class StreamOperationsTest {
         // 01. filter() 사용 - 짝수만 출력
         System.out.println("== 01. filter() 메소드로 짝수만 출력 ==");
         Arrays.stream(array)
-              .filter(value -> value % 2 == 0)
-              .forEach(System.out::println);
+              .filter(value -> value % 2 == 0) // boolean test(int value)
+              .forEach(value -> System.out.print(value + " ")); // print void accept(T t)
 
         // 02. limit() 사용 - 3개의 요소만 출력
         System.out.println("\n== 02. limit() 메소드로 상위 3개 요소만 출력 ==");

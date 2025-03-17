@@ -32,5 +32,7 @@ public class Test05 { //  ObjectArrayExample
             p.display();
             // System.out.println(p); // p.toString()이 호출되어 주소가 출력 된다. 
         }
+        
     }
 }
+

@@ -1,4 +1,4 @@
-package work.com.workshop9.maxvalue;
+package work.com.workshop.annotation.maxvalue;
 
 public class NumberClass {
 

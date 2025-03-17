@@ -1,4 +1,4 @@
-package work.com.workshop9.printmessage;
+package work.com.workshop.annotation.printmessage;
 
 import java.lang.reflect.Method;
 

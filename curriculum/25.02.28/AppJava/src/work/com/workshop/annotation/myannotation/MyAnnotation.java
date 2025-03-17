@@ -1,4 +1,4 @@
-package work.com.workshop9.myannotation;
+package work.com.workshop.annotation.myannotation;
 
 import static java.lang.annotation.RetentionPolicy.CLASS;
 

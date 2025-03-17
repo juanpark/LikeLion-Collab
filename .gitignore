@@ -19,3 +19,15 @@
 /target/
 /out/
 /bin/
+
+# IntelliJ IDEA files
+.idea
+*.iml
+out/
+*.ipr
+*.iws
+
+# Eclipse files
+.project
+.classpath
+.settings/

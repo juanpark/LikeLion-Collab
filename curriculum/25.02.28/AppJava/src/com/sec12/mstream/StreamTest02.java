@@ -1,29 +1,27 @@
 package com.sec12.mstream;
-
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
 
 public class StreamTest02 {
 
 	public static void main(String[] args) {
-		// Q1. create int 1 ~ 10 as a stream and then print 
-		Stream<String> streamFromValues = Stream.of("1","2","3","4","5","6","7","8","9","10");
-		StreamTest.printStream("TITLE", streamFromValues);
+		//Q1. 1~10까지 정수형 값을 스트림 생성 후 출력
+        Stream<String> streamFromValues = Stream.of("1", "2", "3", "4", "5");
+        StreamTest.printStream("Q1. 1~10까지 정수형 값을 스트림 생성 후 출력", streamFromValues);
+        //캐스팅이 많이 필요함
 		
-		// Q2. Create stream of ints 10 ~ 1 and then print -> iterate
-		Stream<String> streamFromValues03 = IntStream.iterate(10, i->i-1).limit(10).mapToObj(String::valueOf);
-		StreamTest.printStream("Stream ints 10 ~ 1 then print", streamFromValues03);
-		
-		// Q3. Create stream of ints 10 ~ 1 and then print -> rangeClosed
-		
-		
-		// StreamTest.printStream("Stream ints 10 ~ 1 then print", null);
+        
+        //Q2."import java.util.stream.Stream" 문자열을 잘라서 배열로 만든 후 스트림 생성 후 출력
+        String[] stringArray = "import java.util.stream.Stream".split(" ");		
+        Stream<String> stream2 = Arrays.stream(stringArray);
+        StreamTest.printStream("\"import java.util.stream.Stream\" 문자열을 잘라서 배열로 만든 후 스트림 생성 후 출력", stream2);  
 		
 		
-		// Q4. Stream<Integer> boxed() + sorted(Comparator.reverseOrder())
-		
+        //Q3. 10 ~ 1까지 정수형 값을 스트림 생성 후 출력
+		//.printStream(null, null);		 //추가하기!!
 	}
 
 }

@@ -1,0 +1,82 @@
+- 학습목표
+1. 스트림 API를 활용하여 데이터를 효율적으로 변환, 필터링, 집계 및 병렬 처리를 할 수 있으며, 성능을 최적화할 수 있다.
+
+2. 스트림의 중간 연산(Intermediate Operations)과 최종 연산(Terminal Operations)의 개념을 이해하고, 다양한 연산(map, filter, sorted, reduce, collect 등)을 활용하여 데이터를 효과적으로 처리할 수 있다.
+
+3. 여러 연산 단계를 연결한 스트림 파이프라인의 특성을 이해하고 활용할 수 있다.
+
+4. 컬렉션이나 배열 데이터를 스트림으로 전환하여 선언적 프로그래밍으로 변환 후 프로세싱 할 수 있다.
+
+***
+
+### 복습
+Comparator : 객체 외부에서 정렬 기준(매개변수 2개)
+Comparable : 객체 내부에서 정렬 기준(매개변수 1개)
+
+Optional<T> : NullPointerException 방지
+  
+익명클래스 : 한 번만 사용할 클래스 정의
+람다식 : 함수형 인터페이스 간단하게 구현
+
+***
+
+- Stream API  
+  데이터 집합을 효과적으로 처리할 수 있는 API로 필터링, 그룹핑등 가능하다. 
+
+1) Stream 연산순서 
+생성
+Collection.stream() :요소를 기준으로 생성
+Stream.of(T ... values) : 값을 기준으로 스트림 생성
+Arrays.stream(T[] array) : 배열객체 기준으로 스트림 생성
+중간 연산
+중간 연산은 스트림을 변환하는 작업을 수행하며, 최종 연산이 호출될 때 실행된다
+map() : 요소 변환 
+filter() :조건에 맞는 요소만 선택(내부적으로 test()호출)
+sorted() : 정렬 수행
+reduce() : 누적 연산 수행
+collect(): 리스트, 맵 등으로 변환
+최종 연산
+최종 연산이 수행되면 스트림이 소비되며, 이후에는 다시 사용할 수 없다
+forEach(), collect(), reduce(), count(), sum(), min(), max() 등
+
+```
+Stream<String> streamFromValues = Stream.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10") ; // 1~10까지 정수형 값을 스트림 생성
+  
+Integer[] int_array = {1,2,3,4,5,6,7,8,9,10};
+Stream<String> streamFromValues = Arrays.stream(int_array).map(String::valueOf); // 1~10까지 정수형 값을 스트림 생성
+  
+Stream<String> streamFromValues = IntStream.rangeClosed(1, 10).mapToObj(String::valueOf); // 1~10까지 정수형 값을 스트림 생성
+  
+Stream<String> streamFromValues = IntStream.range(1, 11).map(i->11-i).mapToObj(String::valueOf); // 10~1까지 정수형 값을 스트림 생성
+  
+Stream<String> streamFromValues = IntStream.iterate(10, i->i-1).limit(10).mapToObj(String::valueOf); // 10~1까지 정수형 값을 스트림 생성
+  
+Stream<String> streamFromValues = IntStream.rangeClosed(1, 10).boxed().sorted((a,b)->b-a).map(String::valueOf); // 10~1까지 정수형 값을 스트림 생성
+  
+String[] stringArray = "import java. util.stream. Stream".split("[ .]");
+Stream<String> stream2 = Arrays.stream(stringArray); // "import java.util.stream.Stream"는 문자열을 잘라서 배열로 만든 후 스트림 생성
+  
+Arrays.stream(int_array).filter(value->value%2==0).forEach(System.out::println);
+  
+Arrays.stream(str.split("\\s+")) // 공백 기준으로 문자열 나누기          
+          .filter(word -> word.length() >= 5) // 5글자 이상 필터링
+          .map(String::toUpperCase) // 대문자로 변환
+          .forEach(word -> System.out.printf("%15s", word)); // printf로 출력
+    	  
+    	  List<String> result = Arrays.stream(str.split("\s+"))
+    	                          .filter(word -> word.length() >= 5) 
+    	                          .map(String::toUpperCase).collect(Collectors.toCollection(ArrayList::new));
+```
+  
+2) Stream 주요 연산
+map() : 요소 변환
+filter() :조건에 맞는 요소만 선택
+sorted() : 정렬 수행
+reduce() : 누적 연산 수행
+collect(): 리스트, 맵 등으로 변환
+boxed() : 기본형 -> wrapper
+peek() : 변호나 작업을 할 때 테스트 용으로 사용한다
+limit(n) : n개의 요소만 출력
+distince() : 중복 요소 제거
+
+3) 병렬 처리parallelStream()을 활용하면 데이터 병렬 처리가 가능하다

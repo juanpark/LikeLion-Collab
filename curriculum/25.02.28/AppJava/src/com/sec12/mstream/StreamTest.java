@@ -1,5 +1,5 @@
 package com.sec12.mstream;
-
+//스트림 생성 밎 출력확인
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;

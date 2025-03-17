@@ -1,0 +1,314 @@
+2025-02-28 (4일차)
+- com.test  <<클래스 만들기, 메소드 호출해보기 >>
+
+	메소드 선언 및 호출
+		-접근 제한자 static 리턴데이터타입 userName(){}   	
+		
+		java.lang.Thread'sleep() //java.lang.Thread클래스의 sleep메소드
+		** public static void sleep(long millis)throws InterruptedException 
+		->메소드 뒤에 선언되는 throws 키워드는 프로그램이 발생되는 상황을 클래스로 생성해서 JVM이 알려주는 예외처리 위임
+		
+		
+		-리턴데이터타입 [7가지 기본 자료형과 참조자료형 / void ]
+	public static void prn() { //void : 리턴값이 없음
+		System.out.println("안녕하세요");
+	}
+
+	-호출 : 클래스명.메소드
+	-public static void userName(매개인자*){} //매개인자가 없을 때 void
+	
+	-public static datatype UserName(매개인자*){ //매개인자가 있으면 datatype지정
+		return datatype_ value;
+	}
+	
+- com.sec01 << 기본 자료형, 값 >>
+	https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html
+ 	DataType.java - boolean 타입 확인	
+
+	***핵심 : 01_exam.png 풀 수 있어야함
+	--------------------------------------
+
+2025-03-04=================================
+- com.sec02
+Wrapper class : 기본 데이터 타입을 객체로 다루기 위해 제공되는 클래스 - java.lang패키지에 속함.
+Boxing : 기본형 -> 래퍼 객체 변환 (Integer.valueOf(10))
+Unboxing : 래퍼 객체 -> 기본형 변환 (obj.intValue())
+Auto-Boxing : Integer obj = 10; (자동 변환) jdk에 자동으로 변환시키는 기능이 있음
+Auto-unboxing : int num = obj; (자동 변환)	
+	
+	
+2025-03-05=================================
+- com.sec03
+기본 클래스(원시 클래스) 선언, 생성, 멤버 호출 
+class - userDataType   (풀캡슐화. 모든 멤버를 외부에서 철저하게 차단시킴) : 자주 사용하는 변수와 메소드를 하나의 이름으로 등록해서 필요할 때마다 생성해서 사용하는 것
+	  - 선언된 멤버변수는 은닉(접근제한자 private)하고 오픈된(public) 메소드를 통해 값 전달 및 변경하고(setter) 리턴하는(getter) 구조를 가짐.
+	  - 멤버 = 필드(final이 붙은 상수 등)+메소드(생성자,기능을 가짐)
+		
+	[선언방법]
+클래스타입-> 접근제한자[abstract] class userName{
+			필드+메소드
+		
+		 }
+	
+ex) 정수 두 수를 관리하는 Test클래스를 만들어보자.
+class Test{
+	//	int a, b; //앞에 아무것도 명시하지 않으면 default.
+		private int a; //자주 사용하는 멤버 변수 은닉화
+		private int b;
+		
+		//setter   값을 전달, 변경하겠다. -void 
+		public void setA(int a){
+			this.a = a; //전달 및 변경
+		}
+		public void setB(int b){
+			this.b = b;
+		}
+		//getter
+		public int getA(){
+			return a; //this.a
+		}
+		public int getB(){
+			return b; //this.b
+		}
+		
+		=> 외부에서 메소드만 호출 할 수 있음.
+		자바는 기본적으로 모든 멤버 변수는 private, 오픈하고 싶은 것은 상수만.
+	
+}
+	
+
+오버로딩 (Overloading) : 하나의 클래스 내에서 같은 이름의 메소드를 {매개변수 개수, 타입 다르게} 여러 개 정의하는 것
+	목적 : 같은 기능을 다양한 입력값에 사용
+오버라이딩 (OverRiding) : 상속 시 부모 클래스의 메소드를 자식 클래스에서 {메서드명, 매개변수, 반환 타입을 동일} 재정의하는 것
+	목적 : 부모 클래스의 동작을 자식 클래스에서 변경해서 기능에 사용
+	
+	
+생성자 (Constructor)
+	-클래스 이름과 동일하되 반환형은 없음
+	-오버로드 할 수 있음
+	-생성자는 객체를 생성할 때 단 한번만 호출됨 new className(); -> 생성자 호출
+	-메소드처럼 명시호출 할 수 없음	->객체.멤버 호출불가능
+	-생성자는 상속 되지 않으며 객체를 생성할 때 단 한번 호출됨
+	-생성자를 명시하징 않으면 기본 생성자가 호출되고 명시하면 명시된 생성자가 호출됨
+	-생성자는 멤버변수 초기화를 목적으로 함           
+	
+2025-03-05=============================================
+ -com.sec02 연산자
+ -BitOperator.java
+  진리지표확인, 각 래퍼클래스의 변환메소드 확인, String.format(), 비트 자리수 표현, 정수/실수 각각 리턴변환 메소드 API확인
+  Nan 처리하는 메소드 확인 -> 변환값 확인
+
+2025-03-11=============================================
+ -com.sec07.myTest
+ -단일 상속
+ -getRes() 재정의 개념
+ -상속관계 기본 생성자,  오버로드 생성자 추가
+ -객체와 주소간의 영역 제한 
+ -동적 바인딩 -> 캐스팅 
+ -API를 확인 후 [상속구조, 필드, 메소드, 생성자 등] 상속을 받자.
+ 
+ -com.sec07.mytest01
+ 	has-a 관계도를 확인 했다.		: 클래스가 다른 클래스의 객체를 포함한다. 
+ 		class my제어판{
+ 			private java.io.File  myfile:
+ 		}
+ 		
+ 	
+ 	is-a : 클래스가 다른 클래스를 상속 받는다.
+ 		class my extends File{}
+ 		
+ 
+ 2025-03-12=================================================
+ 다이어그램 설치
+ 		
+ https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2024-06
+ 
+ -com.sec08
+ -com.sec09
+  예외처리 : 어떤 경우에 의해 실행 시 발생하는 프로그램이 강제종료하지 않도록 처리하는 것
+  1) try~catch : 예외를 직접 처리하는 구문 (여러개의 catch - 경우의 수)
+  2) finally : 예외발생 유무와 관계 없이 실행됨 (선택적으로 사용)	->예외가 나도, 나지않아도 무조건 실행되는 코드를 finally에 작성 / close() : 파일닫기, 리소스닫기, 로그아웃, 파일 백업(갑자기 컴퓨터가 꺼졌을 경우)
+  3) throws : 메소드 뒤에 선언되며 호출하는 곳으로 예외처리 위임 
+  4) throw : 예외 클래스를 명시 실행
+  5) try - with - resource(jdk 7+) : finally없이 자동 리소스 해제
+ 
+ ==========================================================================
+ case 1 :
+ 		try {
+ 			예외가 발생될 코드
+ 		}catch(Exception e){}	//Exception은 클래스명
+ 		
+ case 2 :
+ 		try {
+
+			}catch(ArithmeticException name){ //자손이 예외를 못잡으면
+
+			}catch(RuntimeException name){ //조상
+
+			}catch(Exception name){    } //더 조상
+	=>경우에 따라 예외처리하는 내용이 다름
+ 	
+ case 3 :
+ 		try{
+ 		
+ 		}finally{}
+ case 4 :
+ 	
+  		try {
+
+			}catch(ArithmeticException name){
+
+			}catch(RuntimeException name){ 
+
+			}catch(Exception name){    
+			
+			}finally{
+			 		try{
+ 					}finally{}			//중첩 사용 가능
+			}
+
+ case 5 : try - with - resources : 자동으로 close() 호출하면서 참조한 리소스 소멸 (밑 2개의 인터페이스 사용)
+ 		java.lang.AutoCloseable       ->둘의 자식들이 밑의 구문을 사용 가능
+ 		java.io.Closeable
+ 
+	    try (FileReader fr = new FileReader(path)) {
+	        return br.readLine();
+	    }
+	
+	=================================================
+	FileReader fr = null;
+	try {
+		 fr = new FileReader(path)			->위의 방법과 같은 의미
+		}catch(Exception name){
+		
+		}finally{
+			fr.close();
+		}
+ 		
+ ====2025-03-13 com.sec10===================================================
+ 
+ com.sec10.mstring 
+
+  -String은 불변(Immutable)객체이므로 연결 연산(+)이 많을수록 성능이 떨어짐
+  -StringBuffer와 StringBuilder는 가변(Mutable) 객체로, 문자열 변경이 많을 때 성능이 더 좋음
+  -StringBuffer는 멀티쓰레드 환경에서 안전하지만, StringBuilder 보다 느림
+  -StringBuilder는 싱글쓰레드 환경에서 가장 빠른 성능을 제공
+ 
+ com.sec10.myreflect
+ 	자바파일 화살표▽ 펼치면 정보가 나오는 것
+ 1. import.java.lang.reflect : 실행 중에 클래스, 메소드, 필드, 생성자등의 정보를 동적으로 조회하고 조작할 수 있는 기능을 제공하는 API
+ 
+ - 클래스, 메소드, 필드, 생성자등의 정보 동적으로 조회 	java Test
+ - 접근제한자 상관없이 private 필드 메소드 접근 가능
+ - 프레임워크(Spring, SpringBoot, ORM)에서 객체를 동적으로 생성함
+ - @(어노테이션)과 함께 사용하며 런타임 조직이 확장 가능
+ - 런타임 중에 특정 메소드 실행 -> invoke() 
+ 
+ 2. 어노테이션(Annotation)의 목적과 기본 사용법을 이해하고, 커스텀 어노테이션을 정의하여 코드에 메타데이터를 추가하고 활용할 수 있음
+ 	- 컴파일 시에 정보 제공 -> 문법 또는 오류 체크
+ 	- 빌드 배포시에 사용 -> 코드 자동 생성
+ 	- 런타임 동작 제어 -> 프로그램 실행 시 특정 기능을 수행하도록 할 때
+ 	*자동화 코드 생성, 테스트, 디버깅등 
+ 
+ 
+ 3. 제네릭스(Generics)는 컴파일 시 타입을 체크하고, 다양한 데이터 타입을 처리할 수 있도록 도와주는 기능
+	-제네릭 클래스(Generic Class) : 특정 타입을 지정하지 않고, 여러 타입의 데이터를 저장할 수 있는 클래스
+		T를 사용해 다양한 타입을 받을 수 있다 
+		class Test<T> {}
+	
+	-제네릭 메서드(Generic Method) : 특정 메서드에서만 제네릭 타입을 적용하는 방법
+                 public static <T> void print(T item){
+                          System.out.println(item);
+                 }
+   
+   	-와일드카드(Generics Wildcard) : 유연한  타입을 허용 (상속관계에 타입을 제한)
+           List<? extends T> - T와 T의 하위 클래스만 허용 (상한 제한)
+           List<? super T> - T와 T의 상위 클래스만 허용 (하한 제한)
+  
+
+=====2025-03-14 com.sec12==========================================
+1) 람다식의 주요특징 
+1. 익명 함수(Anonymous Function) 이름 없이 사용되는 함수로 함수형 인터페이스의 변수에 할당 가능.
+2. 함수형 인터페이스 : 하나의 추상 메소드만을 가지는 인터페이를 말한다. -> @FunctionalInterface
+3. 람다식은 단 하나의 추상 메소드만을 가지는 함수형 인터페이스에서만 사용 가능하다.(default,static 메소드는 여러 개 가질 수 있다.)
+4. 간결한 코드 구조로 기존의 익명 클래스를 람다식을 사용하여 간단하게 표현할 수 있다.
+5. 자바 컴파일러가 문맥을 보고 타입을 자동으로 추론한다.
+6 .java.util.function 패키지에는 다양한 기본 함수형 인터페이스
+(Function : 입력값을 받아서 가공한 후 다른 타입으로 변환하여 반환하는 인터페이스 R apply(T t), 
+ Predicate: 입력값을 받아서 조건을 체크한 후 true 또는 false를 반환하는 인터페이스 boolean test(T t),
+  Consumer :  입력값을 받아서 특정 작업을 수행하고 반환값이 없는 인터페이스 void accept(T t),
+  Supplier : 입력값 없이 값을 생성하여 반환하는 인터페이스  T get())가 제공된다. 
+
+[람다 표현식 ]
+lambda 표현식은 익명으로 처리되어 이름이 없다.
+lambda 표현식은 compiler 가 context 에 맞는 타입을 유추하기 때문에 return type이없다.
+lambda 표현식은 compiler 가 context 에서 유추되어 throws clause 가 없다.)
+lambda 표현식은 람다 표현식은 Generic 이 될 수 없어 type 파라미터를 선언할 수없다.
+
+[형식] 
+(int x, int y) -> { return x + y; }   // 기존 방식
+(x, y) -> x + y   // 타입 생략 가능
+
+case1 :  매개변수가 없는 경우
+() -> System.out.println("Hello World!");
+
+case2:  매개변수가 하나인 경우
+x -> x * x;
+
+case 3: 매개변수가 여러 개인 경우
+(x, y) -> x + y;
+
+case4  실행문이 여러 개일 경우
+(x, y) -> {
+    int sum = x + y;
+    return sum;
+
+  [다양한 형식]
+  형식에 정의된 구문은 매개인자에 따라 괄호 () , 중괄호{}가 생략가능하다. 
+ >> 매개인자로 su 을 받아 출력 하는 구문
+    (int su) -> { System.out.println(su); }
+ >>  자료형이 생략 가능하다.
+ (su) -> { System.out.println(su); }
+>>  매개인자 하나일경우 (), {}생략 가능하다
+ su -> System.out.println(su);
+
+>> 매개인자 없는 경우 빈 괄호()만 사용하여 명령 실행할 수 있다.
+ ()->{ System.out.println('a')}
+
+>> 매개인자 두 개 이상 이면 자료형 생략 하여 실행한다.
+(a, b) -> { return a + b; }
+
+
+>>매개인자 두 개이상이면 {}와 return 키워드를 생략해서 사용한다
+(a, b) -> a + b;
+		
+ 		
+===============2025-03-17============================
+Stream API  데이터 집합을 효과적으로 처리할 수 있는 API로 필터링, 그룹핑등 가능하다. (데이터 처리를 쉽게 하겠다.)
+
+1) Stream 연산순서 
+     (1)생성 :Collection.stream() : 요소를 기준으로 스트림 생성,  
+        Stream.of() : 값을 기준으로 스트림 생성, 
+       	Arrays.stream() : 배열(list) 객체 기준으로 스트림 생성 
+				->collection 객체들은 모두 stream 메소드를 가지고 있음
+     (2)중간 연산 (Intermediate Operation):
+        filter(), map(), sorted(), distinct(), limit(), flatMap() 등
+        중간 연산은 스트림을 변환하는 작업을 수행하며, 최종 연산이 호출될 때 실행된다
+     (3)최종 연산 (Terminal Operation)
+       forEach(), collect(), reduce(), count(), sum(), min(), max() 등
+        최종 연산이 수행되면 스트림이 소비되며, 이후에는 다시 사용할 수 없다
+
+2)Stream 주요 연산
+ map()    : 요소 변환    -> Stream<R> map(Function<T, R> mapper)    R apply(T t)
+ 			mapToObj()
+ 			형변환 map(String :: valueOf), 문자열 소대문자 변환(String::toUpperCase), 객체에서 String   →  하나 받아서 리턴할 수 있음
+filter()     :조건에 맞는 요소만 선택
+sorted()     : 정렬 수행
+reduce()     : 누적 연산 수행
+collect()	 : 리스트, 맵 등으로 변환
+peek()	     :변환 작업을 할 때 테스트용으로 사용
+
+3.병렬 처리parallelStream()을 활용하면 데이터 병렬 처리가 가능하다 		
+ 		
+ 		
+ 		

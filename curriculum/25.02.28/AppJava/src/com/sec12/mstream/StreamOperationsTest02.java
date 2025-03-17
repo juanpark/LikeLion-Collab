@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class StreamOperationsTest02-2 {
+public class StreamOperationsTest02 {
 
 	public static void main(String[] args) {
 		//Q1. 1~100까지 정수를 출력하자.

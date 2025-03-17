@@ -8,7 +8,7 @@ public class ReduceTest {
 
     public static void main(String[] args) {
         // 1️. Optional<T> reduce(BinaryOperator<T> accumulator)
-        // 리스트의 모든 값을 합산하여 Optional<Integer>로 반환
+        // 리스트의 모든 값을 합산하여 Optional<Integer>로 반환 -> public static int sum(int a, int b)
         List<Integer> numbers = Arrays.asList(10, 20, 30, 40, 50);
         Optional<Integer> sum = numbers.stream().reduce(Integer::sum);
 

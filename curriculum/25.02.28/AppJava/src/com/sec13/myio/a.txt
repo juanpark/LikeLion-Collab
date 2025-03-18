@@ -1,3 +1,6 @@
 Hello, World!
 This is a test file.
-Using IO, NIO, and NIO.2.
+Using IO, NIO, and NIO.2.Appended using NIO.
+Appended using NIO.
+Appended using NIO.
+Appended using NIO.

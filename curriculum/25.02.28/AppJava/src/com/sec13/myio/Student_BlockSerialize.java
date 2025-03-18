@@ -4,28 +4,28 @@ import java.io.Serializable;
 
 
 @SuppressWarnings("serial")
-public class Student implements Serializable{ // 해당 클래스를 byteStream으로 변환 -> 직렬화 
-	private String 	name;
-	private int 	age;
-	private int		height;
-	private int		weight;
+public class Student_BlockSerialize implements Serializable{ // 해당 클래스를 byteStream으로 변환 -> 직렬화 
+	private String 			name;
+	public static int 		age;
+	private int				height;
+	private transient int	weight;
 	
-	public Student() {
+	public Student_BlockSerialize() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Student(String name, int age, int height, int weight) {
+	public Student_BlockSerialize(String name, int age, int height, int weight) {
 		super();
 		this.name = name;
-		this.age = age;
+		Student_BlockSerialize.age = age; 
 		this.height = height;
 		this.weight = weight;
 	}
 	
 	@Override
 	public String toString() {
-		return this.getName() + "   " + this.getAge()  + "  " + this.getHeight()  + "  " + this.getWeight();
+		return this.getName() + "   " + Student_BlockSerialize.age  + "  " + this.getHeight()  + "  " + this.getWeight();
 	}
 
 
@@ -37,13 +37,7 @@ public class Student implements Serializable{ // 해당 클래스를 byteStream�
 		this.name = name;
 	}
 
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
+	
 
 	public int getHeight() {
 		return height;

@@ -42,12 +42,23 @@ public class TruckStream {
 		// truck.getCost(int distance) 메서드를 사용해 거리별 요금 계산 후 총합 출력
 		List<Integer> distanceList = List.of(30,30,50);
 		
+		System.out.println();
+		System.out.printf("현재 연비(적재 100kg): %s\n", truck.getEfficiency());
+		
 		int totalCost = distanceList.stream()
 							.mapToInt(truck::getCost)
 							.sum();
 		System.out.println("총 요금: " + totalCost + "원");
 		
+		// 차 적재함을 비워 연비 5.0으로 수정:
+		System.out.println();
+		truck.setCarWeight(0);
+		System.out.printf("현재 연비(적재 0kg): %s\n", truck.getEfficiency());
 
+		int totalCost2 = distanceList.stream()
+				.mapToInt(truck::getCost)
+				.sum();
+		System.out.println("총 요금: " + totalCost2 + "원");
 
 	}
 

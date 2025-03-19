@@ -31,11 +31,11 @@ import java.util.Scanner;
 
 public class b_FileCRUD {
 
-    private static final String FILE_PATH_STRING = "d:/test/AA.txt";
-    private static final Path FILE_PATH = Paths.get(FILE_PATH_STRING);
+    private static final String FILE_PATH_STRING = "d:/test/AA.txt"; // 공용 상수
+    private static final Path FILE_PATH = Paths.get(FILE_PATH_STRING); //공용 상수
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in); //입력 객체 생성
 
         while (true) {
             System.out.println("\n파일 작업 메뉴:");
@@ -72,8 +72,8 @@ public class b_FileCRUD {
                         break;
                     case "0":
                         System.out.println("프로그램을 종료합니다.");
-                        scanner.close();
-                        return;
+                        scanner.close();  //스캐너 소멸
+                        return;           //메소드 종료
                     default:
                         System.out.println("잘못된 선택입니다. 다시 시도하세요.");
                 }
@@ -95,7 +95,7 @@ public class b_FileCRUD {
     }
 
     private static void readFile() throws IOException {
-        if (Files.exists(FILE_PATH)) {
+        if (Files.exists(FILE_PATH)) { //경로가 존재하면
             System.out.println("\n파일 내용:");
             List<String> lines = Files.readAllLines(FILE_PATH);
             for (String line : lines) {
@@ -108,20 +108,20 @@ public class b_FileCRUD {
 
     private static void writeFile(Scanner scanner) throws IOException {
         System.out.println("파일에 쓸 내용을 입력하세요 (각 줄 입력 후 Enter, [완료] 입력 시 종료):");
-        List<String> linesToWrite = new java.util.ArrayList<>();
-        String line;
+        List<String> linesToWrite = new java.util.ArrayList<>(); //한줄씩 입력받아 저장할 객체
+        String line = null; //한줄 입력 받을 변수
         while (true) {
-            line = scanner.nextLine();
-            if (line.equalsIgnoreCase("[완료]")) {
+            line = scanner.nextLine(); //한줄 입력 
+            if (line.equalsIgnoreCase("[완료]")) { //대소문자 구분하지 않고 괄호 안의 있는 글자가 맞다면 break
                 break;
             }
-            linesToWrite.add(line);
+            linesToWrite.add(line); // 리스트객체 add
         }
-
-        try (BufferedWriter writer = Files.newBufferedWriter(FILE_PATH)) {
-            for (String content : linesToWrite) {
-                writer.write(content);
-                writer.newLine();
+        /// 파일 쓰기
+        try (BufferedWriter writer = Files.newBufferedWriter(FILE_PATH)) { //버퍼에 쓰겠다.
+            for (String content : linesToWrite) { //String으로 풀어서
+                writer.write(content); // 버퍼가 가지고 있는 write에 쓰기
+                writer.newLine(); //줄바꿈
             }
         }
         System.out.println("파일 쓰기 완료: " + FILE_PATH_STRING);
@@ -140,8 +140,9 @@ public class b_FileCRUD {
         if (Files.exists(FILE_PATH)) {
             System.out.print("이동할 대상 경로를 입력하세요: ");
             String targetPathString = scanner.nextLine();
-            Path targetPath = Paths.get(targetPathString);
-            Files.move(FILE_PATH, targetPath, StandardCopyOption.REPLACE_EXISTING);
+            Path targetPath = Paths.get(targetPathString); //타겟패스
+            //대상 경로에 파일이 이미 존재하면 덮어쓰자 StandardCopyOption.REPLACE_EXISTING
+            Files.move(FILE_PATH, targetPath, StandardCopyOption.REPLACE_EXISTING); //copyOption:
             System.out.println("파일을 다음 경로로 이동했습니다: " + targetPathString);
             // 파일 경로 업데이트
             // FILE_PATH = targetPath; // final 변수이므로 이렇게 업데이트할 수 없습니다.
@@ -173,9 +174,10 @@ public class b_FileCRUD {
         }
     }
 
-    private static String formatFileTime(FileTime fileTime) {
-        Instant instant = fileTime.toInstant();
-        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-        return dateTime.toString();
+    private static String formatFileTime(FileTime fileTime) { //fileTime: 파일이 가지는 시간 정보 객체(파일 수정, 삭제, 이동한 시간 등)
+    //현재 운영체제가 가진 파일의 엑세스 타임 정보를 세팅해서 문자열로 리턴해줘
+        Instant instant = fileTime.toInstant(); //객체를 초기화 생성
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()); //파일이 가진 정보 객체, 시스템 값
+        return dateTime.toString(); //데이트타임 객체를 문자열로 리턴
     }
 }

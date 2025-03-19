@@ -14,8 +14,11 @@ public class MonthsTest {
 		if (IntStream.rangeClosed(1, 12).noneMatch(n -> n == month)) {
 			System.out.println("입력된 값이 잘못 되었습니다");
 		} else {//DEBUG
-			System.out.println(month);
+			Months.getDays(month);
 		}
+		
+
+		
 	}
 
 }

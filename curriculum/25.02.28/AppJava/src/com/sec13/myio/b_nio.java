@@ -9,11 +9,11 @@ import java.nio.file.StandardOpenOption;
 public class b_nio {
     public static void myread() {
         try (FileChannel channel = FileChannel.open(Paths.get("/Users/juanpark/Library/Mobile Documents/com~apple~CloudDocs/CS_iCloud/computer.lab/멋사/LikeLion-Collab/curriculum/25.02.28/AppJava/src/com/sec13/myio/a.txt"), StandardOpenOption.READ)) {
-            ByteBuffer buffer = ByteBuffer.allocate(1024);
-            while (channel.read(buffer) > 0) {
-                buffer.flip();
+            ByteBuffer buffer = ByteBuffer.allocate(1024);  // 버퍼 크기 설정 
+            while (channel.read(buffer) > 0) {    // 1024 데이터 채널(비동기 병합할 대상인 a.txt)로 읽어들인다.
+                buffer.flip();	// 읽기 상태 전환
                 System.out.print(new String(buffer.array(), 0, buffer.limit()));
-                buffer.clear();
+                buffer.clear(); // 초기화
             }
         } catch (IOException e) {
             e.printStackTrace();

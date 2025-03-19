@@ -45,7 +45,7 @@ public class TruckStream {
 		int totalCost = distanceList.stream()
 							.mapToInt(truck::getCost)
 							.sum();
-		System.out.println("총 요금: " + totalCost);
+		System.out.println("총 요금: " + totalCost + "원");
 		
 
 

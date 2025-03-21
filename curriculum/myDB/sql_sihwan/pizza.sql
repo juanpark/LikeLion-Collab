@@ -27,3 +27,19 @@ efficiency 값에 따라 아래와 같이 구분된 값을 넣어 주세요.
 별칭은 efficiency_category로 설정해 주세요.
 이때 전체 로우를 efficiency 컬럼 기준, 그 다음 price 컬럼 순서대로 오름차순 정렬해 주세요. 여기서 위에서 5번째 로우까지만 출력합니다.
 */
+
+# 시환님 풀이:
+SELECT 
+    name, price,
+    price / cost AS efficiency, 
+    CASE 
+        WHEN price / cost >= 1 AND price / cost < 1.5 THEN '저효율 메뉴'
+        WHEN price / cost >= 1.5 AND price / cost < 1.7 THEN '중효율 메뉴'
+        ELSE '고효율 메뉴'
+    END AS efficiency_category
+FROM 
+    pizza_price_cost
+ORDER BY 
+    efficiency, price
+LIMIT 5;
+

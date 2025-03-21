@@ -31,4 +31,12 @@ category 컬럼, main_month 컬럼, 각 그룹에 속한 영화의 개수, 각 �
 각 그룹에 속한 영화의 개수에 movie_count라는 별칭을 붙여 주세요.
 각 그룹의 관객 수 합계에 total_audience라는 별칭을 붙여 주세요.
 */
-*/
+
+# 시환님 풀이:
+SELECT
+    category, main_month,
+    COUNT(*) AS movie_count,
+    SUM(view_count) AS total_audience
+FROM 2020_movie_report
+GROUP BY category, main_month
+HAVING main_month = 5 AND total_audience >= 3000000;

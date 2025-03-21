@@ -1,24 +1,10 @@
 #https://dev.mysql.com/doc/refman/8.4/en/bit-value-literals.html
-
-DROP TABLE T;
 USE MY_EXAM;
-CREATE TABLE t (
-b BIT(8)
-); # 8BIT를 사용하겠다 / 부울 값(TRUE,FALSE) /플래그 
-
-
+CREATE TABLE t (b BIT(8)); # 8BIT를 사용하겠다 / 부울 값(TRUE,FALSE) /플래그 
 #MYSQL 
--- INSERT INTO 테이블명 VALUES(값,,) ; // 값의 순서가 타입에 맞아야 한다.
-  -- EX) INSERT INTO 테이블명 VALUES(100, 'a', null);
-  -- EX) INSERT INTO 테이블명 VALUES(100, null, 'a'), ; // number, varchar, varchar
-
--- INSERT INTO 테이블명(컬럼명) VALUES(값) ;
--- INSERT INTO 테이블명(이름) VALUES('길동') ;
-
-# SET 변수 = 값 
 INSERT INTO t SET b = b'11111111';  #255 
 INSERT INTO t SET b = b'1010';  #10 
-INSERT INTO t SET b = b'0101'; # 5
+INSERT INTO t SET b = b'0101'; # 5b
 
 #SQL  
 INSERT INTO T VALUES(b'11'); ## 
@@ -37,29 +23,11 @@ SELECT b+0, BIN(b), OCT(b), HEX(b) FROM t;
 SELECT b FROM t;
 
 -- Q5  CAST함수를 이용해보자.   정수로 변환해보자.   
-HELP CAST; -- mysql>  SHOW WARNINGS;  SELECT CAST("1979aaa" AS YEAR);
+HELP CAST;
 SELECT CAST(B AS UNSIGNED) FROM T;
 
-/*
-mysql> SELECT CAST("1979aaa" AS YEAR);
-+-------------------------+
-| CAST("1979aaa" AS YEAR) |
-+-------------------------+
-|                    1979 |
-+-------------------------+
-1 row in set, 1 warning (0.01 sec)
 
-mysql> SHOW WARNINGS;
-+---------+------+-------------------------------------------+
-| Level   | Code | Message                                   |
-+---------+------+-------------------------------------------+
-| Warning | 1292 | Truncated incorrect YEAR value: '1979aaa' |
-+---------+------+-------------------------------------------+
-1 row in set (0.00 sec)
-*/
-
-
-#SET SQL_SAFE_UPDATES = 0;  # 수정 권한 풀기  
+# SET SQL_SAFE_UPDATES = 0;  # 수정 권한 풀기  
 -- update 테이블명 set 컬럼  = 변경할 값 ,,,, where  조건문  ;  -> 조건 수정 
 -- Q6. b'11111111' 을 b'0101'로 수정하자.  
 UPDATE T
@@ -172,45 +140,18 @@ SHOW VARIABLES LIKE 'character_set_system';
 
 SHOW VARIABLES LIKE 'datadir';
 
-USE MY_EXAM;
 DROP TABLE T1;
-
--- 테이블 생성해서 기본값을 대입해 보자.
 CREATE TABLE t1 (
-  -- literal defaults -> 크기를 지정, 수치를 크기 NUMBER (전체크기, 소수자리)
-  -- UUID_TO_BIN(UUID()) VER. 8.0 -> 인덱스 성능향상
-  -- UUID()는 보통 32개 자리를 사용 -> BINARY(16) 자리로 변경해서 사용
+  -- literal defaults
   i INT         DEFAULT 0,
   c VARCHAR(10) DEFAULT 'ABCD',
   -- expression defaults
   f FLOAT       DEFAULT (RAND() * RAND()),
-  b BINARY(16)  DEFAULT (UUID_TO_BIN(UUID())), -- UUID() MYSQL에서 고유ID 생성 
+  b BINARY(16)  DEFAULT (UUID_TO_BIN(UUID())),
   d DATE        DEFAULT (CURRENT_DATE + INTERVAL 1 YEAR),
-  p POINT       DEFAULT (Point(0,0)), -- 공간데이터 좌표 
+  p POINT       DEFAULT (Point(0,0)),
   j JSON        DEFAULT (JSON_ARRAY())
 );
-/*
-mysql> SELECT JSON_ARRAY(1, "ABC", NULL, TRUE, CURTIME());
-+---------------------------------------------+
-| JSON_ARRAY(1, "ABC", NULL, TRUE, CURTIME()) |
-+---------------------------------------------+
-| [1, "ABC", null, true, "11:21:54.000000"]   |
-+---------------------------------------------+
-1 row in set (0.00 sec)
-*/
-
-SELECT JSON_ARRAY(ENAME,JOB,SAL) AS 사원정보
-FROM MY_EMP.EMP
-WHERE DEPTNO = 10;
--- JSON_ARRAY() : 배열생성
-
--- JSON_OBJECT() : 객체생성 (KEY - VALUE)
-SELECT JSON_OBJECT('이름', ENAME, '직업', JOB, '봉급', SAL) AS 사원정보
-FROM MY_EMP.EMP
-WHERE DEPTNO = 10;
-
--- JSON_ARRAYGG() : GROUP BY 한 후 집계결과를 JSON 배열로 리턴한다.
-
 
 DESC  T1;
 INSERT INTO T1(i) VALUES(100); 

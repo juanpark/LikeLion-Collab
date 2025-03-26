@@ -248,7 +248,7 @@ FROM EMP;
 /*
 TO_BASE64()   = 인코딩 /  FROM_BASE64() = 디코딩 
    
-  BASE64 :  바이터리 데이터 [각 3byte(24bit)씩  4개의 6bit 그룹으로 나눈다.  2^6  = 64 ->  
+  BASE64 :  바이너리 데이터 [각 3byte(24bit)씩  4개의 6bit 그룹으로 나눈다.  2^6  = 64 ->  
              6bit 그룹에 2진 데이터를 표현할수 있는]  -> 
              문자열로 리턴 ( 만일 바이너리 데이터가 3의 배수가) 아닌경우 패딩문자 '='가 추가된다.              
    BASE64  :  이진데이터 분류  -> 문자에 매핑 (radix-64)  -> 인코딩 프로세싱(문자열로 리턴) ->  패딩      
@@ -263,30 +263,49 @@ SELECT TO_BASE64('abc'), FROM_BASE64(TO_BASE64('abc'));  -- BASE64인코딩
        ===> 01100001 01100010 01100011   (24bit)
        
 3. 6bit씩 나누기    ->  24을 6비트로 계산   -> 그대로 분할  
-011000   ->  24 (십진수)  [24	011000   	Y]
-010110   ->  22(십진수)   [22	010110	    W]
-001001  ->   9(십진수)    [ 9	001001	   J ]
-100011  ->  35(십진수)    [ 35 100011  	j] 
+011000   ->  24 (십진수)  [24		011000   	Y]
+010110   ->  22(십진수)   [22		010110	    W]
+001001  ->   9(십진수)    [ 9		001001	   	J]
+100011  ->  35(십진수)    [35 	100011  	j] 
 */
 # 패딩값 없이 진행 
 SELECT TO_BASE64('HELLO, MYSQL');  -- 바이너리 데이터->  radix-64	 -> ASCII  =  BASE64인코딩 
 HELP  TO_BASE64;
 
-SELECT LENGTH('A'),LENGTH('TEXT'), LENGTH('가'),LENGTH('한글') ;
+SELECT LENGTH('A'),LENGTH('TEXT'), LENGTH('가'),LENGTH('한글');
 SELECT CHAR_LENGTH('A'), CHAR_LENGTH('TEXT'), CHAR_LENGTH('가'),  CHAR_LENGTH('한글') ;
 HELP LENGTH;
 
 -- Q27. LOAD_FILE()  테이블을 이용해서 파일을 로드 해 보자.  
-SHOW VARIABLES  LIKE 'secure_file_priv';  #경로 확인    \\  /  \ 
+SHOW VARIABLES LIKE 'secure_file_priv';  #경로 확인    \\  /  \ 
 SHOW VARIABLES  LIKE  'max_allowed_packet'; #파일 크기 제한  
- -- 경로는 NULL, 파일 크기는 'max_allowed_packet', '67108864' 
+ -- 경로는 NULL, 파일 크기는 'max_allowed_packet', '67108864' / 1024 = 65536KB / 1024 = 64MB
+ -- 서버와 클라이언트 전송 최대 패킷 크기는 64MB / LOAD_FILE, BLOB
 
 
-SELECT LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.4\\Uploads\\APPLE.JPG');
-SELECT LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.4\\Uploads\\A.TXT');
+-- SELECT LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.4\\Uploads\\APPLE.JPG');
+-- SELECT LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.4\\Uploads\\A.TXT');
+SELECT LOAD_FILE('/Users/juanpark/mysql_exports/apple.jpg');
+SELECT LOAD_FILE('/Users/juanpark/mysql_exports/a.txt');
 SHOW VARIABLES  LIKE  'NO_AUTO_VALUE_ON_ZERO'; # 컬럼에 AUTO_INCREMENT 0값 저장 안함  
 
+-- Q1. 파일을 생성해서 자동증가 값을 확인 해보자.
 DROP TABLE MY_FILE;
+CREATE TABLE MY_FILE(
+	ID INT AUTO_INCREMENT PRIMARY KEY,
+    NAME VARCHAR(20)
+);
+
+DESC MY_FILE;
+
+INSERT INTO MY_FILE(NAME) VALUES('1');
+INSERT INTO MY_FILE VALUES(10, '1');
+INSERT INTO MY_FILE(NAME) VALUES('2');
+
+SELECT *
+FROM MY_FILE;
+
+
 CREATE TABLE MY_FILE(
     ID INT AUTO_INCREMENT  PRIMARY KEY,   # NO_AUTO_VALUE_ON_ZERO, PRIMARY KEY(U+N)  
     FILE_CONTENT  LONGTEXT
@@ -310,8 +329,10 @@ CREATE TABLE MY_IMAGE(
 
 DESC MY_IMAGE;
 INSERT INTO MY_IMAGE(IMG_CONTENT)  
-  VALUES(LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.4\\Uploads\\A.TXT')),
-        (LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.4\\Uploads\\APPLE.JPG'));  
+--  VALUES(LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.4\\Uploads\\A.TXT')),
+--        (LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.4\\Uploads\\APPLE.JPG'));  
+	VALUES (LOAD_FILE('/Users/juanpark/mysql_exports/a.txt'),
+			LOAD_FILE('/Users/juanpark/mysql_exports/apple.jpg'));
 
 INSERT INTO MY_IMAGE(IMG_CONTENT)  
   VALUES(LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.4\\Uploads\\A.TXT')),  
@@ -324,14 +345,62 @@ COMMIT;
 DELETE FROM  MY_IMAGE;
 COMMIT;
 
+-- -- 문자셋을 확인 해보자 ----
+SHOW VARIABLES LIKE 'character_set%';  -- 문자셋 확인 
+SHOW VARIABLES LIKE 'collation%';  -- 정렬 순서 비교 결정 
+SHOW COLLATION WHERE Collation = 'latin1_test_ci';
+
+-- 현재 스키마 및 테이블의 문자셋, 정렬 순서 확인하고 싶다.
+SELECT DEFAULT_CHARACTER_SET_NAME, DEFAULT_COLLATION_NAME
+FROM information_schema.SCHEMATA
+WHERE SCHEMA_NAME = 'my_emp';
+
+-- 데이터베이스 스키마 생성 시 문자셋, 정렬순을 지정해 보자. 
+CREATE DATABASE my_emp_bin
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_bin;
+
+SELECT DEFAULT_CHARACTER_SET_NAME, DEFAULT_COLLATION_NAME
+FROM information_schema.SCHEMATA
+WHERE SCHEMA_NAME = 'my_emp_bin';
+
+-- 테이블 생성 시 컬럼에 문자셋, 정렬순을 지정해 보자.
+CREATE TABLE emp_bin (
+    empno INT PRIMARY KEY,
+    ename VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  -- 대소문자 다르게 정렬하겠다.
+);
+
+
+/*
+mysql> SELECT 'A' = 'a';
++-----------+
+| 'A' = 'a' |
++-----------+
+|         1 |
++-----------+
+
+mysql> SELECT CAST('A' AS BINARY), CAST('a' AS BINARY);
++------------------------------------------+------------------------------------------+
+| CAST('A' AS BINARY)                      | CAST('a' AS BINARY)                      |
++------------------------------------------+------------------------------------------+
+| 0x41                                     | 0x61                                     |
++------------------------------------------+------------------------------------------+
+*/
+
 -- Q28)  WEIGHT_STRING(str [AS {CHAR|BINARY}(N)] [flags]) 사용해보자 
 -- 이름을 기준으로 언어규칙을 정의해서 정렬할 때 사용  (베트남어, 중국어, 라틴어....)
+DESC INFORMATION_SCHEMA.COLLATIONS;
+SELECT *
+FROM INFORMATION_SCHEMA.COLLATIONS;
+
+
 SELECT  ENAME
 FROM EMP
 ORDER BY WEIGHT_STRING(ENAME);
 
 SELECT ENAME, WEIGHT_STRING(ENAME)
 FROM EMP;
+
 -- Q29) EMP구조, 데이터를 가지고 동일한 TEST 테이블 생성하겠다. [키값 제외]
 CREATE TABLE  TEST
 AS
@@ -374,6 +443,7 @@ SELECT ENAME
 FROM TEST
 ORDER BY ENAME COLLATE utf8mb4_zh_ci; #---설치가 안되어 있는 경우  
 
+-- 8년 정도 utf8mb4_unicode_ci
 SELECT ENAME
 FROM TEST
 ORDER BY ENAME COLLATE utf8mb4_unicode_ci;      # unicode_language_id

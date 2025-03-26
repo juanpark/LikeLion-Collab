@@ -79,15 +79,25 @@ FROM EMP;
 -- ex): 'SMITH', '1980년도 12월 17일', ...
  SELECT ENAME, DATE_FORMAT(HIREDATE, '%Y년도 %m월 %d일') AS 입사한날짜
  FROM EMP;
+ 
+ SELECT ENAME, DATE_FORMAT(HIREDATE, '%m, %d, %Y') AS 입사한날짜
+ FROM EMP;
 
 -- Q5. 사원의 이름을 두번째 글자를 기준으로 내림차순 정렬하자. SUBSTRING, ORDER BY
 -- ex): 'CLARK', 'SMITH', 'BLAKE', ...
+SELECT ENAME
+FROM EMP
+ORDER BY SUBSTRING(ENAME,2,1) DESC;
 
 -- Q6. 사원의 이름과 길이를 출력하자. LENGTH
 -- ex): 'SMITH', 5, 'ALLEN', 5, ...
+SELECT CONCAT(ENAME, " ", 'NAME LENGTH = ', LENGTH(ENAME))
+FROM EMP;
 
 -- Q7. 사원번호, 사원의 이름, 연봉의 별칭으로 하나의 문자열로 출력하자. CONCAT
 -- ex): '7369SMITH800', '7499ALLEN1600', ...
+SELECT CONCAT(EMPNO, ENAME, ROUND(SAL, 0))
+FROM EMP;
 
 -- Q8. 사원의 이름을 역순으로 출력하자. REVERSE
 -- ex): 'HTIMS', 'NELLA', 'DRAH', ...
@@ -105,18 +115,37 @@ FROM EMP;
 
 -- Q11. 사원의 이름을 대문자로 변환하여 출력하자. UPPER
 -- ex): 'SMITH', 'ALLEN', ...
+SELECT UPPER(ENAME)
+FROM EMP;
 
 -- Q12. 사원의 이름을 소문자로 변환하여 출력하자. LOWER
 -- ex): 'smith', 'allen', ...
+SELECT LOWER(ENAME)
+FROM EMP;
 
 -- Q13. 사원의 이름에서 공백을 제거하고 출력하자. TRIM
+-- TRIM([{BOTH | LEADING | TRAILING} [remstr] FROM] str), TRIM([remstr FROM] str)
+/*
+mysql> SELECT TRIM('  bar   ');         			-> 'bar'
+mysql> SELECT TRIM(LEADING 'x' FROM 'xxxbarxxx');	-> 'barxxx'
+mysql> SELECT TRIM(BOTH 'x' FROM 'xxxbarxxx');		-> 'bar'
+mysql> SELECT TRIM(TRAILING 'xyz' FROM 'barxxyz');	-> 'barx'
+*/
 -- ex): 'SMITH', 'ALLEN', ...
+SELECT ENAME, LENGTH(ENAME), TRIM(ENAME)
+FROM EMP;
+
+SELECT TRIM(TRAILING 'xyz' FROM 'barxxyz') AS RES;
+SELECT TRIM(TRAILING 'xyz' FROM 'barxx1z') AS RES;
+
+SELECT LENGTH(TRIM(TRAILING ' ' FROM 'barxx1z        ')) AS RES;
 
 -- Q14. 사원의 이름을 10자리로 맞추고, 나머지 부분을 '*'로 채워 출력하자. LPAD
 -- ex): '*****SMITH', '*****ALLEN', ...
 SELECT ENAME, LPAD(ENAME, 10,'*') AS "LPAD",  RPAD(ENAME, 10,'*') AS "RPAD"
 FROM EMP;
-SELECT LPAD('hi',1,'??') AS "L", RPAD('hi',1,'??') AS "R";
+
+SELECT LPAD('hi', 3,'??') AS "L", RPAD('hi',1,'??') AS "R";
 #----->  길이를 '1'로 지정하면 원본 문자열을 잘라서 첫번째 문자만 리턴한다. 
 SELECT LPAD('hi',0,'??') AS "L", RPAD('hi',0,'??') AS "R";
 
@@ -128,12 +157,16 @@ SELECT LPAD('hi',0,'??') AS "L", RPAD('hi',0,'??') AS "R";
 
 -- Q17. 사원의 이름과 직업을 '-'로 연결하고, 전체를 대문자로 변환하여 출력하자. CONCAT, UPPER
 -- ex): 'SMITH-CLERK', 'ALLEN-SALESMAN', ...
+SELECT UPPER(CONCAT(ENAME, "-", JOB))
+FROM EMP;
 
 -- Q18. 사원의 이름을 5자리로 맞추고, 왼쪽에 '#' 문자를 추가하여 출력하자. LPAD
 -- ex): '#SMITH', '#ALLEN', ...
 
 -- Q19. 사원의 이름을 8자리로 맞추고, 오른쪽에 '!' 문자를 추가하여 출력하자. RPAD
 -- ex): 'SMITH!!!', 'ALLEN!!!', ...
+SELECT ENAME, RPAD(ENAME, 8, '!') AS RES
+FROM EMP;
 
 -- Q20. 사원의 이름이 'SMITH'인 경우 'SMITH'를 대문자로 변환하고, 그렇지 않으면 원래 이름을 출력하자. 
   -- CASE ~ WHEN ~THEN, UPPER 
@@ -143,11 +176,24 @@ SELECT  CASE WHEN ENAME= 'SMITH' THEN  UPPER(ENAME)
         END  AS  "결과"
 FROM EMP;		
 
+SELECT  CASE WHEN ENAME= 'SMITH' THEN  LOWER(ENAME) 
+        ELSE  ENAME
+        END  AS  "결과"
+FROM EMP;		
+
 -- Q21. 사원의 이름에서 처음으로 나타나는 'A'의 위치를 출력하자. LOCATE
+-- LOCATE(substr,str), LOCATE(substr,str,pos)
 -- ex): 2, 0, 3, ...
+SELECT ENAME, LOCATE('A', ENAME) AS 'A 위치'
+FROM EMP;
+
+SELECT ENAME, LOCATE('A', ENAME, 1) AS 'A 위치'
+FROM EMP;
 
 -- Q22. 사원의 이름에서 세 번째 글자부터 끝까지 추출하여 출력하자. SUBSTRING
 -- ex): 'ITH', 'LEN', 'RD', ...
+SELECT ENAME, SUBSTRING(ENAME, 3) AS RES
+FROM EMP;
 
 -- Q23. 사원의 이름이 'J'로 시작하는 경우 해당 이름을 대문자로 변환하여 출력하자. UPPER, LIKE
 -- ex): 'JONES', 'JAMES', ...
@@ -155,11 +201,43 @@ SELECT ENAME, UPPER(ENAME) AS "결과"
 FROM EMP
 WHERE ENAME LIKE 'J%';
 
+SELECT ENAME, LOWER(ENAME) AS "결과"
+FROM EMP
+WHERE ENAME LIKE 'J%';
+
+/*
+키값 조심!!!
+REPLACE works exactly like INSERT, except that if an old row in the
+table has the same value as a new row for a PRIMARY KEY or a UNIQUE
+index, the old row is deleted before the new row is inserted. 
+-> 테이블에 새로운 행을 삽입할 때 (PRIMARY KEY 또는 UNIQUE INDEX값이 충돌할 때)
+기존 행을 삭제하고 새로운 행을 삽인한다. 중복키 처리 방식이 INSERT하고 다르다.
+
+CASE 1: 키 또느 인덱스 중복
+새로운 행을 테이블에 삽입 -> PRIMARY KEY 또는 UNIQUE INDEX값이 중복된 값이 있을 경우
+-> 기존 중복행을 삭제 -> 새로운 행을 테이블에 삽입 (원하지 않는 케이스일 수 있음)
+CASE 2: 중복이 되지 않을 경우는 일반 INSERT INTO와 같다 
+
+REPLACE [LOW_PRIORITY | DELAYED]
+    [INTO] tbl_name
+    [PARTITION (partition_name [, partition_name] ...)]  	-- 특정 파티션에 데이터 교체
+    [(col_name [, col_name] ...)]							
+    { {VALUES | VALUE} (value_list) [, (value_list)] ...	-- 삽입할 값
+      |
+      VALUES row_constructor_list
+    }
+
+*/
 -- Q24. 사원의 이름에서 모든 'L' 문자를 제거하여 출력하자. REPLACE
 -- ex): 'SMITH', 'AEN', 'WARD', ...
+SELECT ENAME, REPLACE(ENAME, 'L', '') AS RES
+FROM EMP;
 
 -- Q25. 사원의 이름을 '*'로 감싸서 출력하자. CONCAT
 -- ex): '*SMITH*', '*ALLEN*', ...
+SELECT CONCAT('*', ENAME, '*')
+FROM EMP;
+
 ##################################################번외 편 
 -- Q26. BASE64  : 이메일  -> 텍스트 전용 시스템을 통해서 문제 발생될 부분(프린트 할수없는) 의 인코딩 
 --  radix-64:   64를 밑수로 사용하는 것   [a-z,A-Z, 0-9] + /   = 64개를 글자 

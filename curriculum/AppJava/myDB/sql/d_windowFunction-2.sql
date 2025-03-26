@@ -21,12 +21,16 @@ PERCENT_RANK()	: 상대적 백분율 순위 계산, 첫번째 값은 0
     
     
     
+    
+    
      1. 순위 함수  :   ROW_NUMBER() , RANK(), DENSE_RANK() , NTILE(N) ,,
      2. 집계 함수  :  MAX, MIN, COUNT,AVG, SUM ,,,,
 	 3. 행 순서 함수 :  LAG _현재행앞에 데이터, LEAD()_현재 행 뒤에 데이터 , FIRST_VALUE(), LAST_VALUE()
                      NTH_VALUE()
 	 4. 프레임함수 : CUME_DIST() _누적 분포 비율  /  PERCENT_RANK()   
-     
+    
+    https://dev.mysql.com/doc/refman/8.4/en/window-functions-frames.html
+    
     [선언형식 ]
     frame_extent:    {frame_start | frame_between}       -> 프레임시작위치 | 끝과  마지막 지정
 	frame_between:  BETWEEN frame_start AND frame_end   ->  프레임 시작과 끝  
@@ -166,6 +170,20 @@ ORDER BY DEPTNO, SAL DESC;
    RANK() OVER ( ORDER BY SAL DESC) AS "RANK"
    FROM EMP;
    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- Q10)  번외 편  사원 테이블에서 봉급의 합을 구하자.  
 -- OVER은 행의 결과집합이 리턴되어 결과 집합의 시작 부터 현재 행까지의 모든행에 대한 누적 합계
 SELECT SUM(SAL)  OVER (ORDER BY SAL) 누적합, SAL
@@ -174,9 +192,8 @@ FROM EMP;
 SELECT SUM(SAL)  OVER () 누적합, SAL
 FROM EMP;
 
-
 -- Q11) 같은 부서의 모든 사원의 급여 합계를 내보자. 
-SELECT DEPTNO, SAL, SUM(SAL) OVER (PARTITION BY DEPTNO) AS RES
+SELECT ENAME, DEPTNO, SAL, SUM(SAL) OVER (PARTITION BY DEPTNO) AS RES
 FROM  EMP;
 
 SELECT DEPTNO, SAL , SUM(SAL)
@@ -185,33 +202,50 @@ GROUP BY DEPTNO, SAL
 ORDER BY  1;
 
 
+
+
 -- Q12)  사원의 입사일과 지정된 날짜까지 입사한 사원의 직원수를 출력 해보자.  
 SELECT HIREDATE, COUNT(*) OVER (ORDER BY HIREDATE) AS "CNT"
 FROM EMP;
 
--- Q13) 년도별 고용수를 확인 하자.  
+-- Q13) 년도별 고용수를 확인 하자.  --> 년도별 직원 수
+-- CASE 1 : YEAR(), GROUP BY
 SELECT   YEAR(HIREDATE) , COUNT(*) AS EMP_COUNT
 FROM   EMP
 GROUP BY   YEAR(HIREDATE) 
-ORDER BY 1 ; 
---       3월 26일 	---
+ORDER BY 1 ;
 
+ 
+-- CASE 2: EXTRACT(unit FROM date) 	(EXTRACT(날짜속성 FROM date컬럼명)를 사용 
+/*
+Examples:
+mysql> SELECT EXTRACT(YEAR FROM '2019-07-02');
+        -> 2019
+mysql> SELECT EXTRACT(YEAR_MONTH FROM '2019-07-02 01:02:03');
+        -> 201907
+mysql> SELECT EXTRACT(DAY_MINUTE FROM '2019-07-02 01:02:03');
+        -> 20102
+mysql> SELECT EXTRACT(MICROSECOND
+    ->                FROM '2003-01-02 10:30:00.000123');
+        -> 123
+*/
 SELECT   EXTRACT(YEAR FROM HIREDATE)  AS  년도 , 
           COUNT(*) AS EMP_COUNT
 FROM   EMP
 GROUP BY    EXTRACT(YEAR FROM HIREDATE)
 ORDER BY 1 ; 
 
-
+-- CASE 3: EXTRACT(unit FROM date) 	(EXTRACT(날짜속성 FROM date컬럼명)를 사용하고 별칭사용
 SELECT   EXTRACT(YEAR FROM HIREDATE)  AS  년도 , 
           COUNT(*) AS EMP_COUNT
 FROM   EMP
 GROUP BY   년도    ##############컬럼 별칭사용  
 ORDER BY 1 ;
 
+
 -- Q14)  사원테이블에서 부서 번호와 각 부서 (DEPTNO) 직원의 평균 재직 기간(년)을 출력 하자.  
      --  현재 날짜는 오늘날짜로, 직원이 있는 부서만 계산을 한다.  
-     -- AVG, TIMESTAMPDIFF , COUNT 사용 
+     -- AVG, TIMESTAMPDIFF(unit,datetime_expr1,datetime_expr2):INTEGER , COUNT 사용 
      
      SELECT DEPTNO,  AVG(TIMESTAMPDIFF(YEAR, HIREDATE,NOW())) AS "평균재직기간" 
      FROM EMP
@@ -226,7 +260,10 @@ ORDER BY 1 ;
  -- Q16) 급여의 변동을 확인해 보고 싶다.  : 모집단 표본을 기본으로 분산하겠다. 
   -- 전체 데이터 셋이 아닌 표본 데이터 셋을 활용 
  --  부서번호와 각 부서에 대한 표본 분산을 출력 해보자.  
+ -- 표본분산: VAR_SAMP(expr) [over_clause] : WINDOW FUNCTION	N-1로 나누는 방식으로 계산된다.
+ -- 모집단 분산: VAR_POP(expr) [over_clause] : N으로 나누는 방식 
  
+ -- CASE 1:
    SELECT DEPTNO ,   VAR_SAMP(SAL) AS "RES"
    FROM EMP
    GROUP BY DEPTNO ;
@@ -236,8 +273,21 @@ ORDER BY 1 ;
    FROM EMP
    GROUP BY DEPTNO ;
      
+-- CASE 2: 윈도우함수를 활용해서 부서별로 급여의 표본분산을 출력하자 
+   SELECT 
+		DEPTNO ,   
+		VAR_SAMP(SAL) OVER (PARTITION BY DEPTNO) AS "RES"
+   FROM EMP;
+   
+-- CASE 3: 
+     SELECT 
+		DEPTNO ,   
+		VAR_POP(SAL) OVER (PARTITION BY DEPTNO) AS "RES"
+   FROM EMP;
+     
  -- Q17) 부서내 급여 표준 편차  : 부서의 개인 급여가 부서의 평균 급여와 얼마나 다른지 측정하는 것  
- --  STDDEV(EXPR)  :  표준 편차가 높을 수록 급여의 범위가 넓다.  
+ --  STDDEV(EXPR)  :  표준 편차가 높을 수록 급여의 범위가 넓다. STDDDEV_POP() 
+ -- 데이터가 평균을 중심으로 얼마나 퍼져 있는지 나타낸다.
  -- 사원의 각 부서별 봉급의 표준 편차 계산해 보자.  
  SELECT DEPTNO, 
         STDDEV(SAL) AS RES  # 모집단 표본을 기본으로 분산하겠다.  
@@ -258,6 +308,7 @@ GROUP_CONCAT([DISTINCT] expr [,expr ...]
 # 18-1 
 SELECT GROUP_CONCAT(ENAME)  AS RES
 FROM EMP;
+
 -- 18-2  고유한 직업리스트를 하나의 문자열로 결합해서 리턴  
  SELECT GROUP_CONCAT(DISTINCT JOB)
  FROM EMP;

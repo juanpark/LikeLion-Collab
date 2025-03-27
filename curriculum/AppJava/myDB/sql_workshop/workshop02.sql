@@ -1,140 +1,155 @@
 USE mywork;
+-- book 테이블을 활용한 윈도우 함수, 문자열 함수, 숫자 함수, 날짜 함수활용
+-- 결과 캡처가 없을 수 있으며 결과는 별칭 및 속성 명 기준임
 
-
--- 1. 대출 횟수가 20회 이상인 도서들의 식별번호, isbn, 제목, 대출횟수 정보를 조회하세요.
-SELECT BK_IDX, ISBN, TITLE, RENT_CNT
-FROM BOOK
-WHERE RENT_CNT >= 20;
-
--- 2. 등록일이 2020년 6월 20일 이후인 도서의 식별번호, isbn, 제목, 등록일자 정보를 조회하세요.
-SELECT BK_IDX, ISBN, TITLE, REG_DATE
-FROM BOOK
-WHERE REG_DATE > '2020-06-20';
-
--- 3. 카테고리가 'B001'이고 대출 횟수가 8회인 도서의 식별번호, isbn, 제목, 대출횟수 정보를 조회하세요.
-SELECT BK_IDX, ISBN, TITLE, RENT_CNT
-FROM BOOK
-WHERE CATEGORY = 'B001' AND RENT_CNT = 8;
-
--- 4. 저자가 '혜민'인 도서들의 도서들의 식별번호, isbn, 제목, 저자 정보를 조회하세요.
-SELECT BK_IDX, ISBN, TITLE, AUTHOR
-FROM BOOK
-WHERE AUTHOR LIKE '%혜민%';
-
--- 5. 도서 제목에 '소설'이 포함된 도서들의 제목 정보를 조회하세요.
-SELECT TITLE
-FROM BOOK
-WHERE TITLE LIKE '%소설%';
-
--- 6. 등록일이 2020년 4월 15일 이전이고 대출 횟수가 10회 이하인 도서들의 식별번호, isbn, 제목, 저자, 등록일, 대출횟수 정보를 조회하세요.
-SELECT BK_IDX, ISBN, TITLE, AUTHOR, REG_DATE, RENT_CNT
-FROM BOOK
-WHERE REG_DATE < '2020-04-15' AND RENT_CNT <= 10;
-
--- 7. 도서 제목이 '나는'으로 시작하는 도서들의 식별번호, isbn, 제목, 저자, 등록일, 대출횟수 정보를 조회하세요.
-SELECT BK_IDX, ISBN, TITLE, AUTHOR, REG_DATE, RENT_CNT
-FROM BOOK
-WHERE TITLE REGEXP '^나는';
-
--- 8. 도서 카테고리별 평균 대출건수와 총 대출건수 조회하세요.
-SELECT CATEGORY, AVG(RENT_CNT) AS '평균 대출건수', SUM(RENT_CNT) AS '총 대출건수'
-FROM BOOK
-GROUP BY CATEGORY;
-
--- 9. 가장 대출 횟수가 많은 도서 5권의 식별번호, isbn, 제목, 저자, 등록일, 대출횟수 정보를 조회하세요.
-SELECT BK_IDX, ISBN, TITLE, AUTHOR, REG_DATE, RENT_CNT
-FROM BOOK
-ORDER BY RENT_CNT DESC
-LIMIT 5;
-
--- 10. 도서 카테고리가 B002인 도서의 식별번호, isbn, 카테고리, 제목, 저자, 등록일정보를 등록일자 순으로 내림차순으로 조회하세요.
-SELECT BK_IDX, ISBN, CATEGORY, TITLE, AUTHOR, REG_DATE
-FROM BOOK
-WHERE CATEGORY = 'B002'
-ORDER BY REG_DATE DESC;
-
--- 11. 회원 등급이 ROLE_USER 인 회원을 이름으로 오름차순 정렬하여 조회하세요.
-SELECT *
-FROM MEMBER
-WHERE GRADE = 'ROLE_USER'
-ORDER BY USER_ID;
-
--- 12. 등급이 'ROLE_ADMIN'인 사용자 중 탈퇴하지 않은 사용자만 조회하세요.
-SELECT *
-FROM MEMBER
-WHERE GRADE ='ROLE_ADMIN' AND IS_LEAVE = 0;
-
--- 13. 등급 별 사용자 수를 조회하세요.
-SELECT GRADE, COUNT(GRADE)
-FROM MEMBER
-GROUP BY GRADE;
-
--- 14. 등급이 'ROLE_USER'이고 전화번호가 9로 끝나는 회원을 조회하세요.
-SELECT *
-FROM MEMBER
-WHERE GRADE = 'ROLE_USER' AND TELL REGEXP '9$';
-
--- 15. 퇴사하지 않은 사용자 중에서 등급이 'ROLE_ ADMIN' 인 사용자의 이메일 조회 (알파벳 순)
-SELECT EMAIL
-FROM MEMBER
-WHERE GRADE = 'ROLE_ADMIN' AND IS_LEAVE = 0
-ORDER BY EMAIL;
-
--- 16. 등급이 'ROLE_USER'이면서 퇴사하지 않은 사용자 중에서 전화번호의 4번째 숫자가 2이고 id가 E로 시작하는 사용자를 구하시오
-SELECT *
-FROM MEMBER
-WHERE GRADE = 'ROLE_USER' AND TELL LIKE '___-2%' AND USER_ID REGEXP '^E';
--- WHERE GRADE = 'ROLE_USER' AND TELL LIKE '___-2%';
--- WHERE GRADE = 'ROLE_USER' AND USER_ID REGEXP '^E';
-
--- 17. 게시글 중에서 "철학" 단어를 포함하는 것만 조회: 제목이나 내용에 "철학" 단어를 포함하는 게시글을 조회하세요.
-SELECT *
-FROM BOARD
-WHERE CONTENT LIKE '%철학%';
-
--- 18. 게시글 중에서 뷰 수가 높은 순으로 정렬하여 상위 10개만 조회: 뷰 수가 높은 순으로 정렬하여 상위 10개의 게시글만 조회하세요.
-SELECT *
-FROM BOARD
-ORDER BY VIEW_CNT DESC
-LIMIT 10;
-
--- 19. 게시글 중에서 조회수가 700 이상이고 작성자가 "Socrates"인 것만 조회
-SELECT *
-FROM BOARD
-WHERE USER_ID = 'SOCRATES' AND VIEW_CNT >= 700;
-
--- 20. 도서의 식별번호, 제목, 저자, 대분류를 조회하시오.
--- 카테고리가 'B0' 으로 시작하는 도서는 대분류를 ‘문학’으로, 카테고리가 'B1'로 시작하는 도서는
--- 대분류를 ‘전문서적’으로 표시하시오
-SELECT BK_IDX, TITLE, AUTHOR,
-CASE
-	WHEN CATEGORY LIKE 'B0%' THEN '문학'
-	WHEN CATEGORY LIKE 'B1%' THEN '전문서적'
-END AS 대분류
+-- Q1. 책 가격이 높은 순서로 순위를 매겨 책 제목, 가격과 함께 출력하시오. (RANK 함수 활용)
+SELECT TITLE, BOOK_AMT,
+RANK() OVER ( ORDER BY BOOK_AMT DESC) AS price_rank
 FROM BOOK;
 
--- 21. 대출상태가 'RE01' 인 대출도서 정보를 조회하시오.
-SELECT *
-FROM RENT_BOOK
-WHERE STATE = 'RE01';
-
--- 22. 대출도서가 2권 이상인 대출 건 제목을 조회하시오.
-SELECT TITLE
-FROM RENT_MASTER
-WHERE RENT_BOOK_CNT >= 2;
-
--- 23. 2020년 6월 25일 ~ 30일 사이에 입고된 도서의 식별번호, isbn, 제목, 등록일자 정보를 조회하시오.
-SELECT BK_IDX, ISBN, TITLE, REG_DATE
+-- Q2) 카테고리별로 대여 횟수 순위를 매겨 책 제목, 대여 횟수와 함께 출력하시오.
+-- 풀이 1:
+SELECT BK_IDX, CATEGORY, TITLE, RENT_CNT,
+		DENSE_RANK() OVER (
+        PARTITION BY CATEGORY
+        ORDER BY RENT_CNT DESC
+    )AS rent_rank
+FROM BOOK;
+-- 풀이 2:
+SELECT BK_IDX, CATEGORY, TITLE, RENT_CNT,
+       DENSE_RANK() OVER w AS rent_rank
 FROM BOOK
-WHERE REG_DATE BETWEEN '2020-06-25' AND '2020-06-30';
-
--- 24. 2023년 12월에 탈퇴한 사용자를 조회하시오.
-SELECT *
-FROM MEMBER_INFO
-WHERE LEAVE_DATE BETWEEN '2023-12-01' AND '2023-12-31';
+WINDOW w AS (PARTITION BY CATEGORY ORDER BY RENT_CNT DESC);
 
 
+-- Q3) 등록일 기준으로 가장 오래된 도서와 가장 최근 도서 제목을 각각 출력하시오.
+-- (FIRST_VALUE, LAST_VALUE 함수 활용)
+SELECT BK_IDX, TITLE, REG_DATE,
+	FIRST_VALUE(TITLE) OVER (ORDER BY REG_DATE) AS oldest_book,
+    LAST_VALUE(TITLE) OVER (ORDER BY REG_DATE
+		ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS newest_book
+FROM BOOK;
 
+-- Q4) 카테고리별 평균 가격과 각 도서의 가격 차이를 계산하여 책 제목과 함께 출력하시오.
+-- (AVG 함수 활용)
+SELECT BK_IDX, CATEGORY, TITLE, BOOK_AMT,
+	AVG(BOOK_AMT) OVER (PARTITION BY CATEGORY) AS avg_amt,
+	BOOK_AMT - AVG(BOOK_AMT) OVER (PARTITION BY CATEGORY) AS diff_avg
+FROM BOOK;
+    
+-- Q5) 카테고리별 총 대여 횟수를 계산하여 책 제목과 함께 출력하시오. (SUM 함수 활용)
+SELECT BK_IDX, CATEGORY, TITLE, RENT_CNT,
+	SUM(RENT_CNT) OVER (PARTITION BY CATEGORY) AS total_rent
+FROM BOOK;
 
+-- Q6) 책 제목을 대문자로 변환하여 출력하시오. (UPPER 함수 활용)
+SELECT TITLE, UPPER(TITLE) AS upper_title
+FROM BOOK;
 
+-- Q7) 저자명이 '김'씨인 도서의 제목과 저자명을 출력하시오. (LEFT 함수 활용)
+SELECT TITLE, AUTHOR
+FROM BOOK
+WHERE LEFT(TRIM(AUTHOR), 1) = '김';
+    
+-- Q8) 도서 설명(INFO)에서 'JAVA'라는 단어가 포함된 도서의 제목과 설명을 출력하시오.
+-- (INSTR 함수 활용)
+SELECT TITLE, INFO
+FROM BOOK
+WHERE INSTR(INFO, 'JAVA') > 0;
+-- WHERE INSTR(INFO, '도') > 0;
 
+-- Q9) 제목 길이가 10자 이상인 도서의 제목과 글자 수를 출력하시오. (CHAR_LENGTH 함수 활용)
+SELECT TITLE, CHAR_LENGTH(TITLE) AS len
+FROM BOOK
+WHERE CHAR_LENGTH(TITLE) >= 10;
+
+-- Q10) 도서 가격에 부가세(10%)를 추가한 금액을 계산하고, ₩ 기호가 붙은 통화 형식으로 변환하여 책 제목과 함께 출력하시오.
+-- (FORMAT + CONCAT 문자열 함수 활용)
+SELECT TITLE, BOOK_AMT,
+	CONCAT("₩", FORMAT(BOOK_AMT * 1.1, 0)) AS price_with_tax
+FROM BOOK;
+
+-- Q11) 등록일로부터 현재까지 경과한 날짜를 계산하여 책 제목과 함께 출력하시오. (DATEDIFF 함수 활용)
+SELECT TITLE, REG_DATE, DATEDIFF(NOW(), REG_DATE) AS days_passed
+FROM BOOK;
+
+-- Q12) 대여 횟수의 최대값과 각 도서의 대여 횟수 차이를 계산하여 책 제목과 함께 출력하시오. (MAX 함수 활용)
+SELECT TITLE, RENT_CNT,
+	MAX(RENT_CNT) OVER () - RENT_CNT AS diff_max_rent
+FROM BOOK;
+
+-- Q13) 저자명이 '이'로 시작하는 도서의 제목과 저자명을 출력하시오. (LEFT 함수 활용)
+SELECT TITLE, AUTHOR
+FROM BOOK
+WHERE LEFT(TRIM(AUTHOR), 1) = '이';
+
+-- Q14) 책 제목 중 'SQL'이 포함된 도서의 제목을 출력하시오. (LOCATE 함수 활용)
+SELECT TITLE
+FROM BOOK
+WHERE LOCATE('SQL', TITLE) > 0;
+-- WHERE LOCATE('MONEY', TITLE) > 0;
+
+-- Q15) 도서 가격의 10%를 할인한 금액을 계산하여 책 제목과 함께 출력하시오. (ROUND 함수활용)
+SELECT TITLE, BOOK_AMT,
+	CONCAT("₩", ROUND(BOOK_AMT * 0.9, 0)) AS discounted_price
+FROM BOOK;
+
+-- Q16) 도서 가격을 천 단위로 절삭하여 책 제목과 함께 출력하시오. (FLOOR 함수 활용)
+SELECT TITLE, FLOOR(BOOK_AMT) AS 천원
+FROM BOOK;
+
+-- Q17) 등록일에서 월만 추출하여 책 제목과 함께 출력하시오. (MONTH 함수 활용)
+SELECT TITLE, REG_DATE, MONTH(REG_DATE) AS reg_month
+FROM BOOK;
+
+-- Q18) 도서 제목과 저자명을 연결하여 출력하시오. (CONCAT 함수 활용)
+SELECT TITLE, AUTHOR, CONCAT(TITLE, " - ", AUTHOR) AS book_info
+FROM BOOK;
+
+-- UNSOLVED Q19) 대여가 한 번도 안 된 도서의 제목과 대여 횟수를 출력하시오. (IFNULL 함수 활용)
+SELECT IFNULL(RENT_CNT, TITLE)
+FROM BOOK;
+
+-- Q20) 전체 도서의 총 권수와 각 도서의 제목을 함께 출력하시오. (COUNT() OVER() 활용)
+SELECT TITLE,
+	COUNT(TITLE) OVER()
+FROM BOOK;
+
+-- Q21) 대여 횟수가 많은 순으로 상위 3권의 책 제목과 대여 횟수를 출력하시오. (LIMIT 활용)
+SELECT TITLE, RENT_CNT
+FROM BOOK
+ORDER BY RENT_CNT DESC
+LIMIT 3;
+
+-- Q22) 책 제목에서 공백을 제거한 결과를 출력하시오. (REPLACE 함수 활용)
+SELECT TITLE, REPLACE(TITLE, " ", "") AS no_space_title
+FROM BOOK;
+
+-- Q23) 도서 가격의 제곱값을 계산하여 책 제목과 함께 출력하시오. (POWER 함수 활용)
+SELECT TITLE, BOOK_AMT, POWER(BOOK_AMT, 2) AS price_squared
+FROM BOOK;
+
+-- Q24) 등록일의 요일을 계산하여 책 제목과 함께 출력하시오. (DAYNAME 함수 활용)
+SELECT TITLE, REG_DATE, DAYNAME(REG_DATE) AS reg_weekday
+FROM BOOK;
+
+-- Q25) 대여 횟수를 기준으로 다음 도서의 대여 횟수를 함께 출력하시오. (LEAD 함수 활용)
+SELECT TITLE, RENT_CNT, 
+	LEAD(RENT_CNT) OVER (ORDER BY RENT_CNT) AS next_rent_cnt
+FROM BOOK;
+
+-- Q26) 도서 가격에 따라 가격 등급을 '고가', '중가', '저가'로 구분하여 책 제목과 함께 출력하시오. (CASE WHEN 활용)
+SELECT TITLE, BOOK_AMT,
+	CASE
+		WHEN BOOK_AMT < 5 THEN '저가'
+        WHEN BOOK_AMT < 10 THEN '중가'
+        ELSE '고가'
+	END AS pice_level
+FROM BOOK;
+
+-- Q27) 책 제목에서 괄호 ( )를 제거하고, 제목의 앞 5글자만 추출하여 출력하시오.
+-- (REGEXP_REPLACE와 SUBSTRING 함수 활용)
+SELECT TITLE, SUBSTRING(REGEXP_REPLACE(TITLE, '[()]', ''), 1, 5) AS short_title
+FROM BOOK;
+
+-- Q28) 등록일 기준으로 누적 도서 수를 계산하여 책 제목과 함께 출력하시오. (COUNT + 윈도우 함수 활용)

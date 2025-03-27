@@ -1,4 +1,4 @@
-
+USE MYWORK;
 -- Q1. 대출 횟수가 20회 이상인 도서들의 식별번호, isbn, 제목, 대출횟수 정보를 조회하세요.
 SELECT BK_IDX, ISBN, TITLE, RENT_CNT FROM BOOK WHERE RENT_CNT >= 20;
 

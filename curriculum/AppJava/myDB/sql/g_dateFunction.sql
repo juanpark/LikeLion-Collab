@@ -98,9 +98,21 @@ FROM dept
 ORDER BY loc ASC
 LIMIT 1;
 
+############ USE WORLD ################
+-- 데이터베이스 전환
+USE WORLD;
+
+-- city의 구조를 확인 해보자 22번부터 city 테이블 문제는 스킵 
+DESC city;
+DESC country;
+DESC countrylanguage;
+
+SELECT *
+FROM CITY;
+
 -- Q22. world의 city 테이블에서 각 도시의 개월 수를 계산하라 (현재 날짜 기준).
 -- 예: 도시명, 개월 수
-SELECT city, TIMESTAMPDIFF(MONTH, date, CURDATE()) AS months_since_established
+SELECT NAME, TIMESTAMPDIFF(MONTH, date, CURDATE()) AS months_since_established
 FROM world.city;
 
 -- Q23. world의 city 테이블에서 가장 최근에 설립된 도시를 출력하라.

@@ -185,7 +185,7 @@ WHERE  RES >= 5; # 별칭 비교  오류 난다.    WHERE 절은 별칭 비교�
 	DATEDIFF(date1, date2): 두 날짜 간의 차이를 일수로 리턴.
 4. 날짜 형식 변환
 	DATE_FORMAT(date, format): 날짜를 지정된 형식으로 리턴. 예: '%Y-%m-%d', '%d/%m/%Y'.
-	STR_TO_DATE(string, format): 문자열을 날짜 형식으로 변환 -> CAST 
+	STR_TO_DATE(string, format): 문자열을 날짜 형식으로 변환 -> CAST() 
 5. 시간 계산
 	ADDDATE(date, INTERVAL value unit): 날짜에 시간 간격을 추가 (DATE_ADD와 유사).
 	SUBDATE(date, INTERVAL value unit): 날짜에서 시간 간격 리턴 (DATE_SUB와 유사).

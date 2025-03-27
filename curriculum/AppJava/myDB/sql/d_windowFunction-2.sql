@@ -62,7 +62,7 @@ PERCENT_RANK()	: 상대적 백분율 순위 계산, 첫번째 값은 0
  -- LAG(expr [, N[, default]]) [null_treatment] over_clause
  -- LAG(컬럼명 [, N[, 기본값]]) [null_treatment] over_clause
  -- 현재행 기준으로 N행 이전의 컬럼값을 리턴, 없으면 기본값 리턴(생각하면 NULL)
- 
+ USE MY_EMP;
  -- Q1) 급여가 높은 순서대로 정렬하고 각 사원의 {이전 사원 급여} = LAG(SAL,1)를 리턴 해보자 
  SELECT ENAME, SAL, LAG(SAL,1)  OVER (ORDER BY SAL DESC)  AS res
  FROM EMP;

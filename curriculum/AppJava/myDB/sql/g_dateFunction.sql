@@ -161,7 +161,7 @@ USE MY_EMP;
 -- 1981년도 6월에 입사한 직원들의 사원번호, 사원의 이름, 입사일  
 SELECT EMPNO, ENAME, HIREDATE
 FROM EMP
-WHERE  YEAR(HIREDATE)  = 1981  AND MONTH(HIREDATE )  =6;
+WHERE  YEAR(HIREDATE)  = 1981  AND MONTH(HIREDATE )  = 6;
 
 -- Q31) 입사 후  근무 기간이 5년 이상인 직원들의 사원번호, 사원의 이름, 입사일을 출력해보자. 
 SELECT EMPNO, ENAME, HIREDATE, DATEDIFF(CURDATE() , HIREDATE) / 365  AS RES

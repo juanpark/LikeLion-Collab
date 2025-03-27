@@ -154,9 +154,20 @@ FROM BOOK;
 
 USE mywork;
 -- Q28) 등록일 기준으로 누적 도서 수를 계산하여 책 제목과 함께 출력하시오. (COUNT + 윈도우 함수 활용)
-SELECT TITLE, REG_DATE
+SELECT TITLE, REG_DATE,
+	COUNT(*) OVER (ORDER BY REG_DATE 
+    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_count
+FROM BOOK;
 	
 
 -- Q29) 저자명이 NULL인 도서의 제목과 저자명을 출력하시오. (IS NULL 활용)
+SELECT TITLE, AUTHOR
+FROM BOOK
+WHERE AUTHOR IS NULL;
 
 -- Q30) 대여 횟수 순위를 매겨 동일 값이면 같은 순위로 책 제목과 함께 출력하시오. (RANK 함수 활용)
+SELECT TITLE, RENT_CNT,
+		DENSE_RANK() OVER (
+        ORDER BY RENT_CNT DESC
+    )AS rent_rank
+FROM BOOK;

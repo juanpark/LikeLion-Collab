@@ -42,10 +42,17 @@ using (같은컬럼명) ,  on (다른 컬럼명)
 두 테이블 모두에 일치하는 항목이 있으면 행을 반환
 조인된 테이블의 행이 일치하지 않으면 행이 반환되지 않는다.
 
+-- CASE 1: 컬럼명이 다를 때
 SELECT columns
 FROM table1
 INNER JOIN table2
-ON table1.common_column = table2.common_column;
+ON table1.common_column1 = table2.common_column2;
+
+-- CASE 2: 컬럼명이 같을 때
+SELECT columns
+FROM table1 JOIN table2
+  USING(common_column);
+
 
 2)외부 조인(OUTER JOIN): 주종 관계를 만들어서 주 테이블은 전체출력, 종테이블은 True값만 출력된다.
 OUTER JOIN에는 LEFT, RIGHT, FULL의 세 가지 유형
@@ -97,6 +104,7 @@ FROM EMP, DEPT
 WHERE EMP.DEPTNO = DEPT.DEPTNO;
 
 -- ANSI
+EXPLAIN
 SELECT ENAME, DNAME
 FROM EMP INNER JOIN DEPT USING(DEPTNO);
 
@@ -135,11 +143,88 @@ SELECT *
 FROM X JOIN Y ON X1 = Y1; -- 두 테이블의 속성명이 다른 값은 값을 추출 할 때 ON
 
 -- SQL
-EXPLAIN
+EXPLAIN -- TYPE ALL이 나온다면 인덱스를 설정한다. (최악의 튜닝 경우) -> WHERE조건문, ON, USING컬럼에서 인덱스 확인!!
 SELECT *
 FROM X, Y
 WHERE X1 = Y1;
 
+-- Q4. 주종 관계를 만들어서 조인을 해보자. OUTER JOIN에는 LEFT, RIGHT, FULL의 세 가지 유형.
+-- 주 테이블의 전체 출력, 종테이블은 TRUE 리턴하고 FALSE는 NULL로 리턴 
+
+/*
+	주 테이블의 COUNT()에 맞추어서 종 테이블의 NULL 값이 채워지는 결과 확인 
+    종 테이블의 COUNT()가 주 테이블 보다 클 때는 TRUE 값에 의한 행의 리턴이 주 테이블의 값이 늘어나는 것을 확인
+    둘 다 NULL 값 확인 
+*/
+
+INSERT INTO X VALUES('B','D');
+
+INSERT INTO X VALUES(NULL, NULL);
+INSERT INTO X VALUES(NULL, NULL);
+INSERT INTO X VALUES(NULL, NULL);
+
+INSERT INTO X VALUES('F','D');
+INSERT INTO X VALUES('C','3');
+
+INSERT INTO X VALUES('C','1');
+INSERT INTO X VALUES('C','2');
+
+SELECT * FROM X;
+SELECT * FROM Y;
+SELECT COUNT(*) FROM X;
+SELECT COUNT(*) FROM Y;
+
+-- Q4-1. Y를 주 테이블로 만들고 X를 종 테이블로 지정하자. RIGHT OUTER JOIN
+-- ANSI
+SELECT *
+FROM X RIGHT OUTER JOIN Y
+ON X1 = Y1;
+
+-- SQL
+
+-- Q4-2. X를 주 테이블로 만들고 Y를 종 테이블로 지정하자. LEFT OUTER JOIN
+-- ANSI
+SELECT *
+FROM X LEFT OUTER JOIN Y
+ON X1 = Y1;
+-- SQL
 
 
+-- Q4-3. FULL OUTER JOIN을 해보자. MySQL의 경우 RIGHT OUTER JOIN + LEFT OUTER JOIN (UNION)
+-- ANSI
+-- EXPLAIN
+SELECT *
+	FROM X RIGHT OUTER JOIN Y
+	ON X1 = Y1
+UNION
+SELECT *
+	FROM X LEFT OUTER JOIN Y
+	ON X1 = Y1;
+
+-- GPT 버전 
+SELECT * 
+FROM X LEFT OUTER JOIN Y
+ON X1 = Y1
+UNION
+SELECT * 
+FROM Y LEFT OUTER JOIN X
+ON X1 = Y1;
+
+-- 강사님 버전
+ SELECT   *
+	FROM  X  RIGHT  OUTER JOIN Y 
+    ON   X1= Y1
+UNION 
+SELECT  *
+	FROM  Y LEFT  OUTER JOIN X
+    ON   X1= Y1; 
+
+/*
+  FULL OUTER JOIN =  RIGHT OUTER JOIN  + LEFT OUTER JOIN     / UNION(중복항목x ), UNION ALL(중복항목 O) 
+ 1) UNION 앞의 쿼리에서  Y의 모든 레코드를 검색하고 X테이블에 일치하는 레코드를 검색한다.
+ 2) UNION 뒤의 쿼리에서  Y의 모든 레코드를 검색하고 X테이블에 일치하는 레코드를 검색한다. 
+ 3) UNION은 두개의 결과 레코드를 결합해서 리턴한다.
+ 4) UNION 쿼리는 두개 쿼리 결과 부분에서 열의 개수와 유형일치를 확인한다.
+ 5) 중복행 제거 후 결합한다.
+ */
 

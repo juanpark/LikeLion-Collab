@@ -106,3 +106,178 @@ WHERE DEPTNO IN (	SELECT DEPTNO
 					FROM DEPT
 					WHERE LOC = 'CHICAGO'
 				);
+                
+-- Q6. 부하직원이 있는 사원의 사원 번호와 이름을 출력하자. -> 자기자신(EMPNO)이 관리자(MGR)이면 된다.
+SELECT EMPNO, ENAME
+FROM EMP
+WHERE EMPNO IN (SELECT MGR
+				FROM EMP);
+                
+SELECT EMPNO, ENAME
+FROM EMP
+WHERE EMPNO IN (SELECT MGR 
+				FROM EMP 
+                WHERE MGR IS NOT NULL);
+
+SELECT EMPNO, ENAME
+FROM EMP
+WHERE EMPNO = ANY (	SELECT IFNULL(MGR,0)
+					FROM EMP); 	-- DATA OR DATA OR .... NULL) = ANY
+
+/*
+  ANY ( DATA OR DATA OR ....NULL) 
+ = ANY      하나라도 만족하는 값이 있으면 결과를 리턴하며 IN과 동일함
+ANY      값들 중 최소값 보다 크면 결과를 리턴
+ >= ANY  값들 중 최소값 보다 크거나 같으면 결과를 리턴
+ < ANY      값들 중 최대값 보다 작으면 결과를 리턴
+ <= ANY  값들 중 최대값 보다 작거나 같으면 결과를 리턴
+ <> ANY  모든 값들 중 다른 값만 리턴, 값이 하나일 때만 가능함
+
+ALL( DATA  AND DATA AND ....NULL) 
+ALL      값들 중 최대값 보다 크면 결과를 리턴
+ >= ALL  값들 중 최대값 보다 크거나 같으면 결과를 리턴
+ < ALL      값들 중 최소값 보다 작으면 결과를 리턴
+ <= ALL  값들 중 최소값 보다 작거나 같으면 결과를 리턴
+ = ALL      모든 값들과 같아야 결과를 리턴, 값이 하나일 때만 가능함
+ <> ALL  모든 값들과 다르면 결과를 리턴 
+ */
+ 
+ -- Q7. 부하직원이 없는 사원의 사원번호와 이름을 출력하자. -> 자기자신이 관리자이면 된다의 반대
+ SELECT EMPNO, ENAME
+ FROM EMP
+ WHERE EMPNO NOT IN (	SELECT IFNULL(MGR,0)
+						FROM EMP);  -- (DATA AND DATA AND ,,, NULL) != ALL
+      
+ SELECT EMPNO, ENAME
+ FROM EMP
+ WHERE EMPNO NOT IN (	SELECT IFNULL
+						FROM EMP
+                        WHERE MGR IS NOT NULL);      
+      
+SELECT EMPNO, ENAME
+FROM EMP
+WHERE EMPNO != ALL (	SELECT IFNULL(MGR,0)
+						FROM EMP);
+                        
+-- Q8. KING에게 보고하는 사원의 이름과 월급을 출력하자.
+-- 직속상관(MGR)이 KING인 사원의 이름과 월급
+-- KING의 사원번호(EMPNO)가 MGR(상사번호)인 사원들을 찾아서 리턴
+SELECT ENAME, SAL
+FROM EMP
+WHERE MGR = (	SELECT EMPNO
+				FROM EMP
+                WHERE ENAME = 'KING');
+
+-- Q9. 20번 부서의 사원 중 가장 많은 월급을 받는 사원들 보다 더 많은 월급의 받는 사원의 이름과 월급을 출력하자
+-- 더 많은 월급을 받는
+-- 사원의 이름과 월급을 출력하자
+-- MAX 사용
+SELECT ENAME, SAL
+FROM EMP
+WHERE SAL > (	SELECT MAX(SAL)
+				FROM EMP
+				WHERE DEPTNO = 20);
+                
+SELECT ENAME, SAL,
+       (SELECT MAX(SAL) FROM EMP WHERE DEPTNO = 20) AS MAX_SAL_DEPT20
+FROM EMP
+WHERE SAL > (
+    SELECT MAX(SAL)
+    FROM EMP
+    WHERE DEPTNO = 20
+);
+			
+-- Q9-1. 20번 부서의 사원 중 가장 많은 월급을 받는 사원들 보다 더 많은 월급의 받는 사원의 이름과 월급을 출력하자
+-- (ALL, ANY 둘 중 하나 사용하자)
+SELECT ENAME, SAL
+FROM EMP
+WHERE SAL > ALL ( 	-- (DATA AND DATA AND,,, NULL)
+	SELECT SAL 
+	FROM EMP
+	WHERE DEPTNO = 20
+);
+
+-- Q10. 20번 부서의 사원 중 가장 적은 월급을 받는 사원들 보다 더 많은 월급의 받는 사원의 이름과 월급을 출력하자
+-- (ALL, ANY 둘 중 하나 사용하자. MIN, MAX 사용해서 2개의 쿼리 만들자)
+SELECT ENAME,SAL
+FROM EMP
+WHERE SAL > (
+	SELECT MIN(SAL)
+    FROM EMP
+    WHERE DEPTNO = 20
+);
+
+SELECT ENAME, SAL
+FROM EMP
+WHERE SAL > ANY ( 	-- (DATA OR DATA OR,,, NULL) 
+	SELECT SAL 
+    FROM EMP
+    WHERE DEPTNO = 20
+);
+
+-- Q11. 직업이 SALESMAN인 사원 중 가장 많은 월급을 받는 사원보다 더 많은 월급을 받는 사원의 이름과 월급을 출력하자.
+-- (MIN, MAX) 사용하지 말자. SALESMAN이 리턴하는 값들보다 크다.
+SELECT ENAME, SAL
+FROM EMP
+WHERE SAL > ALL (
+	SELECT SAL
+    FROM EMP
+    WHERE JOB = 'SALESMAN'
+);
+
+-- Q12. 직업이 SALESMAN인 사원 중 가장 적은 월급을 받는 사원보다 더 적은 월급을 받는 사원의 이름과 월급을 출력하자.
+-- (MIN, MAX) 사용하지 말자.
+SELECT ENAME, SAL
+FROM EMP
+WHERE SAL < ALL (
+	SELECT SAL
+    FROM EMP
+    WHERE JOB = 'SALESMAN'
+);
+
+###############################################################
+
+/*
+https://dev.mysql.com/doc/refman/8.4/en/with.html#common-table-expressions-recursive
+  Recursive Common Table Expressions [계층 구조를 재귀적으로 탐색할 때 사용]   :  재귀적 CTE
+  WITH RECURSIVE -> 자기 자신을 반복 호출하는 쿼리 : 계층구조(트리), 반복구조 확인하는 쿼리 
+  
+  WITH RECURSIVE cte (n) AS
+(
+  SELECT 1		-- [1] 시작값
+  UNION ALL		
+  SELECT n + 1 FROM cte WHERE n < 5		-- [2] 다음값을 생성 
+)
+SELECT * FROM cte;
+  */
+  
+-- Q13. 1 ~ 5까지 CTE를 활용해서 값을 출력 해보자.
+  WITH RECURSIVE cte (n) AS
+(
+  SELECT 1		-- [1] 시작값
+  UNION ALL		
+  SELECT n + 1 FROM cte WHERE n < 5		-- [2] 다음값을 생성 
+)
+SELECT * FROM cte;
+
+-- Q14. CTE를 사용해서, MGR 상관부터 말단까지 구조를 탐색해 보자.
+WITH RECURSIVE EMP_RES AS
+(
+	-- [1] 최상위 정보를 출력 해보자.
+	SELECT EMPNO, ENAME, MGR, 1 AS LEVEL
+    FROM EMP
+    WHERE MGR IS NULL
+    UNION ALL
+    
+    -- [2] 각 사원의 (부하직원)을 재귀적으로 출력하자.
+    SELECT E.EMPNO, E.ENAME, E.MGR , ET.LEVEL + 1
+    FROM EMP E
+		JOIN EMP_RES ET ON E.MGR = ET.EMPNO
+)
+SELECT * 
+FROM EMP_RES;
+
+-- [1] 최상위 정보를 출력 확인.
+SELECT EMPNO, ENAME, MGR, 1 AS LEVEL
+FROM EMP
+WHERE MGR IS NULL;

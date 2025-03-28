@@ -277,7 +277,88 @@ WITH RECURSIVE EMP_RES AS
 SELECT * 
 FROM EMP_RES;
 
--- [1] 최상위 정보를 출력 확인.
-SELECT EMPNO, ENAME, MGR, 1 AS LEVEL
+-- Q14-1. 위 내용을 GetEmp_Res()로 프로시로 만들어 호출 해보자. = Static void Method형
+CALL 01_GetEmp_Res();
+
+-- 프로시저 내용을 확인하자.
+SHOW CREATE PROCEDURE 01_GetEmp_Res;
+
+
+-- Q15. CTE구구단 중에 3단을 출력해보자.
+WITH RECURSIVE GuGuDan AS (
+-- [1] 초기값 지정 3 * 1
+SELECT 3 AS DAN, 1 AS NUM, 3*1 AS RESULT
+
+UNION ALL
+-- [2] 재귀적으로 NUM을 1씩 증가 시키면서 9까지 반복한다.
+SELECT DAN, NUM+1, DAN * (NUM + 1)
+FROM GuGuDan
+WHERE NUM < 9
+)
+-- [3] 전체 출력
+SELECT CONCAT(DAN, " * ", NUM, " = ", RESULT) AS GuGuDan_PRN
+FROM GuGuDan;
+
+call 02_GuGuDan();
+call 03_GuGuDan(4);
+call 03_GuGuDan(5);
+
+-- Q16. CTE를 활용해서 피보나치 수열 계산해보자: 두 숫자를 더해서 다음 숫자를 만드는 수혈
+-- 0, 1, 1, 2, 3, 5, 8, 13,,,
+-- 첫번째와 두번째 항은 각각 0과 1이고, 그 이후에 각 항은 이전 두항의 합이다.
+
+WITH RECURSIVE Fibonacci_CTE AS (
+-- [1] 초기값 (N = 0, FIB = 0, PREV_FIB = 1)
+SELECT 0 AS N, 0 AS FIB, 1 AS PREV_FIB
+UNION ALL
+-- [2] 재귀적으로 피보나치 수열을 계산하자
+SELECT N + 1, PREV_FIB AS FIB, FIB + PREV_FIB AS PREV_FIB
+FROM Fibonacci_CTE
+WHERE N < 10
+)
+SELECT N AS "항번호", FIB AS "피보나치 수열"
+FROM Fibonacci_CTE;
+call 04_Fibonacci_CTE();
+call 05_Fibonacci_CTE(5);
+call 05_Fibonacci_CTE(15);
+
+###########################################################
+-- MUTI COLUMN SUBQUERY
+-- Q1. 	직업이 'SALESMAN'인 사원과 같은 부서에서 근무하고 (AND)
+-- 		같은 월급을 받는 사원들의 이름, 월급, 부서번호를 출력하자.
+
+SELECT ENAME, SAL, DEPTNO
 FROM EMP
-WHERE MGR IS NULL;
+WHERE 	DEPTNO IN (
+	SELECT DEPTNO
+    FROM EMP
+    WHERE JOB = 'SALESMAN')
+AND
+		SAL IN (
+	SELECT SAL
+    FROM EMP
+    WHERE JOB = 'SALESMAN');
+
+/*
+# ENAME	SAL	DEPTNO
+ALLEN	1600.00	30
+WARD	1250.00	30
+MARTIN	1250.00	30
+TURNER	1500.00	30
+*/
+
+SELECT ENAME, SAL, DEPTNO
+FROM EMP
+WHERE (DEPTNO, SAL) IN (SELECT DEPTNO, SAL
+						FROM EMP
+						WHERE JOB = 'SALESMAN');
+
+/*                        
+2) 서브쿼리는 SELECT, INSERT, UPDATE, DELETE 문에서 WHERE, HAVING, FROM, SELECT절 등 
+            위치에 사용
+           - WHERE	조건절로 사용	WHERE SAL > (SELECT ...)
+           -SELECT	출력 컬럼으로 사용	SELECT ENAME, (SELECT COUNT(*) ...) AS CNT
+           - FROM	임시 테이블로 사용	FROM (SELECT ... ) AS TEMP
+           
+5) EXISTS와 NOT EXISTS를 사용하여 특정 조건이 충족되는지 여부만을 판단하는 논리적 테스트를 수행한다.
+*/

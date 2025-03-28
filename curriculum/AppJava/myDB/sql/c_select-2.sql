@@ -45,27 +45,41 @@ SELECT ename
 FROM emp
 WHERE ename LIKE '%A%';  -- A를 포함하는 사원
 
--- Q4. 사원의 이름 중 A를 포함하는 사원의 이름을 출력 해보자. 단 중간에 포함하는 것만 검색하고 싶다.
--- -> and, not
 SELECT ename
 FROM emp
 WHERE ename LIKE '%A%'  -- A를 포함하는 사원
 	and ename not LIKE 'A%'  -- A로 시작하지 않겠다.
     and ename not LIKE '%A'; -- A로 끝나지 않겠다.
 
--- Q5. 2번째 글자가 M인 사원 (SMITH)을 출력해보자.
+-- Q4. 이름의 중간에 A가 포함된 사원을 출력해보자.
+SELECT ename
+FROM emp
+WHERE ename LIKE '%A%';  -- A를 포함하는 사원
+	AND ename NOT LIKE 'A%'		-- A로 시작하지 않겠다.
+    AND ename NOT LIKE '%A';	-- A로 끝내지 않겠다.  
+    
+-- Q5. 2번째 글자가 M인 사원(SMITH)를 출력해보자.
 SELECT ename
 FROM emp
 WHERE ename LIKE '_MITH'; -- 2번째 글자가 M인 사원 (SMITH)
 
 -- Q6. 대소문자를 구분하고 싶다면, 소문자 s로 시작하는 이름을 찾아보자.
+-- 일반적인 서버의 초기값: 명령은 대소문자를 구분하지 않음, 속성값은 반드시 구분. (PHP는 제외)
 SELECT ename
 FROM emp
 WHERE ename LIKE 's%' COLLATE utf8_bin; -- 소문자 s로 시작
 -- 보통 서버에서 명령은 대소문자 구분하지 않지만 속성값은 반드시 구분 / php는 제외
 
 
--- ESCAPE 문법 (%, _를 문자로 취급하고 싶을 때) ESCAPE뒤에 있는 것을 찾음
+
+    
+-- 대소문자를 구분하고 싶다면
+SELECT ename
+FROM emp
+WHERE ename LIKE 's%' COLLATE utf8_bin; -- 소문자 s로 시작
+
+
+-- ESCAPE 문법 (%, _를 문자로 취급하고 싶을 때)
 -- LIKE 'A\_%' ESCAPE '\'	A_로 시작하는 문자열 (_는 문자 취급)
 
 /*
@@ -73,9 +87,14 @@ SELECT comment
 FROM board
 WHERE comment LIKE '%\%%' ESCAPE '\';  -- {%기호 자체 검색}
 
--- comment에 %기호가 있는 글자만 찾아라.
-WHERE comment LIKE '%!%%' ESCAPE '!';  -- {%기호 자체 검색}
-	->  !% 에서 !가 ESCAPE라서 실제 % 문자열을 찾는다.
+-- Q. comment에 %가 기호가 있는 글자만 찾아라.
+	-> WHERE comment LIKE '%!%%' ESCAPE '!';
+    
+-- Q. USERIDdp _(언더바)가 포함된 아이디를 찾아보자.
+	-> WHERE comment LIKE '%\_%' ESCAPE '\';
+    
+-- Q. 제품 설명 50%라는 글자가 들어간 제품만 조회하자.
+	-> WHERE DESC LIKE '%!50!%%' ESCAPE '!';
     
 -- USERID에 _가 포함된 아이디를 찾아보자.
   WHERE UESRID LIKE '%\_%' ESCAPE '\';  
@@ -90,24 +109,24 @@ WHERE comment LIKE '%!%%' ESCAPE '!';  -- {%기호 자체 검색}
 WHERE 컬럼 REGEXP '정규식'
 ^, $, [], ` 
 기본적으로 대소문자 구분 (옵션으로 변경 가능)
- - ^A	A로 시작
- - A$	A로 끝
- [0-9]	숫자 하나 포함
- ^[0-9]+$	숫자로만 구성
- ^[A-Za-z]+$	영문자만 구성
- [A-Z]{3}	{}반복횟수. 대문자 3글자 연속으로 찾음
- ^.{5}$		정확히 5글자만 추출              
- 
-  ^[A-Za-z0-9._%]+@[A-Za-z0-9._]+\.[A-Za-z]{2,} 이메일패턴		finish07@a.com
-   [A-Za-z0-9._%]+		영대소문자, 숫자, .%중 하나이상 -> 아이디 부분
-   [A-Za-z0-9._]+		영대소문자, 숫자 . _ 중 하나 -> 도메인 이름 부분
-   \.	마침표 (.) 		\.으로 문자인식
-   [A-Za-z]{2}			영문자 2자 이상 -> 도메인 확장자	com, net 등
-   
-	^[A-Za-z0-9._%]+@[A-Za-z0-9._]+\\.1[A-Za-z]{2,}$ => 동일함
-    
-    .임의의 문자 1개를 나타냄 (줄바꿈등은 제외)
-    .* 임의의 문자 0개 이상
+
+[예제]
+^A : A로시작
+A% : A로 끝
+[0-9] : 숫자 하나 포함.
+^[0-0]+$ : 숫자로만 구성하겠다.
+^[A-Za-z]+$ 영문자만 구성하겠다.
+[A-Z]{3} : 대문자 3글자 연속
+^.{5}$ : 정확히 5글자만 추출하겠다.
+
+[예제 - 이메일 패턴 추출한다면?]
+^[ A-Za-z0-9._%]+@[ A-Za-z0-9._]+\.[ A-Za-z] {2,}
+
+^ : 문자열을 시작
+[ A-Za-z0-9._%]+ 영문대소문자, 숫자, ._% 중 하나 이상 -> 아이디 부분
+[ A-Za-z0-9._]+ 영문대소문자, 숫자 . _ 중 하나 -> 도메인 이름 부분
+\.  마침표 (.)  -> \. 문자로 인식
+[ A-Za-z] {2,} -> 영문자 2자 이상 -> 도메인 확장자 com, net 등
 */
 
 -- Q1. REGEXP  (S 또는 A로 시작하는 사원의 이름을 출력해 보자.  )
@@ -137,6 +156,7 @@ SELECT 'new*\n*line' REGEXP 'new\\*.\\*line';  -- \n 줄바꿈이 있기에 매�
 SELECT 'e' REGEXP '^[a-d]';
 
 /*
+https://dev.mysql.com/doc/refman/8.4/en/regexp.html
 REGEXP_INSTR(expr, pat[, pos[, occurrence[, return_option[, match_type]]]])
 -- 시작위치, 찾을 횟수 디폴트는 1,1
 REGEXP_INSTR(검색 대상, '정규식', 시작위치, 찾을 횟수) : 위치 리턴 

@@ -353,12 +353,132 @@ WHERE (DEPTNO, SAL) IN (SELECT DEPTNO, SAL
 						FROM EMP
 						WHERE JOB = 'SALESMAN');
 
-/*                        
-2) 서브쿼리는 SELECT, INSERT, UPDATE, DELETE 문에서 WHERE, HAVING, FROM, SELECT절 등 
-            위치에 사용
-           - WHERE	조건절로 사용	WHERE SAL > (SELECT ...)
-           -SELECT	출력 컬럼으로 사용	SELECT ENAME, (SELECT COUNT(*) ...) AS CNT
-           - FROM	임시 테이블로 사용	FROM (SELECT ... ) AS TEMP
-           
-5) EXISTS와 NOT EXISTS를 사용하여 특정 조건이 충족되는지 여부만을 판단하는 논리적 테스트를 수행한다.
+
+
+-- 서브 쿼리 사용법 
+ -- 2)서브쿼리는 SELECT, INSERT, UPDATE, DELETE 문에서  WHERE, HAVING, FROM, SELECT절 등  위치에 사용
+  -- SELECT절  서브 쿼리 사용방법
+ /*
+WHERE     	:조건 비교용 하위 질의
+HAVING     	: 그룹 조건에 대한 비교
+FROM     	: 인라인 뷰(하위 결과셋을 테이블처럼)
+SELECT    	: 선택된 컬럼 값을 계산 또는 비교용 
 */
+ 
+ -- CASE 1 ) 각 사원의 봉급이  그 사원이 속한  부서의 평균급여보다 얼마나 높은지 출력 해보자. 
+ -- 부서평균 급여보다 높은 급여 차이
+ SELECT ENAME,  SAL - ( SELECT AVG(SAL)
+                      FROM EMP
+                      WHERE DEPTNO  = E.DEPTNO)  AS RES
+ FROM EMP E;
+ 
+ 
+-- CASE 2)  사원의 이름과 모든 사원의 봉급의 합을  출력한 결과 
+ SELECT ENAME ,  (SELECT  SUM(SAL)   FROM EMP   ) AS "TOTAL SAL"
+ FROM EMP;
+ 
+ -- CASE 3) 사원의 이름과 모든 사원의 봉급의 평균을 출력한 결과
+ SELECT ENAME ,  (SELECT  AVG(SAL)   FROM EMP   ) AS "AVG SAL"
+ FROM EMP;
+ 
+-- CASE 4)  SELECT에서 계산된 'SAL'의 별칭을 WHERE 절에서 사용하고 싶다.  -> 쿼리를 재구성해야 한다.
+-- SELECT의 별칭을 WHERE에 사용하려면? -> 별칭은 SELECT 이후에 정의되므로 WHERE 절에서 직접 호출할 수 없다.
+-- 해결첵: 서브쿼리 또는 CTE 사용
+
+  -- 4-1) 서브쿼리  재구성
+    SELECT *
+    FROM (SELECT ENAME, (SELECT  SUM(SAL) FROM EMP) AS MYSAL
+          FROM EMP )   AS SUBQUERY 
+    WHERE  MYSAL  > 2000 ;
+
+  -- 4-2)  cte 사용
+  WITH  CTE AS (
+      SELECT ENAME, SAL AS MYSAL
+      FROM EMP 
+ ) 
+ SELECT * 
+ FROM CTE
+ WHERE MYSAL > 2000 ; 
+ 
+ 
+-- 5) EXISTS와 NOT EXISTS를 사용하여 특정 조건이 충족되는지 여부만을 판단하는 논리적 테스트를 수행한다. 
+ -- EXISTS를 사용해서 부서에 사원이 존재 하는지  확인 후 부서명을 출력 해보자.
+ 
+-- 부서에 사원이 존재하는 부서명을 출력해보자.
+SELECT DNAME
+FROM dept d
+WHERE EXISTS (SELECT 1
+              FROM emp 
+              WHERE DEPTNO = d.DEPTNO);
+ 
+ SELECT DNAME
+FROM dept d
+WHERE EXISTS (SELECT *
+              FROM emp 
+              WHERE DEPTNO = d.DEPTNO);
+              
+-- 6) Correlated subqueries: 서브쿼리가 외부 쿼리의 컬럼을 참조하는 경우를 말하며
+   -- 서브쿼리는 외부 쿼리의 각 행에 대해 반복적으로 실행된다. 
+  -- 각 부서에서 가장 높은 급여를 받는 사원의 모든 내용을 출력 해보자.
+  SELECT  *
+  FROM EMP E1
+  WHERE  SAL  =  (
+                  SELECT MAX(SAL)
+                  FROM EMP  E2
+                  WHERE  E1.DEPTNO = E2.DEPTNO -- E1.DEPTNO 주쿼리 = 외부쿼리
+                 ) ;
+/*
+	1. EMP 테이블의 첫번째 행 (E1) 읽음 ( E1.DEPTNO = 10 )
+    2. 서브쿼리 실행 MAX(SAL) = 5000
+    3. 주쿼리 행의 SAL과 비교 E1.SAL = 5000이면 통과, 아니면 제외
+    4. 1. EMP 테이블의 첫번째 행 (E1) 읽음 ( E1.DEPTNO = 20 ) -> 서브쿼리 -> SAL = (MAX(SAL))
+
+
+*/        
+
+-- 6-1. JOIN으로 바꾸어 보자. JOIN + GROUP BY
+SELECT  E1.ENAME, E1.SAL, E1.DEPTNO
+FROM EMP E1 JOIN (
+					SELECT DEPTNO, MAX(SAL) AS MAX_SAL
+                    FROM EMP
+                    GROUP BY DEPTNO) E2 ON E1.DEPTNO = E2.DEPTNO AND E1.SAL = E2.MAX_SAL;
+
+-- 6-2. WINDOW 함수 
+SELECT ENAME, SAL, DEPTNO
+FROM (
+		SELECT ENAME, SAL, DEPTNO, RANK() OVER (PARTITION BY DEPTNO ORDER BY SAL DESC) AS RNK
+        FROM EMP
+) T
+WHERE RNK = 1;
+
+###############################################
+  SELECT  *
+  FROM EMP E1
+  WHERE  SAL  =  (
+                  SELECT MAX(SAL)
+                  FROM EMP
+                  WHERE  E1.DEPTNO = DEPTNO
+                 ) ;
+#####################  서브쿼리 안에서 별칭으로 {JOIN} 하면 안돼요?
+  SELECT  *
+  FROM EMP E1
+  WHERE  SAL  =  (
+                  SELECT MAX(SAL)
+                  FROM EMP  E2
+                  JOIN E1 USING(DEPTNO)
+                 );
+
+# Error Code: 1146. Table 'my_emp.e1' doesn't exist    0.000 sec
+### 서브쿼리가 외부쿼리의 별칭을 직접 참조 할 수 없다. !!!!1
+
+-- 7)서브쿼리 내에서 LIMIT 절의 사용이 제한될 수 있다.
+  -- 각 부서에서 월급이 가장 높은 상위 3명의 사원번호, 이름, 봉급, 부서번호를 출력해보자
+  -- 각 부서별로 월급이 높은 순으로 정렬된 사원의 목록을 만든다 -> 상위 3명 추출
+SELECT EMPNO, ENAME, SAL, DEPTNO
+FROM EMP E
+WHERE () < 3
+ORDER BY 4, 3 DESC;
+
+SELECT EMPNO, ENAME, SAL, DEPTNO
+FROM EMP
+ORDER BY SAL DESC;

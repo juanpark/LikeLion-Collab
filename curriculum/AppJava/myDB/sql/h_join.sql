@@ -31,7 +31,7 @@ MySQL에서는 LEFT JOIN과 RIGHT JOIN을 UNION으로 합쳐 구현한다.
 =(동등 연산자)를 사용하여 조건을 지정하고,
 테이블 간 일치하는 값만 추출하는 방식으로, 사실상 INNER JOIN과 동일하게 동작한다.
 
-------------------------------------------------------------------------
+-------------------------------------------------------------------
 
 - inner join, outer join,cross join,[full outer join,Equi join,self join] 
 조인 : 테이블의 컬럼 값에 공통값  (value)를 추출하는 것  
@@ -46,12 +46,15 @@ using (같은컬럼명) ,  on (다른 컬럼명)
 SELECT columns
 FROM table1
 INNER JOIN table2
-ON table1.common_column1 = table2.common_column2;
+ON (table1.common_column1 = table2.common_column2);
 
--- CASE 2: 컬럼명이 같을 때
+-CASE 2 : 컬럼명이 같을때 
 SELECT columns
-FROM table1 JOIN table2
-  USING(common_column);
+FROM table1  JOIN table2
+  USING(common_column); 
+  
+  
+    
 
 
 2)외부 조인(OUTER JOIN): 주종 관계를 만들어서 주 테이블은 전체출력, 종테이블은 True값만 출력된다.
@@ -96,25 +99,26 @@ SELECT columns
 FROM table1
 CROSS JOIN table2;
 */
+
 USE MY_EMP;
--- Q1. 사원의 이름과 사원이 속한 부서이름을 출력하자. INNER JOIN 같은 값만 추출 (TRUE 값만)
+-- Q1.사원의 이름과 사원이 속한 부서이름을 출력하자. INNER JOIN  같은 값만 추출   
 -- SQL
+EXPLAIN 
 SELECT ENAME, DNAME
 FROM EMP, DEPT
 WHERE EMP.DEPTNO = DEPT.DEPTNO;
 
--- ANSI
-EXPLAIN
+-- ANSI 
+ EXPLAIN 
 SELECT ENAME, DNAME
-FROM EMP INNER JOIN DEPT USING(DEPTNO);
+FROM EMP INNER JOIN DEPT USING(DEPTNO); 
 
 SELECT ENAME, DNAME
-FROM EMP JOIN DEPT USING(DEPTNO);
+FROM EMP JOIN DEPT USING(DEPTNO); 
 
 
-
--- Q2) 간단한 테이블을 
-DROP TABLE X;
+-- Q2) 간단한 테이블을 생성해서 JOIN을 생각해 보자. 
+DROP TABLE x;
 CREATE TABLE X(
 X1 VARCHAR(5),
 X2 VARCHAR(5));
@@ -136,81 +140,62 @@ SELECT * FROM X;
 SELECT * FROM Y;
 DESC Y;
 
--- Q3. X, Y 테이블에서 X1, Y1 컬럼을 조인해보자. = TRUE 행 리턴
--- ANSI
-EXPLAIN
-SELECT *
-FROM X JOIN Y ON X1 = Y1; -- 두 테이블의 속성명이 다른 값은 값을 추출 할 때 ON
-
+-- Q3 .  X,Y 테이블에서 X1,Y1컬럼을 조인해보자. = TRUE행 리턴  
+-- ANSI 
+ EXPLAIN 
+ SELECT  * 
+ FROM X INNER JOIN Y ON X1 = Y1;  -- 두테이블의 속성명이 다른 값은 값을 추출할때 ON 
+ 
 -- SQL
-EXPLAIN -- TYPE ALL이 나온다면 인덱스를 설정한다. (최악의 튜닝 경우) -> WHERE조건문, ON, USING컬럼에서 인덱스 확인!!
+EXPLAIN   -- TYPE ALL 이 나온다면 인덱스를 설정한다.  -> WHERE 조건문,  ON, USING 컬럼에서 인덱스 확인!! 
 SELECT *
-FROM X, Y
+FROM X,Y
 WHERE X1 = Y1;
 
--- Q4. 주종 관계를 만들어서 조인을 해보자. OUTER JOIN에는 LEFT, RIGHT, FULL의 세 가지 유형.
--- 주 테이블의 전체 출력, 종테이블은 TRUE 리턴하고 FALSE는 NULL로 리턴 
-
+-- Q4.  주종 관계를 만들어서 조인을 해보자  OUTER JOIN에는 LEFT, RIGHT, FULL의 세 가지 유형 
+--  주테이블의 전체 출력, 종테이블은 TRUE리턴하고 FALSE는 NULL로 리턴   
 /*
-	주 테이블의 COUNT()에 맞추어서 종 테이블의 NULL 값이 채워지는 결과 확인 
-    종 테이블의 COUNT()가 주 테이블 보다 클 때는 TRUE 값에 의한 행의 리턴이 주 테이블의 값이 늘어나는 것을 확인
-    둘 다 NULL 값 확인 
+   주테이블의 COUNT()에 맞추어서 종테이블의  NULL값이 채워지는 결과 확인 
+   종테이블의 COUNT()가 주테이블 보다 클때   TRUE 값에 의한 행의 리턴에 의해  주테이블의 값이 늘어나는 것을 확인  
+   둘다 NULL값 확인  
 */
 
-INSERT INTO X VALUES('B','D');
+INSERT  INTO X  VALUES ('B','D' ) ;
 
-INSERT INTO X VALUES(NULL, NULL);
-INSERT INTO X VALUES(NULL, NULL);
-INSERT INTO X VALUES(NULL, NULL);
+INSERT  INTO X  VALUES (NULL, NULL ) ;
+INSERT  INTO X  VALUES (NULL, NULL ) ;
+INSERT  INTO X  VALUES (NULL, NULL ) ;
 
-INSERT INTO X VALUES('F','D');
-INSERT INTO X VALUES('C','3');
+INSERT  INTO X  VALUES ('F','D' ) ;
+INSERT  INTO X  VALUES ('C','3' ) ;
 
-INSERT INTO X VALUES('C','1');
-INSERT INTO X VALUES('C','2');
+INSERT  INTO X  VALUES ('C','1' ) ;
+INSERT  INTO X  VALUES ('C','2' ) ;
 
-SELECT * FROM X;
-SELECT * FROM Y;
-SELECT COUNT(*) FROM X;
-SELECT COUNT(*) FROM Y;
-
--- Q4-1. Y를 주 테이블로 만들고 X를 종 테이블로 지정하자. RIGHT OUTER JOIN
--- ANSI
-SELECT *
-FROM X RIGHT OUTER JOIN Y
-ON X1 = Y1;
-
+SELECT  * FROM X;
+-- Q4 -1. Y를 주테이블로 만들고 x를 종테이블로 지정하자.  RIGHT  OUTER JOIN
+-- ANSI 
+    SELECT   *
+	FROM  X  RIGHT  OUTER JOIN Y 
+    ON   X1= Y1;
+    
+SELECT  COUNT(*) FROM Y;   
+SELECT  COUNT(*) FROM X;   
+   
 -- SQL
 
--- Q4-2. X를 주 테이블로 만들고 Y를 종 테이블로 지정하자. LEFT OUTER JOIN
--- ANSI
-SELECT *
-FROM X LEFT OUTER JOIN Y
-ON X1 = Y1;
+-- Q4 -2. Y를 주테이블로 만들고 x를 종테이블로 지정하자.  LEFT  OUTER JOIN
+-- ANSI 
+    SELECT  *
+	FROM  Y LEFT  OUTER JOIN X
+    ON   X1= Y1;
+    
+    
 -- SQL
 
-
--- Q4-3. FULL OUTER JOIN을 해보자. MySQL의 경우 RIGHT OUTER JOIN + LEFT OUTER JOIN (UNION)
--- ANSI
--- EXPLAIN
-SELECT *
-	FROM X RIGHT OUTER JOIN Y
-	ON X1 = Y1
-UNION
-SELECT *
-	FROM X LEFT OUTER JOIN Y
-	ON X1 = Y1;
-
--- GPT 버전 
-SELECT * 
-FROM X LEFT OUTER JOIN Y
-ON X1 = Y1
-UNION
-SELECT * 
-FROM Y LEFT OUTER JOIN X
-ON X1 = Y1;
-
--- 강사님 버전
+-- Q4-3 FULL OUTER JOIN을 해보자  RIGHT  OUTER JOIN  +  LEFT  OUTER JOIN  = MYSQL은 키워드 없음   
+-- ANSI 
+EXPLAIN 
  SELECT   *
 	FROM  X  RIGHT  OUTER JOIN Y 
     ON   X1= Y1
@@ -220,11 +205,140 @@ SELECT  *
     ON   X1= Y1; 
 
 /*
-  FULL OUTER JOIN =  RIGHT OUTER JOIN  + LEFT OUTER JOIN     / UNION(중복항목x ), UNION ALL(중복항목 O) 
- 1) UNION 앞의 쿼리에서  Y의 모든 레코드를 검색하고 X테이블에 일치하는 레코드를 검색한다.
+      FULL OUTER JOIN =  RIGHT OUTER JOIN  + LEFT OUTER JOIN / UNION(중복항목x ), UNION ALL(중복항목 O) 
+ 1) UNION 앞의 쿼리에서  Y의 모든 레코드를 검색하고 X테이블에 일치하는 레코드를 검색한다.  
  2) UNION 뒤의 쿼리에서  Y의 모든 레코드를 검색하고 X테이블에 일치하는 레코드를 검색한다. 
- 3) UNION은 두개의 결과 레코드를 결합해서 리턴한다.
- 4) UNION 쿼리는 두개 쿼리 결과 부분에서 열의 개수와 유형일치를 확인한다.
- 5) 중복행 제거 후 결합한다.
- */
+ 3) UNION은 두개의 결과 레코드를 결합해서 리턴한다.  
+ 4) UNION 쿼리는 두개 쿼리 결과 부분에서 열의 개수와 유형일치를 확인한다.  
+ 5) 중복행 제거 후 결합한다.   
+ */    
+ -- Q4-4 확인 해보자 
+SELECT X1,X2 FROM X
+UNION ALL 
+SELECT Y1,Y2 FROM Y;
+
+SELECT X1,X2 FROM X
+UNION  
+SELECT Y1,Y2 FROM Y;
+#------------------------
+SELECT X1 FROM X
+UNION ALL 
+SELECT Y1 FROM Y;
+
+SELECT X1 FROM X
+UNION  
+SELECT Y1 FROM Y;    
+
+
+ -- Q5. 급여 등급 테이블을 생성해 보자
+DROP TABLE SALGRADE;
+CREATE TABLE SALGRADE(
+	GRADE INT,
+    LOSAL INT,
+    HISAL INT
+);
+
+INSERT INTO SALGRADE (GRADE, LOSAL, HISAL) VALUES
+(1, 700, 1200),
+(2, 1201, 1400),
+(3, 1401, 2000),
+(4, 2001, 3000),
+(5, 3001, 9999);
+COMMIT;
+
+SELECT * FROM SALGRADE;
+
+
+-- Q6. 각 사원의 이름과 월급, 그리고 그 사원의 급여 등급을 출력해보자. = EQUI JOIN, NONEQUI JOIN
+-- SQL
+SELECT ENAME, SAL, GRADE AS 등급
+FROM EMP, SALGRADE
+WHERE SAL >= LOSAL AND SAL <= HISAL;
+
+-- ANSI 
+SELECT ENAME, SAL, GRADE AS 등급
+FROM EMP JOIN SALGRADE ON (SAL >= LOSAL AND SAL <= HISAL);
+
+### BETWEEN AND
+-- SQL
+SELECT ENAME, SAL, GRADE AS 등급
+FROM EMP, SALGRADE
+WHERE SAL BETWEEN LOSAL AND HISAL;
+
+-- ANSI 
+SELECT ENAME, SAL, GRADE AS 등급
+FROM EMP JOIN SALGRADE ON (SAL BETWEEN LOSAL AND HISAL);
+
+-- 07. 사원의 이름, 월급, 급여등급, 부서이름을 출력해보자 
+-- 테이블에 제약조건 사항이 있는 경우 선 조인, 나머지 후 조인문으로 작성한다.
+-- SQL
+SELECT ENAME, SAL, GRADE AS 등급,DNAME
+FROM EMP, SALGRADE, DEPT
+WHERE SAL BETWEEN LOSAL AND HISAL
+AND EMP.DEPTNO = DEPT.DEPTNO;
+
+-- ANSI 
+-- EXPLAIN FORMAT = TREE
+SELECT ENAME, SAL, GRADE AS 등급, DNAME
+FROM EMP JOIN DEPT USING(DEPTNO)
+	JOIN SALGRADE ON (SAL BETWEEN LOSAL AND HISAL);
+
+####
+/*
+    '-> Nested loop inner join  (cost=2.25 rows=0.864)
+    -> Filter: (emp.sal between salgrade.LOSAL and salgrade.HISAL)  (cost=1.78 rows=0.864)
+        -> Inner hash join (no condition)  (cost=1.78 rows=0.864)
+            -> Filter: (emp.deptno is not null)  (cost=0.0811 rows=1.56)
+                -> Table scan on EMP  (cost=0.0811 rows=14)
+            -> Hash
+                -> Table scan on salgrade  (cost=0.75 rows=5)
+    -> Single-row index lookup on dept using PRIMARY (deptno=emp.deptno)  (cost=0.0629 rows=1)
+ 
+ COST [=CPU비용, 조인방식, 조건문 실행] 줄이는 쿼리?
+ 1. 인덱스 사용 (where, join, orader by 구분)
+ 2. where 절에 사용되는 속성필드, 인수를 조절
+ 3. select * (와일드카드 조절) 행수 제한, limit 사용, fetch first 구문 사용
+ 4. 정렬, 그룹화  
+ 5. 고유값 추출, 키워드 및 중첩쿼리 자제
+
+*/
+####
+
+explain format = tree -- 쿼리 실행 시 COST체크
+select *
+from emp
+where deptno = 10;
+
+
+-- Q8. SELF JOIN : 테이블 하나에 같은 값을 가진 컬럼을 조인하는 것
+-- 사원 번호, 사원이름, 관리자 사원번호, 관리자 이름을 출력해보자.
+
+-- ANSI
+select 사원.empno, 사원.ename, 관리자.empno, 관리자.ename
+from emp 사원 join emp 관리자 on(사원.mgr = 관리자.empno); -- INNER JOIN : 13줄 리턴 (king은 상사가 없기에)  
+
+select 사원.empno, 사원.ename, 관리자.empno, 관리자.ename
+from emp 사원 
+	  left outer join emp 관리자
+      on(사원.mgr = 관리자.empno); --  LEFT OUTER JOIN : 14줄 리턴. LEFT OUTER JOIN으로 사원 전체출력(주테이블), 관리자는 그에 매핑(종테이블)하여 true만 나오게 끔 함
+
+-- SQL
+
+-- Q9. NATURAL JOIN (동일한 컬럼의 이름을 가진 두개 이상의 테이블 조인)
+select *
+from emp natural join dept; -- deptno를 기준으로 자동으로 테이블 조인
+
+-- Q9-1. CROSS JOIN (전체 내용 56줄 리턴) 현재 사용하지 않음
+select *                                    
+from emp cross join dept;
+
+/*
+select *
+from emp, dept;  이거랑 같은 의미
+*/
+
+
+
+
+
 

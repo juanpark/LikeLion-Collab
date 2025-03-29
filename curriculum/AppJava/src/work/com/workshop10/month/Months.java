@@ -30,7 +30,8 @@ public class Months {
 		
 		
 		System.out.println();
-		System.out.println(toPrint);
+		toPrint.forEach(System.out::println);
+		
 	}
 }
 

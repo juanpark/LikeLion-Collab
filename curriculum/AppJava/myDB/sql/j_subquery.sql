@@ -471,12 +471,14 @@ WHERE RNK = 1;
 # Error Code: 1146. Table 'my_emp.e1' doesn't exist    0.000 sec
 ### 서브쿼리가 외부쿼리의 별칭을 직접 참조 할 수 없다. !!!!1
 
--- 7)서브쿼리 내에서 LIMIT 절의 사용이 제한될 수 있다.
+-- 7)서브쿼리 내에서 LIMIT 형태 절의 사용이 제한될 수 있다.
   -- 각 부서에서 월급이 가장 높은 상위 3명의 사원번호, 이름, 봉급, 부서번호를 출력해보자
   -- 각 부서별로 월급이 높은 순으로 정렬된 사원의 목록을 만든다 -> 상위 3명 추출
 SELECT EMPNO, ENAME, SAL, DEPTNO
 FROM EMP E
-WHERE () < 3
+WHERE (	SELECT COUNT(*)
+		FROM EMP E2
+        WHERE E2.SAL > E.SAL AND E2.DEPTNO = E.DEPTNO) < 3
 ORDER BY 4, 3 DESC;
 
 SELECT EMPNO, ENAME, SAL, DEPTNO

@@ -1,9 +1,7 @@
-package work.com.workshop10;
+package work.com.workshop12.workshop.date;
 
 import java.util.Calendar;
 import java.util.Date;
-
-import work.com.workshop12.workshop.date.ConvertDate;
 
 public class DateTest {
 

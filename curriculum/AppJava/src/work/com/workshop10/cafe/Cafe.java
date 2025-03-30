@@ -7,7 +7,7 @@ public class Cafe {
 	public Cafe () {
 		// key to the problem! 이렇게 기본생성자 안에서 모두 initialize 하면 되는데!!! 
 		this.coffeeList = new Coffee[3];
-		this.index = 0;
+		// this.index = 0;
 	}
 	
 	public int totalPrice( ) {

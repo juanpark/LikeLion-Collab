@@ -484,3 +484,133 @@ ORDER BY 4, 3 DESC;
 SELECT EMPNO, ENAME, SAL, DEPTNO
 FROM EMP
 ORDER BY SAL DESC;
+
+-- 2025-03-31 --
+####### HAVING 서브 쿼리를 확인 해보자. 
+ -- Q1. HAVING 서브 쿼리	 <단일 값 확인 후 having에서 비교 연산>
+ -- 평균 급여가 전체 평균 보다 더 높은 부서를 찾아 보자.	
+ -- 각 부서의 평균 급여를 전체 평균 급여와 비교하여, 전체 평균보다 높은 부서를 출력하자.
+ use my_emp;
+ 
+SELECT DEPTNO, AVG(SAL) as avg_salary
+FROM EMP
+GROUP BY DEPTNO
+HAVING AVG(SAL) > (SELECT AVG(SAL) 
+                    FROM EMP );
+
+  -- Q2. HAVING 서브 쿼리 
+  --  부서별로 사원 수가 전체 사원 수의 평균 보다 많은 부서를 찾아 부서번호, 직원수를 출력 해보자 
+  SELECT DEPTNO, COUNT(EMPNO) AS NUM_COUNT
+  FROM EMP
+  GROUP BY DEPTNO
+  HAVING COUNT(EMPNO)  >  ( SELECT AVG(NUM_COUNT)
+                            FROM (SELECT COUNT(EMPNO) NUM_COUNT
+                            FROM EMP
+                            GROUP BY DEPTNO ) as AVG_DEPT);
+
+-- 1 . 모든 부서별 사원 수를 계산
+SELECT COUNT(EMPNO) NUM_COUNT
+                    FROM EMP
+                    GROUP BY DEPTNO;   -- 결과   3, 5, 6 
+-- 2. 평균 값을 구한다.
+SELECT AVG(NUM_COUNT)  -- AVG(3,5,6 )   -> 4.6667
+         FROM (SELECT COUNT(EMPNO) NUM_COUNT
+                FROM EMP
+                GROUP BY DEPTNO 
+                ) as AVG_DEPT;
+
+ 
+ -- Q3. HAVING 서브 쿼리 
+  -- 부서별 사원들의  최고 급여가  각 부서별 최고 급여의 평균보다  부서를 찾아 부서번호, 최고급여를 출력 해보자
+  -- 주 쿼리 EMP 테이블에서 부서별 그룹화하고 각 그룹의 최고 급여를 계산한 다음 비교한다.
+  -- HAVING 절에서 사용된 서브쿼리는 먼저 모든 부서의 최고 급여를 계산하고 -> 평균값을 계산한다. 
+
+  -- 1. 모든 부서의 최고 급여를 계산
+     SELECT MAX(SAL) as max_salary 
+     FROM EMP GROUP BY DEPTNO;  -- 5000, 3000, 2850
+
+  -- 2. 평균값을 계산한다. 
+  SELECT AVG(max_salary) 
+  FROM
+     (SELECT MAX(SAL) as max_salary 
+     FROM EMP GROUP BY DEPTNO) AS  DEPT_AVG_SAL ;  -- 3616
+
+  -- 3. 병합
+SELECT DEPTNO, MAX(SAL) as hi_sal  -- 10 , 5000 
+FROM EMP
+GROUP BY DEPTNO
+HAVING MAX(SAL) > ( SELECT AVG(max_salary) 
+                    FROM (SELECT MAX(SAL) as max_salary 
+                         FROM EMP 
+                         GROUP BY DEPTNO) AS  DEPT_AVG_SAL);
+
+
+#####<---------------- INLINE VIEW ---------------> ####################
+
+
+-- 13.2.15.7 : FROM 절에서 사용되는  INLINE VIEW
+/*
+    
+서브쿼리의 일종으로 From 절 뒤에 사용된다.
+임시 테이블 처럼 사용된다. 단, {별칭}을 반드시 붙여야 한다.
+주쿼리의 From 절에 포함된 서브쿼리의 결과를 임시테이블로 간주하여 조인하거나
+추가적인 연산을 수행한다.
+집계함수와 group by 같은 구문을 사용하여 중간결과를 생성한 후 쿼리에서 조인하거나 필터링하게 된다.
+*/
+
+-- Q1. 각 부서의 최대 급여를 출력 해보자. 부서의 이름과 최대급여를 출력 해보자. 
+-- 단, 조건이 dept와 emp의 인라인 뷰를 사용해보자.
+SELECT  D.DNAME, E.MAX_SAL 
+FROM DEPT D
+JOIN
+ (SELECT DEPTNO  , MAX(SAL)  AS MAX_SAL
+      FROM EMP 
+      GROUP BY DEPTNO) E
+ON  D.DEPTNO  = E.DEPTNO; 
+
+-- 가상테이블 
+SELECT DEPTNO  , MAX(SAL)  AS MAX_SAL
+      FROM EMP 
+      GROUP BY DEPTNO;
+
+-- -> 가상 테이블과 detp d의 조인
+
+-- Q2.임시테이블 생성 후 인라인 확인 해보자.alter
+DROP TABLE T1;
+
+-- 테이블 생성 
+CREATE TABLE t1 (s1 INT, s2 CHAR(5), s3 FLOAT);
+
+-- 구조 확인
+desc t1;
+
+-- 데이터 입력
+INSERT INTO t1 VALUES (1,'1',1.0);
+INSERT INTO t1 VALUES (2,'2',2.0);
+
+-- 내용 확인
+SELECT *
+FROM  T1 ;
+
+SELECT sb1,sb2,sb3
+FROM (SELECT s1 AS sb1, 
+			 s2 AS sb2, 
+             s3*2 AS sb3 
+      FROM t1) AS sb  -- 가상 테이블 객체를 SB 생성후
+WHERE sb1 > 1;  --  ;를 만나면  자동  소멸 된다.
+
+-- Q3. 각 부서별 평균 급여를 구하고 (= dept_avg 라는 인라인뷰 만들기), 평균 급여가 20000 이상인 부서의 부서번호와 평균급여를 출력하자.
+select dept_avg.deptno, dept_avg.avg_sal
+from (select deptno, avg(sal) as avg_sal
+	  from emp
+	  group by deptno) as dept_avg
+where dept_avg.avg_sal >= 2000;
+
+-- Q4. 인라인 뷰를 사용해서 사원의 이름, 급여, emp
+-- 전체 사원의 평균 월급을 출력해보자. AA
+select ename, sal, AA.avg_sal
+from emp e
+	join (select avg(sal) as avg_sal
+		  from emp) AA;
+
+

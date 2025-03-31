@@ -56,7 +56,7 @@ DESC STUDENTS02;
 -- Q2-1 데이터 입력
 -- 중복데이터 X + NOT NULL = PK
 
-INSERT INTO students
+insert into students02
 values
 (1, '1', '1', '1', '1', NOW(), 'M', TRUE),
 (2, '1', '1', '1', '1', NOW(), 'F', 0),
@@ -76,7 +76,7 @@ INSERT INTO STUDENTS02
 VALUES(NULL, '1', '1', '1', '1', NOW(), 'M', TRUE);
 -- SHOULD PRODUCE A NULL ERROR
 
--- Q2-4 
+-- Q2-4 정보를 확인해보자.
 SHOW CREATE TABLE STUDENTS;
 
 SELECT CONSTRAINT_NAME, CONTRAINT_TYPE
@@ -90,7 +90,6 @@ FROM information_schema.TABLE_CONSTRAINTS
 WHERE TABLE_SCHEMA = 'STUDENTS02' AND TABLE_NAME = 'STUDENTS02';
 
 -- Q3 PK 복합키를 확인해보자
-
 CREATE TABLE students03(
 	student_id		INT,
     student_number	VARCHAR(10),
@@ -334,11 +333,11 @@ SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE
 FROM information_schema.TABLE_CONSTRAINTS
 WHERE TABLE_NAME = 'student_MY';
 
-SELECT CONSTRAINT_NAME, UPDATE_RULE, DELETE_RULE, REFERENCED_TABLE_NAME
-FROM information_schema.REFERENTIAL_CONSTRAINTS
-WHERE TABLE_NAME = 'student_MY';
+SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE 
+FROM information_schema.TABLE_CONSTRAINTS  
+WHERE TABLE_NAME = 'student_my';  -- student_my_ibfk_1
 
-DESC information_schema.REFERENTIAL_CONSTRAINTS;
+Information_schema.REFERENTIAL_CONSTRAINTS;
 
 -- 데이터 입력
 insert into student_my values(1);

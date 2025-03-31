@@ -45,7 +45,7 @@ SELECT SAL
 FROM EMP
 WHERE ENAME = 'JONES'; -- 2975
 
--- 더 많은 월급을 받는 사원의 이름과 봉급
+-- 2) 더 많은 월급을 받는 사원의 이름과 봉급
 SELECT ENAME, SAL
 FROM EMP
 WHERE SAL > 2975;
@@ -124,25 +124,7 @@ FROM EMP
 WHERE EMPNO = ANY (	SELECT IFNULL(MGR,0)
 					FROM EMP); 	-- DATA OR DATA OR .... NULL) = ANY
 
-/*
-  ANY ( DATA OR DATA OR ....NULL) 
- = ANY      하나라도 만족하는 값이 있으면 결과를 리턴하며 IN과 동일함
-ANY      값들 중 최소값 보다 크면 결과를 리턴
- >= ANY  값들 중 최소값 보다 크거나 같으면 결과를 리턴
- < ANY      값들 중 최대값 보다 작으면 결과를 리턴
- <= ANY  값들 중 최대값 보다 작거나 같으면 결과를 리턴
- <> ANY  모든 값들 중 다른 값만 리턴, 값이 하나일 때만 가능함
-
-ALL( DATA  AND DATA AND ....NULL) 
-ALL      값들 중 최대값 보다 크면 결과를 리턴
- >= ALL  값들 중 최대값 보다 크거나 같으면 결과를 리턴
- < ALL      값들 중 최소값 보다 작으면 결과를 리턴
- <= ALL  값들 중 최소값 보다 작거나 같으면 결과를 리턴
- = ALL      모든 값들과 같아야 결과를 리턴, 값이 하나일 때만 가능함
- <> ALL  모든 값들과 다르면 결과를 리턴 
- */
- 
- -- Q7. 부하직원이 없는 사원의 사원번호와 이름을 출력하자. -> 자기자신이 관리자이면 된다의 반대
+-- Q7. 부하직원이 없는 사원의 사원번호와 이름을 출력하자. -> 자기자신이 관리자이면 된다의 반대
  SELECT EMPNO, ENAME
  FROM EMP
  WHERE EMPNO NOT IN (	SELECT IFNULL(MGR,0)
@@ -167,6 +149,24 @@ FROM EMP
 WHERE MGR = (	SELECT EMPNO
 				FROM EMP
                 WHERE ENAME = 'KING');
+
+/*
+  ANY ( DATA OR DATA OR ....NULL) 
+ = ANY      하나라도 만족하는 값이 있으면 결과를 리턴하며 IN과 동일함
+ANY      값들 중 최소값 보다 크면 결과를 리턴
+ >= ANY  값들 중 최소값 보다 크거나 같으면 결과를 리턴
+ < ANY      값들 중 최대값 보다 작으면 결과를 리턴
+ <= ANY  값들 중 최대값 보다 작거나 같으면 결과를 리턴
+ <> ANY  모든 값들 중 다른 값만 리턴, 값이 하나일 때만 가능함
+
+ALL( DATA  AND DATA AND ....NULL) 
+ALL      값들 중 최대값 보다 크면 결과를 리턴
+ >= ALL  값들 중 최대값 보다 크거나 같으면 결과를 리턴
+ < ALL      값들 중 최소값 보다 작으면 결과를 리턴
+ <= ALL  값들 중 최소값 보다 작거나 같으면 결과를 리턴
+ = ALL      모든 값들과 같아야 결과를 리턴, 값이 하나일 때만 가능함
+ <> ALL  모든 값들과 다르면 결과를 리턴 
+ */
 
 -- Q9. 20번 부서의 사원 중 가장 많은 월급을 받는 사원들 보다 더 많은 월급의 받는 사원의 이름과 월급을 출력하자
 -- 더 많은 월급을 받는
@@ -258,9 +258,11 @@ SELECT * FROM cte;
   UNION ALL		
   SELECT n + 1 FROM cte WHERE n < 5		-- [2] 다음값을 생성 
 )
-SELECT * FROM cte;
+SELECT * FROM cte;  -- 끝나는 구문
 
--- Q14. CTE를 사용해서, MGR 상관부터 말단까지 구조를 탐색해 보자.
+-- Q14) CTE를 사용해서, MG 상관부터 말단직원까지 구조를 탐색
+-- 계층형 구조를 표현하고자 할때 level 사용. 계층이 하나씩 들어갈 때마다 level 값이 0부터 하나씩 증가
+
 WITH RECURSIVE EMP_RES AS
 (
 	-- [1] 최상위 정보를 출력 해보자.
@@ -416,9 +418,10 @@ FROM dept d
 WHERE EXISTS (SELECT *
               FROM emp 
               WHERE DEPTNO = d.DEPTNO);
-              
--- 6) Correlated subqueries: 서브쿼리가 외부 쿼리의 컬럼을 참조하는 경우를 말하며
+
+-- 6) 상관 서브쿼리(Correlated subqueries) : 서브쿼리가 외부 쿼리의 컬럼을 참조하는 경우를 말하며
    -- 서브쿼리는 외부 쿼리의 각 행에 대해 반복적으로 실행된다. 
+   -- 외부쿼리 컬럼 참조 -> 행마다 서브쿼리가 실행됨.
   -- 각 부서에서 가장 높은 급여를 받는 사원의 모든 내용을 출력 해보자.
   SELECT  *
   FROM EMP E1
@@ -432,7 +435,10 @@ WHERE EXISTS (SELECT *
     2. 서브쿼리 실행 MAX(SAL) = 5000
     3. 주쿼리 행의 SAL과 비교 E1.SAL = 5000이면 통과, 아니면 제외
     4. 1. EMP 테이블의 첫번째 행 (E1) 읽음 ( E1.DEPTNO = 20 ) -> 서브쿼리 -> SAL = (MAX(SAL))
-
+  ->루프를 돌음
+ 
+	행마다 다른 deptno가 들어가있다. -> 서브쿼리가 매번 다른 결과를 낸다. -> 결과에 따라 주쿼리 조건이 동적으로 계산된다.
+ */ 
 
 */        
 
@@ -449,7 +455,7 @@ FROM (
 		SELECT ENAME, SAL, DEPTNO, RANK() OVER (PARTITION BY DEPTNO ORDER BY SAL DESC) AS RNK
         FROM EMP
 ) T
-WHERE RNK = 1;
+WHERE RNK = 1; -- 급여가 1위인 사람만 출력 (MAX라서)
 
 ###############################################
   SELECT  *
@@ -459,7 +465,7 @@ WHERE RNK = 1;
                   FROM EMP
                   WHERE  E1.DEPTNO = DEPTNO
                  ) ;
-#####################  서브쿼리 안에서 별칭으로 {JOIN} 하면 안돼요?
+#####################  서브쿼리 안에서 주쿼리 별칭으로 JOIN 하면 안돼요?
   SELECT  *
   FROM EMP E1
   WHERE  SAL  =  (
@@ -550,7 +556,7 @@ HAVING MAX(SAL) > ( SELECT AVG(max_salary)
 
 -- 13.2.15.7 : FROM 절에서 사용되는  INLINE VIEW
 /*
-    
+INLINE VIEW ?  : from 절에서 사용되는 서브쿼리, 일시적인 가상테이블을 생성해서 주쿼리(외부)에서 사용
 서브쿼리의 일종으로 From 절 뒤에 사용된다.
 임시 테이블 처럼 사용된다. 단, {별칭}을 반드시 붙여야 한다.
 주쿼리의 From 절에 포함된 서브쿼리의 결과를 임시테이블로 간주하여 조인하거나

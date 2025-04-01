@@ -11,7 +11,7 @@ UNION ALL
 SELECT DAN, NUM+1, DAN * (NUM + 1)
 FROM GuGuDan
 WHERE NUM < 9
-)
+);
 -- [3] 전체 출력
 SELECT CONCAT(DAN, " * ", NUM, " = ", RESULT) AS GuGuDan_PRN
 FROM GuGuDan;

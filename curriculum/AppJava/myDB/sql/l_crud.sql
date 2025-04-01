@@ -522,7 +522,7 @@ SET MY_EMP.HIREDATE = NOW();
 UPDATE MY_EMP
 SET HIREDATE = NOW()
 WHERE EMPNO IN (
-	SELECT * FROM (
+	SELECT EMPNO FROM (
 		SELECT EMPNO
         FROM MY_EMP
         WHERE JOB = (
@@ -541,7 +541,7 @@ WHERE JOB = (
 	FROM MY_EMP
 	WHERE EMPNO = 7499
 );
-
+rollback;
 -- Q9) MY_EMP, MY_DEPT 테이블에 PRIMARY KEY를 추가하자.
 -- 이미 위에서 했어요 ㅠㅠ
 

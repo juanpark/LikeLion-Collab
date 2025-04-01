@@ -1,4 +1,4 @@
-/*
+ /*
 https://dev.mysql.com/doc/refman/8.4/en/create-table.html
 FOREIGN KEY 제약조건 시 선택 옵션
 
@@ -203,6 +203,9 @@ select * from MY_DEPT;
 DELETE FROM  MY_DEPT
 WHERE  DEPTNO = 50;
 COMMIT;
+
+SELECT @@SQL_SAFE_UPDATES;
+SET SQL_SAFE_UPDATES = 1;
 
 -- Q5) FORD의 월급을 4000으로 변경하고 부서번호를 30으로 변경하자.
 UPDATE MY_EMP

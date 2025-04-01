@@ -1,0 +1,205 @@
+USE MYWORK;
+
+-- 1. 2023년 6월 18일에 대출된 도서의 제목을 조회합니다.
+SELECT TITLE
+FROM BOOK
+WHERE BK_IDX IN (
+	SELECT BK_IDX
+	FROM RENT_BOOK
+	WHERE REG_DATE = '2023-06-18'
+);
+
+-- 2. 2023년 6월 30일에 반납된 도서의 작가를 조회합니다.
+SELECT AUTHOR
+FROM BOOK
+WHERE BK_IDX IN (
+	SELECT BK_IDX
+    FROM RENT_BOOK
+    WHERE RETURN_DATE = '2023-06-30'
+);
+
+-- 3. 2023년 6월 28일에 대출되고 RENT_CNT가 1보다 큰 도서의 제목을 조회합니다.
+SELECT TITLE
+FROM BOOK
+WHERE BK_IDX IN (
+	SELECT BK_IDX
+    FROM RENT_BOOK
+    WHERE REG_DATE = '2023-06-28'
+)
+AND RENT_CNT > 1;
+
+-- 4. 연체상태(RE01)인 대출도서의 카테고리를 조회합니다.
+SELECT CATEGORY
+FROM BOOK
+WHERE BK_IDX IN (
+	SELECT BK_IDX
+    FROM RENT_BOOK
+    WHERE STATE = 'RE01'
+)
+GROUP BY CATEGORY;
+
+-- 5. 대출일과 반납일이 동일한 도서의 제목을 조회합니다.
+SELECT TITLE
+FROM BOOK
+WHERE BK_IDX IN (
+	SELECT BK_IDX
+    FROM RENT_BOOK
+    WHERE DATE(REG_DATE) = DATE(RETURN_DATE) -- 시간이 다를 수 있음. 날짜만 비교.
+);
+
+-- 6. 2023년 6월 7일에 대출되고 6월 11일에 반납된 도서의 작가를 조회합니다.
+SELECT AUTHOR
+FROM BOOK
+WHERE BK_IDX IN (
+	SELECT BK_IDX
+    FROM RENT_BOOK
+    WHERE REG_DATE = '2023-06-07' AND RETURN_DATE = '2023-06-11'
+);
+
+-- 7. 2023년 6월 15일에 대출된 도서의 제목을 조회합니다.
+SELECT TITLE
+FROM BOOK
+WHERE BK_IDX IN (
+	SELECT BK_IDX
+    FROM RENT_BOOK
+    WHERE REG_DATE = '2023-06-15'
+);
+
+-- 8. 2023년 6월 30일에 대출된 도서들 중 누적 대출 횟수가 가장 적은 책 제목을를 조회합니다.
+SELECT TITLE
+FROM BOOK
+WHERE BK_IDX IN (
+	SELECT BK_IDX
+    FROM RENT_BOOK
+    WHERE REG_DATE = '2023-06-30'
+)
+ORDER BY RENT_CNT 
+LIMIT 1;
+
+-- 혹시 2023-06-28을 오타로 2023-06-30으로? 28일로 할 경우 동일한 답
+SELECT TITLE
+FROM BOOK
+WHERE BK_IDX IN (
+	SELECT BK_IDX
+    FROM RENT_BOOK
+    WHERE REG_DATE = '2023-06-28'
+)
+ORDER BY RENT_CNT 
+LIMIT 1;
+
+-- 9. 2023년 6월에 대출되고 누적 대출 횟수가 평균보다 작은 도서의 제목과 대출 횟수를 조회합니다.
+SELECT TITLE, RENT_CNT
+FROM BOOK
+WHERE BK_IDX IN (
+	SELECT BK_IDX
+    FROM RENT_BOOK
+    WHERE REG_DATE BETWEEN '2023-06-01' AND '2023-06-30'
+)
+AND RENT_CNT < (	
+	SELECT AVG(RENT_CNT) 
+	FROM BOOK
+);
+
+-- 10. 연체 상태인 대출도서의 식별자와 상태를 조회합니다.
+SELECT DISTINCT BK_IDX, STATE AS 상태
+FROM RENT_BOOK
+WHERE STATE IN (
+	SELECT CODE
+    FROM CODE
+    WHERE INFO = '연체'
+);
+    
+-- 11. 사용자가 작성한 게시글 중에서 가장 긴 글의 제목과 글자 수를 조회합니다.
+SELECT TITLE, LENGTH(CONTENT) AS CONTENT_LENGTH
+FROM BOARD
+WHERE LENGTH(CONTENT) = (
+	SELECT MAX(LENGTH(CONTENT))
+    FROM BOARD
+);
+
+-- 12. 게시글을 가장 많이 작성한 사용자의 이름과 작성된 게시글 수를 조회합니다.
+SELECT USER_ID, POST_COUNT
+FROM (
+	SELECT USER_ID, COUNT(*) AS POST_COUNT
+    FROM BOARD
+    GROUP BY USER_ID
+) AS POST
+ORDER BY POST_COUNT DESC
+LIMIT 1;
+
+-- 13. 가장 최근에 작성된 게시글의 제목과 작성일을 조회합니다.
+SELECT TITLE, REG_DATE
+FROM BOARD
+WHERE REG_DATE = (
+	SELECT MAX(REG_DATE)
+    FROM BOARD
+);
+    
+-- 14. 가장 오래된 사용자의 이름과 등록일을 조회합니다.
+SELECT USER_ID, REG_DATE
+FROM MEMBER_INFO
+WHERE REG_DATE = (
+	SELECT MIN(REG_DATE)
+    FROM MEMBER_INFO
+);
+
+-- 15. 평균 게시글 길이가 가장 긴 사용자의 이름과 평균 게시글 길이 조회합니다.
+SELECT USER_ID, AVG_LENGTH
+FROM (
+	SELECT USER_ID, AVG(LENGTH(CONTENT)) AS AVG_LENGTH
+    FROM BOARD
+    GROUP BY USER_ID
+) AS SUB
+ORDER BY AVG_LENGTH DESC
+LIMIT 1;
+
+-- 16. 게시글을 가장 많이 작성한 사용자의 이름과 게시글 수 조회합니다.
+-- 12번 문제 반복
+
+-- 17. 각 사용자별로 작성한 게시글 수와 함께 모든 사용자 아이디를 게시글 수를 내림차순으로 정렬하여 조회합니다.
+SELECT USER_ID, COUNT(CONTENT) AS POST_COUNT
+FROM BOARD
+GROUP BY USER_ID
+ORDER BY POST_COUNT DESC;
+
+-- 서브쿼리 사용
+SELECT USER_ID, POST_COUNT
+FROM (
+	SELECT USER_ID, COUNT(CONTENT) AS POST_COUNT
+    FROM BOARD
+    GROUP BY USER_ID
+) AS SUB
+ORDER BY POST_COUNT DESC;
+
+-- 18. 카테고리가 수필인 도서의 도서 재고 합을 구합니다.
+SELECT BOOK_CNT AS '카테고리수필권수'
+FROM (
+	SELECT SUM(BOOK_AMT) AS BOOK_CNT
+    FROM BOOK
+	WHERE CATEGORY IN (
+		SELECT CODE
+		FROM CODE
+		WHERE INFO = '수필'
+	)
+    GROUP BY CATEGORY
+) AS SUB;
+
+-- 19. 가장 최근에 가입한 회원의 이름과 가입 일자 조회합니다.
+SELECT USER_ID, REG_DATE
+FROM MEMBER_INFO
+WHERE REG_DATE = (
+	SELECT MAX(REG_DATE)
+    FROM MEMBER_INFO
+);
+
+-- 20. 모든 사용자 중에서 가장 먼저 탈퇴한 사용자가 작성한 게시물 중 가장 조회수가 높은 게시글의 작성자, 게시글, 조회수를 조회합니다.
+SELECT USER_ID, CONTENT, VIEW_CNT
+FROM BOARD
+WHERE USER_ID = (
+	SELECT USER_ID
+	FROM MEMBER_INFO
+	WHERE LEAVE_DATE = (
+		SELECT MIN(LEAVE_DATE)
+		FROM MEMBER_INFO
+	)
+);

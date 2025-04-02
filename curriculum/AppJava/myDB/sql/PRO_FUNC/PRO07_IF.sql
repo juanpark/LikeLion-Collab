@@ -1,0 +1,21 @@
+CREATE DEFINER=`juanpark`@`%` PROCEDURE `PRO07_IF`(IN ENO INT)
+BEGIN
+-- 조건 TRUE, FALSE 판정 변수
+DECLARE FW INT;
+
+-- 사원의 존재 유무 확인
+SELECT COUNT(*)  INTO FW FROM EMP_TEST WHERE EMPNO = ENO;
+
+-- 사원이 존재 할 경우 급여를 2배 증가
+SET SQL_SAFE_UPDATES = 0;
+IF FW = 1 THEN
+	UPDATE EMP_TEST
+    SET SAL = SAL * 2
+    WHERE EMPNO = ENO;
+    SET SQL_SAFE_UPDATES = 1;
+ELSE
+	-- 사원이 존재하지 않을 경우 메시지 출력
+    SELECT "사원이 존재 하지 않는다" AS MESSAGE;
+END IF;
+
+END

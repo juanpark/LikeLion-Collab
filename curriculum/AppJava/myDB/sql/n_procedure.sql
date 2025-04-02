@@ -211,10 +211,32 @@ GET DIAGNOSTICS CONDITION 1
          @p1 = RETURNED_SQLSTATE, @p2 = MESSAGE_TEXT;
 SELECT @P1, @P2;
 
+-- 10-3) 예외 처리를 포함한 진단 정보(GET DIAGNOSTICS)를 출력하자.
+CALL do_insert(5);
+
+-- 10-4) PRO10_DO_INSERT(1); 실행했을 경우 트랜젝션 현코드를 추가해서 결과를 출력 해보자.
+CALL PRO10_DO_INSERT(1);
+
 
 ##########################################################################################
 
+
+
 -- Q11) `DO` 문을 활용하여 반복 또는 조건문 기반 로직을 실습해보자.
+-- 이름, 전화번호, 가입일을 저장하는 테이블을 생성하고,프로시저를 통해 난수 기반으로 100명의 데이터를 자동 입력 해보자.
+CREATE TABLE IF NOT EXISTS random_members (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    phone VARCHAR(20),
+    join_date DATE
+);
+
+SELECT DATEDIFF('2024-12-31', '2020-01-01');  -- 1826일
+CALL PRO11_Insert_random_members();
+
+SELECT * FROM RANDOM_MEMBERS;
+
+-- 위 테이블에 WED컬럼 추가 후 {요일계산 프로시저}를 작성해 보자.
 
 -- Q12) `CURSOR`(커서)를 이용한 프로시저를 작성하여, 부서번호가 10번인 사원들을 순차적으로 출력하자.
 

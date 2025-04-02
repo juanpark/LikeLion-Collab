@@ -238,7 +238,16 @@ SELECT * FROM RANDOM_MEMBERS;
 
 -- 위 테이블에 WED컬럼 추가 후 {요일계산 프로시저}를 작성해 보자.
 
--- Q12) `CURSOR`(커서)를 이용한 프로시저를 작성하여, 부서번호가 10번인 사원들을 순차적으로 출력하자.
+USE MY_EMP;
+-- Q12) `CURSOR`(커서)를 이용한 프로시저를 작성하여 TEST_EMP의 사원의 이름과 봉급을 출력 해보자.
+CALL PRO12_CURSOR_SELECT();
+
+
+
+-- Q12-1) `CURSOR`(커서)를 이용한 프로시저를 작성하여 TEST_EMP의 사원의 이름과 봉급을 출력 해보자.
+CALL PRO12_CURSOR_SELECT02();
+
+-- Q13) `CURSOR`(커서)를 이용한 프로시저를 작성하여, 부서번호가 10번인 사원들을 순차적으로 출력하자.
 
 
 

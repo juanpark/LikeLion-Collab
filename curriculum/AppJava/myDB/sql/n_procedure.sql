@@ -240,7 +240,7 @@ SELECT * FROM RANDOM_MEMBERS;
 
 USE MY_EMP;
 -- Q12) `CURSOR`(커서)를 이용한 프로시저를 작성하여 TEST_EMP의 사원의 이름과 봉급을 출력 해보자.
-CALL PRO12_CURSOR_SELECT();
+CALL PRO12_CURSOR_SELECT01();
 
 
 

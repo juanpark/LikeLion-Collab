@@ -138,8 +138,81 @@ ROLLBACK;
 --      존재하지 않으면 메시지를 출력하자.
 CALL PRO08_IF(5000);
 
+##############################################################################################################
+/*  <<예외>> https://dev.mysql.com/doc/refman/8.4/en/declare-condition.html
 
+DECLARE condition_name CONDITION FOR condition_value
+
+condition_value: {
+    mysql_error_code
+  | SQLSTATE [VALUE] sqlstate_value
+}
+
+1) DECLARE ... HANDLER : CONTINUE, EXIT, UNDO 핸들러를 통해 오류 발생 후의 흐름 제어
+         -DECLARE CONTINUE HANDLER FOR condition action: 지정된 조건이 발생하면 현재 실행 중인 구문을 완료하고 다음 구문을 계속 실행
+         -DECLARE EXIT HANDLER FOR condition action: 지정된 조건이 발생하면 현재 블록(BEGIN ... END)을 즉시 종료
+         -DECLARE UNDO HANDLER FOR condition action: (트랜잭션 스토리지 엔진에서) 지정된 조건이 발생하면 현재 트랜잭션을 롤백
+         - condition 부분 지정  옵션 
+			= SQLSTATE value: 특정 SQLSTATE 값 (5자리 문자열, 예를 들어 '45000').
+            = SQLEXCEPTION: 모든 SQLSTATE 값 중에서 일반적인 오류를 나타내는 클래스
+            = SQLWARNING: 모든 SQLSTATE 값 중에서 경고를 나타내는 클래스
+            = NOT FOUND: 커서 작업에서 더 이상 행이 없을 때 발생하는 조건 (SQLSTATE '02000').
+            = specific_error_code: 특정 MySQL 오류 코드 (정수).
+            
+2) SIGNAL SQLSTATE :SQL 예외 발생
+3) GET DIAGNOSTICS:발생한 오류에 대한 자세한 정보(SQLSTATE, 오류 코드, 메시지 등)확인
+
+*/
 -- Q10) 모든 사원의 급여를 입력받은 비율만큼 인상하는 프로시저를 작성하자. (예: 비율 1.1 → 10% 인상)
+-- `PRO09_IF`(IN RATE DECIMAL(5,2)
+CALL PRO09_IF(0);
+ROLLBACK;
+CALL PRO06_SELECTALL();
+
+-- 10-1) Docs에 있는 코드를 테스트 하자.
+-- 테이블 생성
+DROP TABLE T;
+SET @x = null;
+CREATE TABLE T (
+	s1 INT, 
+    PRIMARY KEY (s1)
+);
+
+DESC T;
+SELECT * FROM T;
+SELECT @x;
+
+CALL handlerdemo(); -- CONTINUE
+CALL handlerdemo02(); -- EXIT
+
+SELECT * FROM T;
+SELECT @x;
+
+-- 10-1) Docs에 있는 코드를 테스트 하자.
+CALL P();
+
+-- 10-2) 예외가 발생된 정보를 리턴 받아서 출력 해보자
+/*
+mysql> DROP TABLE test.no_such_table;
+ERROR 1051 (42S02): Unknown table 'test.no_such_table'
+mysql> GET DIAGNOSTICS CONDITION 1
+         @p1 = RETURNED_SQLSTATE, @p2 = MESSAGE_TEXT;
+mysql> SELECT @p1, @p2;
++-------+------------------------------------+
+| @p1   | @p2                                |
++-------+------------------------------------+
+| 42S02 | Unknown table 'test.no_such_table' |
++-------+------------------------------------+
+*/
+
+DROP TABLE NO_SUCH_TABLE;
+-- Error Code: 1051. Unknown table 'my_emp.no_such_table'
+GET DIAGNOSTICS CONDITION 1
+         @p1 = RETURNED_SQLSTATE, @p2 = MESSAGE_TEXT;
+SELECT @P1, @P2;
+
+
+##########################################################################################
 
 -- Q11) `DO` 문을 활용하여 반복 또는 조건문 기반 로직을 실습해보자.
 

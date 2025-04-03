@@ -197,20 +197,35 @@ SELECT  * FROM  T3 LIMIT 3;
 
 -- 11-5) 데이터가 존재하는 파티션을 확인하자.  
 SELECT  *
-FROM T3  PARTITION (p0) WHERE YEAR_COL  = 1920
+FROM T3  PARTITION (p0) WHERE YEAR_COL  = 1998
 UNION ALL
 SELECT  *
-FROM T3  PARTITION (p1) WHERE YEAR_COL  = 1920
+FROM T3  PARTITION (p1) WHERE YEAR_COL  = 1998
 UNION ALL
 SELECT  *
-FROM T3  PARTITION (p2) WHERE YEAR_COL  = 1920
+FROM T3  PARTITION (p2) WHERE YEAR_COL  = 1998
 UNION ALL
 SELECT  *
-FROM T3  PARTITION (p3) WHERE YEAR_COL  = 1920;
+FROM T3  PARTITION (p3) WHERE YEAR_COL  = 1998;
 
+-- 11-5-2 전체 1998을 찾아서 전체 출력하는 코드를 통해 각 파티션의 데이터 개수를 출력하자.
+SELECT  'P0' AS PARTITION_NAME, COUNT(*) AS CNT
+FROM T3  PARTITION (p0) WHERE YEAR_COL  = 1998
+UNION ALL
+SELECT  'P1', COUNT(*)
+FROM T3  PARTITION (p1) WHERE YEAR_COL  = 1998
+UNION ALL
+SELECT  'P2', COUNT(*)
+FROM T3  PARTITION (p2) WHERE YEAR_COL  = 1998
+UNION ALL
+SELECT  'P3', COUNT(*)
+FROM T3  PARTITION (p3) WHERE YEAR_COL  = 1998;
 
+EXPLAIN SELECT * FROM T3
+	WHERE YEAR_COL = 1998;
   
 -- 12. Key Partition : MYSQL이 해시함수를 이용해서 해시값을 계산  
+DROP TABLE T4;
 CREATE TABLE t4 (
     id INT,
     year_col INT
@@ -231,6 +246,8 @@ INSERT INTO T4 VALUES (4, 2000);
 INSERT INTO T4 VALUES (5, 2005);  
 INSERT INTO T4 VALUES (5, 2005);  
 
+SELECT * FROM T4;
+
 -- 12-2 데이터 추가된 row를  어떤 파티션에서 포함하고 있는지 확인  
 SELECT PARTITION_NAME , TABLE_ROWS  
 FROM information_schema.PARTITIONS 
@@ -242,6 +259,7 @@ EXPLAIN SELECT * FROM t4 PARTITION (p0); -- rows 1  확인   -> 최소 1개정�
 EXPLAIN SELECT * FROM t4 PARTITION (p2); -- rows 1  확인  
 EXPLAIN SELECT * FROM t4 PARTITION (p3); -- rows 1  확인  
 SELECT * FROM t4 PARTITION (p0);
+SELECT * FROM t4 PARTITION (p1);
 
 select count(*) from t4;
 

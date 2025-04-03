@@ -201,16 +201,24 @@ GRANT ALL PRIVILEGES ON world.city TO 'mysample'@'localhost';
 GRANT ALL PRIVILEGES ON world.city TO 'mysample07'@'localhost';
 FLUSH PRIVILEGES;
 
+-- TERINAL에서 새로 생성한 계정으로 접속해서 테스트
+-- mysql -u mysample07 -p
+SELECT CURRENT_USER();
+USE WORLD;
+SELECT * FROM CITY LIMIT 10;
+USE MY_EMP;
+-- ERROR 1044 (42000): Access denied for user 'mysample07'@'localhost' to database 'my_emp'
+
  /*
 ===================================================================
 단계 8: ROLE 생성 및 권한 부여
 ===================================================================
 */
--- ROLE 생성
+-- ROLE 생성 _ 사용자 이름 생성
 CREATE ROLE 'myselect';
 CREATE ROLE 'myupdate';
 
--- ROLE에 권한 부여
+-- ROLE에 권한 부여 _ 작업할 수 있는 목록을 부여 
 GRANT SELECT ON *.* TO 'myselect';
 GRANT UPDATE ON *.* TO 'myupdate';
 
@@ -244,3 +252,7 @@ REVOKE SELECT ON *.* FROM 'my_select'@'%';
 CREATE USER 'patmat'@'localhost' IDENTIFIED BY '1234';
 GRANT ALL PRIVILEGES ON MyTest.* TO 'patmat'@'localhost';
 FLUSH PRIVILEGES;
+
+-- 사용자 삭제
+DROP USER 'my_select'@'%';
+DROP USER 'my_update'@'%';

@@ -21,7 +21,54 @@
 • 범위 검색을 하는 경우, 인덱스가 바람직하지 않다.
  • 테이블의 행 개수가 별로 없는 경우, 인덱스가 바람직하지 않다
 */
+USE MY_EMP;
+-- Q1) 함수 기반 인덱스를 활용해 보자.
+CREATE TABLE tbl (
+  col1 LONGTEXT,
+  INDEX idx1 ((SUBSTRING(col1, 1, 10))) -- 10문자만 추출해서 인덱스로 사용하겠다
+);
+DESC TBL;
+
+INSERT INTO TBL VALUES ('11111111111111111111111');
+INSERT INTO TBL VALUES ('1234567890');
+INSERT INTO TBL VALUES ('123456789');
+SELECT * FROM TBL;
+
+-- 함수형 인덱스 적용확인
+EXPLAIN
+SELECT * FROM tbl WHERE SUBSTRING(col1, 1, 9) = '123456789';
+
+-- 함수형 인덱스 적용확인
+EXPLAIN
+SELECT * FROM tbl WHERE SUBSTRING(col1, 1, 10) = '1234567890';
 
 
+-- Q2) EMP 테이블을 EMP_TEST로 만들어서 내보내자 
+CREATE TABLE EMP_TEST
+AS
+SELECT * FROM EMP;
 
+SELECT * FROM EMP_TEST;
 
+DROP TABLE employees;
+CREATE TABLE employees (
+  data JSON,
+  ID INT,
+  INDEX ((CAST(data->>'$.name' AS CHAR(30))))
+);
+
+DESC EMPLOYEES;
+
+DROP TABLE employees;
+CREATE TABLE employees (
+  data JSON,
+  INDEX idx ((CAST(data->>"$.name" AS CHAR(30)) COLLATE utf8mb4_bin))
+);
+INSERT INTO employees VALUES
+  ('{ "name": "james", "salary": 9000 }'),
+  ('{ "name": "James", "salary": 10000 }'),
+  ('{ "name": "Mary", "salary": 12000 }'),
+  ('{ "name": "Peter", "salary": 8000 }');
+SELECT * FROM employees WHERE data->>'$.name' = 'James';
+
+SELECT * FROM EMPLOYEES;

@@ -8,7 +8,7 @@ public class MapTest {
 	public static void main(String[] args) {
 		
 		Map<String, Mobile> map = new HashMap<String, Mobile>();
-		double sum = 0.0;
+		// double sum = 0.0;
 		
 		// 4개의 Mobile 객체 생성
 		Mobile phone1 = new Mobile("SU7600", "Optimus Mach", 950000.0);
@@ -18,7 +18,7 @@ public class MapTest {
 		
 		// map에 4개의 객체를 code를 키 값으로 넣는다.
 		// key : value pair = [String Code : (String Code, String name, double price)] 
-		map.put(phone1.getCode(), phone1);
+		map.put(phone1.getCode(), phone1); 
 		map.put(phone2.getCode(), phone2);
 		map.put(phone3.getCode(), phone3);
 		map.put(phone4.getCode(), phone4);
@@ -42,7 +42,7 @@ public class MapTest {
 
 	private static void printAndSum(Map<String, Mobile> map) {
 		
-		double total = 0;
+		double total = 0.0;
 		
 		// keyset는 key를 String으로 반환
 		for(String phone : map.keySet()){

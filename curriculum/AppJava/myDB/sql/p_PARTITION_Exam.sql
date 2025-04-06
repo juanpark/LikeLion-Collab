@@ -224,5 +224,6 @@ WHERE TABLE_NAME = 'city_partitioned' AND TABLE_SCHEMA = 'world';
 -- 파티셔닝된 테이블은 city_partitioned 테이블이었는데, 왜 city 테이블? 
 -- 그리고 위에서 이미 p1 파티션을 삭제했는데, 어떻게 기존의 모든 데이터를 유지하라는건지? 
 
+
 -- Q17) 파티셔닝이 제거된 city 테이블의 정보를 확인하시오.
 -- 16번이 해결되어야 해결 가능한 문제

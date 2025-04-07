@@ -350,3 +350,146 @@ DESC Payment;
 SELECT *
 FROM information_schema.KEY_COLUMN_USAGE
 WHERE TABLE_NAME = 'Payment' AND CONSTRAINT_SCHEMA = 'ecommerce_temp';
+
+SELECT CONSTRAINT_NAME, UPDATE_RULE, DELETE_RULE
+FROM information_schema.REFERENTIAL_CONSTRAINTS
+WHERE CONSTRAINT_SCHEMA = 'ecommerce_temp' AND TABLE_NAME = 'Payment';
+
+-- 28. ORDERDETAIL 테이블에 지정되어 있는 외래키제약조건을 삭제 하시오.
+DESC OrderDetail;
+SELECT *
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'OrderDetail' AND CONSTRAINT_SCHEMA = 'ecommerce_temp';
+
+ALTER TABLE OrderDetail
+DROP FOREIGN KEY orderdetail_ibfk_1;
+ALTER TABLE OrderDetail
+DROP INDEX OrderID; -- this workes, 1. drop FK, 2. then drop index
+
+DESC OrderDetail;
+SELECT *
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'OrderDetail' AND CONSTRAINT_SCHEMA = 'ecommerce_temp';
+
+-- 29. ORDERDETAIL 테이블의 ORDERID 컬럼이 ORDER 테이블의 ORDERID 컬럼을 외래키로 참조하도록 새로운 외래키제약조건을 추가 하시오. 외래키제약조건의 이름은
+-- 'FK_ORDER_ORDERDETAIL' 이며 ORDER 테이블의 튜플이 수정될 경우 해당 튜플을 참조하고 있는 PAYMENT 테이블 튜플의 ORDERID 컬럼의 값에 NULL 이 들어가도록 지정하시오.
+ALTER TABLE OrderDetail
+MODIFY OrderID INT NULL,
+ADD CONSTRAINT FK_ORDER_ORDERDETAIL FOREIGN KEY (OrderID) REFERENCES `Order`(OrderID)
+ON UPDATE SET NULL;
+
+DESC OrderDetail;
+SELECT *
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'OrderDetail' AND CONSTRAINT_SCHEMA = 'ecommerce_temp';
+
+SELECT CONSTRAINT_NAME, UPDATE_RULE, DELETE_RULE
+FROM information_schema.REFERENTIAL_CONSTRAINTS
+WHERE CONSTRAINT_SCHEMA = 'ecommerce_temp' AND TABLE_NAME = 'OrderDetail';
+
+-- 30. PRODUCT 테이블에서 기존의 외래키제약조건을 삭제하고 CATEGORYID 컬럼이 CATEGORY 테이블의 CATEGORYID 컬럼을 외래키로 참조하도록 새로운
+-- 외래키제약조건을 추가 하시오. 외래키제약조건의 이름은 'FK_CATEGORY_PRODUCT' 이며 CATEGORY 테이블의 튜플이 수정될 경우 해당 튜플을 참조하고 있는 PRODUCT
+-- 테이블 튜플의 CATEGORYID 컬럼의 값이 함께 수정되도록 지정 하시오. *. 하나의 쿼리로 작성하시오.
+DESC Product;
+SELECT *
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'Product' AND CONSTRAINT_SCHEMA = 'ecommerce_temp';
+
+ALTER TABLE Product
+DROP FOREIGN KEY product_ibfk_1,
+MODIFY CategoryID INT NOT NULL,
+ADD CONSTRAINT FK_CATEGORY_PRODUCT FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
+ON UPDATE CASCADE;
+
+DESC Product;
+SELECT *
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'Product' AND CONSTRAINT_SCHEMA = 'ecommerce_temp';
+
+SELECT CONSTRAINT_NAME, UPDATE_RULE, DELETE_RULE
+FROM information_schema.REFERENTIAL_CONSTRAINTS
+WHERE CONSTRAINT_SCHEMA = 'ecommerce_temp' AND TABLE_NAME = 'Product';
+
+-- 31. USER 테이블의 PHONENUMBER 컬럼의 크기를 VARCHAR(15)로 수정 하시오.
+DESC User;
+
+ALTER TABLE User
+MODIFY PhoneNumber VARCHAR(15) NULL;
+
+DESC USER;
+
+-- 32. USER 테이블에 BIRTHDATE 컬럼을 추가 하시오.
+DESC User;
+
+ALTER TABLE User
+ADD COLUMN BirthDate DATE;
+
+DESC User;
+
+-- 33. PRODUCT 테이블에 WEIGHT 컬럼을 추가 하시오. 
+DESC Product;
+
+ALTER TABLE Product
+ADD COLUMN Weight INT;
+
+DESC Product;
+
+-- 34. USER 테이블에 BIRTHDATE 컬럼을 삭제 하시오.
+DESC User;
+
+ALTER TABLE User
+DROP COLUMN BirthDate;
+
+DESC User;
+
+-- 35. PRODUCT 테이블에 WEIGHT 컬럼을 삭제 하시오.
+DESC Product;
+
+ALTER TABLE Product
+DROP COLUMN Weight;
+
+DESC Product;
+
+-- 36. USER 테이블의 USERNAME 과 EMAIL 컬럼의 순서를 변경 하시오.
+DESC User;
+
+ALTER TABLE User
+MODIFY COLUMN Username VARCHAR(255) NOT NULL AFTER Email; 
+
+DESC User;
+
+-- 37. USER 테이블의 REGDATE 컬럼의 이름을 CREATEDAT 으로 변경 하시오.
+ALTER TABLE User
+RENAME COLUMN regDate TO createDate;
+
+DESC User;
+
+-- 38. ORDERDETAIL 테이블의 PRIMARY KEY 를 (ORDERID, PRODUCTID)의 복합키로 변경 하시오.
+DESC OrderDetail;
+
+ALTER TABLE OrderDetail
+MODIFY ProductID INT NOT NULL, -- 복합키의 경우 컬럼이 NOT NULL이어야 함
+DROP Primary KEY,
+ADD PRIMARY KEY (OrderDetailID, ProductID);
+
+DESC OrderDetail;
+SELECT *
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'OrderDetail' AND CONSTRAINT_SCHEMA = 'ecommerce_temp';
+
+-- 39. PAYMENT 테이블의 TRASACTIONDATE 컬럼의 DEFAULT 값을 행이 삽입될때 날짜와 시간으로 지정하고, 만약 해당 튜플이 수정 될 경우 수정시간으로 자동으로 변경되도록 하시오.
+DESC Payment;
+
+ALTER TABLE Payment
+MODIFY TransactionDate timestamp 
+DEFAULT CURRENT_TIMESTAMP NOT NULL
+ON UPDATE CURRENT_TIMESTAMP;
+
+DESC Payment;
+
+-- 40 . PRODUCT, ORDERDETAIL, USERFAVORITE, PAYMENT , USER, ORDER, CATEGORY 테이블을 삭제 하시오.
+SHOW TABLES FROM ECOMMERCE_TEMP;
+
+DROP TABLE PRODUCT, ORDERDETAIL, USERFAVORITE, PAYMENT, USER, `ORDER`, CATEGORY;
+
+SHOW TABLES FROM ECOMMERCE_TEMP;

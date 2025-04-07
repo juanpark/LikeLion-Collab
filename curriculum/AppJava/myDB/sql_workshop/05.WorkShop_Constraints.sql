@@ -321,8 +321,32 @@ SELECT *
 FROM information_schema.KEY_COLUMN_USAGE 
 WHERE TABLE_NAME = 'UserFavorite' AND CONSTRAINT_SCHEMA = 'ecommerce_temp';
 
+-- 26. PAYMENT 테이블에 지정되어 있는 외래키제약조건을 삭제 하시오.
+DESC Payment;
+SELECT *
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'Payment' AND CONSTRAINT_SCHEMA = 'ecommerce_temp';
 
+ALTER TABLE Payment
+DROP FOREIGN KEY payment_ibfk_1;
+ALTER TABLE Payment
+DROP INDEX OrderID; -- this workes, 1. drop FK, 2. then drop index
 
+DESC Payment;
+SELECT *
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'Payment' AND CONSTRAINT_SCHEMA = 'ecommerce_temp';
 
+-- 27. PAYMENT 테이블의 ORDERID 컬럼이 ORDER 테이블의 ORDERID 컬럼을 외래키로 참조하도록 새로운 외래키제약조건을 추가 하시오. 외래키제약조건의 이름은
+-- 'FK_ORDER_PAYMENT' 이며 ORDER 테이블의 튜플이 생략될 경우 해당 튜플을 참조하고 있는 PAYMENT 테이블 튜플도 함께 삭제되도록 하시오.
+DESC Payment;
 
+ALTER TABLE Payment
+MODIFY OrderID INT NULL,
+ADD CONSTRAINT FK_ORDER_PAYMENT FOREIGN KEY (OrderID) REFERENCES `Order`(OrderID)
+ON DELETE CASCADE;
 
+DESC Payment;
+SELECT *
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'Payment' AND CONSTRAINT_SCHEMA = 'ecommerce_temp';

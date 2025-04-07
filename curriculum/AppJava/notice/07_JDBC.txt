@@ -1,0 +1,76 @@
+ <<JDBC(Java Database Connectivity)>>
+ 
+1) JDBC란?	: 자바에서 데이터베이스에 접근할 수 있도록 제공하는 API (Java Database Connectivity)
+     - JDBC 드라이버 JAR의 종류
+       MySQL: MySQL Connector/J -> com.mysql.cj.jdbc.Driver.class
+         Class.forName("com.mysql.cj.jdbc.Driver").newInstance(); // DB <-> java
+       
+       Oracle: Oracle JDBC Driver
+       SQL Server: Microsoft JDBC Driver for SQL Server
+       PostgreSQL: PostgreSQL JDBC Driver
+       
+     - 이클립스 프로젝트에 JDBC 드라이버 추가
+       case 1: Build Path > Configure Build Path...->Libraries 탭 ->Add External JARs -> Apply and Close 
+       case 2: Window > Preferences -> Java > Build Path > User Libraries-> New (라이브러리 생성)
+            -> User Library-> Add External JARs...-> JDBC 드라이버 JAR 파일을 찾아 선택-> Open ->Apply and Close          
+     
+ 
+
+2) 구성 요소 : 	JDBC 드라이버, Connection, Statement, ResultSet 등
+	java.sql
+	javax.sql
+	
+
+3) 동작 흐름과 주요 인터페이스 
+   드라이버 로드(DriverManager) →  연결(Connection) →  SQL 실행(Statement,PreparedStatement) →  결과 처리(ResultSet) →  연결 종료
+   
+4) 주요 인터페이스와 메소드  
+   1. 드라이버 로드(DriverManager) 
+       getConnection(String url, String user, String password)	:DB 연결 객체(Connection)를 반환
+       getConnection(String url)	 : 사용자/비밀번호가 포함된 URL로 연결
+       
+   2. 연결(Connection)
+       createStatement() : 	일반 SQL용 Statement 객체 생성
+       prepareStatement(String sql)	: 파라미터 바인딩 가능한 PreparedStatement 생성
+       setAutoCommit(boolean)	 : 자동 커밋 설정 (기본: true)
+       commit()	:    수동 커밋
+       rollback() :	롤백 처리
+       close()	연결 종료
+       
+   3. SQL 실행(Statement,PreparedStatement)
+       --Statement
+       executeQuery(String sql)	: SELECT문 실행 후 ResultSet 리턴
+       executeUpdate(String sql)	 : INSERT, UPDATE, DELETE 실행 후 행 수 반환
+       close():	자원 해제
+       
+       -- PreparedStatement
+        setString(int index, String value): 	문자열 파라미터 설정
+		setInt(int index, int value): 	정수형 파라미터 설정
+        setDouble, setDate, setBoolean 등: 	다양한 타입 설정 가능
+		executeQuery()	:SELECT문 실행
+		executeUpdate()	:INSERT, UPDATE, DELETE 실행
+		close() :	자원 해제      
+    
+   
+   4. ResultSet
+     next()	:다음 행으로 이동 (boolean 반환)
+     getString(String columnLabel): 	문자열 값 가져오기
+     getInt(String columnLabel) :	정수 값 가져오기
+     getDouble, getBoolean, getDate 등	:컬럼 값 가져오기
+     close()	: 자원 해제
+     
+ 
+ 5) MVC 패턴 
+[View] → 사용자 입력
+   ↓
+[Controller] → 사용자의 선택에 따라 서비스 호출
+   ↓
+[Service] → 비즈니스 로직 실행 (검증, 처리 등)
+   ↓
+[DAO] → SQL 실행 (JDBC 코드)
+   ↓
+[JDBCTemplate] → 공통 연결 처리
+   ↓
+[MySQL DB] ← 실제 데이터 저장소
+ 
+

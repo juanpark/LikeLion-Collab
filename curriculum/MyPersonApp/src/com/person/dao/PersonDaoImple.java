@@ -5,11 +5,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.person.model.Person;
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate_BAK.*;
 
 // DB CRUD
-// view -> controller -> dao [JDBCTemplate] -> db
-// view <- controller <- dao [JDBCTemplate] <- db
+// view -> controller -> dao [JDBCTemplate_BAK] -> db
+// view <- controller <- dao [JDBCTemplate_BAK] <- db
 public class PersonDaoImple implements PersonDao {
 	
 	// 1. Insert

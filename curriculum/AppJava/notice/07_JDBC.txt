@@ -39,17 +39,17 @@
        
    3. SQL 실행(Statement,PreparedStatement)
        --Statement
-       executeQuery(String sql)	: SELECT문 실행 후 ResultSet 리턴
-       executeUpdate(String sql)	 : INSERT, UPDATE, DELETE 실행 후 행 수 반환
+       executeQuery(String sql)		: SELECT문 실행 후 ResultSet 리턴
+       executeUpdate(String sql)	: INSERT, UPDATE, DELETE 실행 후 행 수 반환
        close():	자원 해제
        
        -- PreparedStatement
-        setString(int index, String value): 	문자열 파라미터 설정
-		setInt(int index, int value): 	정수형 파라미터 설정
-        setDouble, setDate, setBoolean 등: 	다양한 타입 설정 가능
-		executeQuery()	:SELECT문 실행
-		executeUpdate()	:INSERT, UPDATE, DELETE 실행
-		close() :	자원 해제      
+        setString(int index, String value)	: 문자열 파라미터 설정
+		setInt(int index, int value)		: 정수형 파라미터 설정
+        setDouble, setDate, setBoolean 등	: 다양한 타입 설정 가능
+		executeQuery()						: SELECT문 실행
+		executeUpdate()						: INSERT, UPDATE, DELETE 실행
+		close() 							: 자원 해제      
     
    
    4. ResultSet

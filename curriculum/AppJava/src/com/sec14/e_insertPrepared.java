@@ -36,10 +36,10 @@ public class e_insertPrepared {
 		    double sal = 5500.0;
 		    
 		    String sql_insert = "insert into emp(empno, ename, sal) values(?,?,?)";
-		    pstmt = conn.prepareStatement(sql_insert);
+		    pstmt = conn.prepareStatement(sql_insert); // 준비된 구문 
 		    
 		    // sql_insert 매개변수에 값전달 및 변경 코드
-		    pstmt.setInt(1, empno);
+		    pstmt.setInt(1, empno);		// 매개변수 바인딩 
 		    pstmt.setString(2, ename);
 		    pstmt.setDouble(3, sal);
 		    

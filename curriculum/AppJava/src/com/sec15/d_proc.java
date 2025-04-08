@@ -31,8 +31,6 @@ public class d_proc {
 
 			}
 
-			System.out.println(conn.isClosed());
-			System.out.println("연결중......");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

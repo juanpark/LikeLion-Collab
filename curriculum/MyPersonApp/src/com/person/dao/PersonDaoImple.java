@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.person.model.Person;
-import static common.JDBCTemplate_BAK.*;
+import static common.JDBCTemplate.*;
 
 // DB CRUD
 // view -> controller -> dao [JDBCTemplate_BAK] -> db

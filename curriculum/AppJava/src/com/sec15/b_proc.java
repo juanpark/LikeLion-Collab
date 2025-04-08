@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import java.sql.CallableStatement;
 
-import static common.JDBCTemplate.*; //자주 사용하는 정적 메서드를 클래스명 없이 참조해서 바로 호출!
+import static common.JDBCTemplate_BAK.*; //자주 사용하는 정적 메서드를 클래스명 없이 참조해서 바로 호출!
 
 public class b_proc {
 	public static void main(String[] args) {

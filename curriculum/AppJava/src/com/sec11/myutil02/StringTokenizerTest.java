@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
 
 public class StringTokenizerTest {
 	public static void main(String[] args) {
-		String str = "java,jdbc,servlet/jsp,spring/JDBCTemplate";
+		String str = "java,jdbc,servlet/jsp,spring/JDBCTemplate_BAK";
 		StringTokenizer st = new StringTokenizer(str, ",/");
 		while (st.hasMoreTokens())
 			System.out.println(st.nextToken());

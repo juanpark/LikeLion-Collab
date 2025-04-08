@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate_BAK.*;
 
 //사원번호와 이름을 입력받아 수정해보자. 3번의 이름을 홍길동으로 변경
 public class c_proc {

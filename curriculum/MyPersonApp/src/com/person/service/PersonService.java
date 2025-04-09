@@ -13,4 +13,5 @@ public interface PersonService {
 	int deletePerson(Person p);
 	int updatePerson(Person p);
 	Person searchByName(Person p);
+	List<Person> getPersonByPage(int page, int size);
 }

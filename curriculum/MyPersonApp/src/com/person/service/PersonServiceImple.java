@@ -43,6 +43,12 @@ public class PersonServiceImple implements PersonService {
 		return dao.seachByName(p);
 	}
 
+	@Override
+	public List<Person> getPersonByPage(int page, int size) {
+		// TODO Auto-generated method stub
+		return dao.getPersonByPage(page, size);
+	}
+
 
 
 }

@@ -16,7 +16,7 @@ public class PersonController {
 	public void run() {
 		// 메뉴 생성 = 페이지 이동
 		while(true) {
-			System.out.println(" 1. 전체 출력  | 2. 추가   | 3. 삭제  | 4. 수정   | 5. 찾기   | 0. 종료 ");
+			System.out.println(" 1. 전체 출력  | 2. 추가 | 3. 삭제  | 4. 수정 | 5. 찾기 | 6. 저장 | 7. 페이징 | 0. 종료 ");
 			System.out.print("입력: ");
 			String menu = sc.nextLine();
 			switch (menu) {
@@ -76,6 +76,23 @@ public class PersonController {
 						} else {
 							view.showMessage("검색된 이름의 결과가 없어!");
 						}
+						break;
+			case "6" :	// 파일 저장
+						System.out.print("저장할 파일을 입력하세요 : ");
+						String file_name = sc.nextLine();
+						view.saveToFile(service.selectAllPerson(), file_name);
+						break;
+			case "7" :	// 페이징 처리 -> 페이지 번호와 크기를 입력해서 해당 범위의 목록을 리탄 받자.
+						// select * from person LIMIT ? OFFSET ?;
+						// page = (page - 1) * size 페이징 공식
+						// 만일 page = 2, size = 10
+						System.out.print("페이지 번호");
+						int page = Integer.parseInt(sc.nextLine());
+						System.out.print("페이지 크기");
+						int size = Integer.parseInt(sc.nextLine());
+						
+						List<Person> pageList = service.getPersonByPage(page, size);
+						view.showAllList(pageList);
 						break;
 			case "0" : 
 						view.showMessage("종료합니다.");

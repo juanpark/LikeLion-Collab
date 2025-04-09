@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class gugudan_proc {
+public class gugudan03_proc {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("구구단 몇단: ");

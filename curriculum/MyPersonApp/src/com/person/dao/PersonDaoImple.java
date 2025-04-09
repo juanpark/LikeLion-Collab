@@ -160,5 +160,38 @@ public class PersonDaoImple implements PersonDao {
 		}
 		return person;
 	}
+
+	@Override
+	public List<Person> getPersonByPage(int page, int size) {
+		List<Person> all = new ArrayList<>();
+		
+		Connection conn = getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Person person = null;
+		
+		try {
+			pstmt = conn.prepareStatement(page_sql); // 쿼리 준비
+			pstmt.setInt(1, size); //데이터 바인딩 
+			pstmt.setInt(2, (page - 1) * size);
+			
+			rs = pstmt.executeQuery(); // 실행
+			
+			while (rs.next()) {
+				person = new Person();
+				person.setName(rs.getString("name"));
+				person.setAddress(rs.getString("address"));
+				person.setPhone(rs.getString("phone"));
+				all.add(person);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			Close(rs);
+			Close(pstmt);
+			Close(conn);	
+		}
+		return all;
+	}
 }
 

@@ -1,0 +1,25 @@
+MVC 패턴 활용한 서비스 컴포터넌트를 콘솔에서 실행:
+
+view -> controller -> model [service, dao] -> JDBCTemplate -> db
+
+CREATE TABLE IF NOT EXISTS person (
+	name VARCHAR(50) PRIMARY KEY,
+    address VARCHAR(100),
+    phone VARCHAR(20)
+);
+
+
+MyPersonAPP /src
+				|com.person.controller.PersonController
+                |com.person.dao.PersonDao(I)			-- [4]
+                |com.person.dao.PersonDaoImple(C)
+                |com.person.model.Person				-- [3]
+                |com.person.service.PersonService(I)
+                |com.person.service.PersonServiceImple(C)
+                |com.person.view.PersonConsoleView
+                |common.JDBCTemplate					-- [2]
+                |db.properties							-- [1]
+			/lib
+				/mysql-connector-j-9.1.0.jar
+
+				

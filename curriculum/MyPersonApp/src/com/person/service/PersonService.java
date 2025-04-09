@@ -10,4 +10,7 @@ public interface PersonService {
 	// Dao
 	List<Person> selectAllPerson();
 	int insertPerson(Person p);
+	int deletePerson(Person p);
+	int updatePerson(Person p);
+	Person searchByName(Person p);
 }

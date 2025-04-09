@@ -10,15 +10,15 @@ CREATE TABLE IF NOT EXISTS person (
 
 
 MyPersonAPP /src
-				|com.person.controller.PersonController
-                |com.person.dao.PersonDao(I)			-- [4]
+				|com.person.controller.PersonController 	-- [7]
+                |com.person.dao.PersonDao(I)				-- [4]
                 |com.person.dao.PersonDaoImple(C)
-                |com.person.model.Person				-- [3]
-                |com.person.service.PersonService(I)
+                |com.person.model.Person					-- [3]
+                |com.person.service.PersonService(I)		-- [5]
                 |com.person.service.PersonServiceImple(C)
-                |com.person.view.PersonConsoleView
-                |common.JDBCTemplate					-- [2]
-                |db.properties							-- [1]
+                |com.person.view.PersonConsoleView			-- [6] 전체 출력 코드
+                |common.JDBCTemplate						-- [2]
+                |db.properties								-- [1]
 			/lib
 				/mysql-connector-j-9.1.0.jar
 

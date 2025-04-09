@@ -43,12 +43,50 @@ public class PersonDaoImple implements PersonDao {
 	
 	// 2. delete
 	public int deletePerson(Person p) {
-		return 0;
+		Connection conn = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		try {
+			pstm = conn.prepareStatement(delete_sql); // 쿼리 준비
+			// 데이터 바인딩
+			pstm.setString(1, p.getName());
+			res = pstm.executeUpdate();
+			commit(conn);
+			
+		} catch (SQLException e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			Close(pstm);
+			Close(conn);	
+		}
+		return res;
 	}
 	
 	// 3. update
 	public int updatePerson(Person p) {
-		return 0;
+		Connection conn = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		try {
+			pstm = conn.prepareStatement(update_sql); // 쿼리 준비
+			// 데이터 바인딩		
+			pstm.setString(1, p.getAddress());
+			pstm.setString(2, p.getPhone());
+			pstm.setString(3, p.getName());
+			res = pstm.executeUpdate();
+			commit(conn);
+			
+		} catch (SQLException e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			Close(pstm);
+			Close(conn);	
+		}
+		return res;
 	}
 	
 	// 4. select
@@ -93,4 +131,34 @@ public class PersonDaoImple implements PersonDao {
 		
 		return all;
 	}
+
+	@Override
+	public Person seachByName(Person p) {
+		Connection conn = getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Person person = null;
+		
+		try {
+			pstmt = conn.prepareStatement(find_sql); // 쿼리 준비
+			pstmt.setString(1, p.getName()); //데이터 바인딩 
+			
+			rs = pstmt.executeQuery(); // 실행
+			
+			while (rs.next()) {
+				person = new Person();
+				person.setName(rs.getString("name"));
+				person.setAddress(rs.getString("address"));
+				person.setPhone(rs.getString("phone"));
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			Close(rs);
+			Close(pstmt);
+			Close(conn);	
+		}
+		return person;
+	}
 }
+

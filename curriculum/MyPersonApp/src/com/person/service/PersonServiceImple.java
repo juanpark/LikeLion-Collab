@@ -25,4 +25,24 @@ public class PersonServiceImple implements PersonService {
 		return dao.insertPerson(p);
 	}
 
+	@Override
+	public int deletePerson(Person p) {
+		// TODO Auto-generated method stub
+		return dao.deletePerson(p);
+	}
+
+	@Override
+	public int updatePerson(Person p) {
+		// TODO Auto-generated method stub
+		return dao.updatePerson(p);
+	}
+
+	@Override
+	public Person searchByName(Person p) {
+		// TODO Auto-generated method stub
+		return dao.seachByName(p);
+	}
+
+
+
 }

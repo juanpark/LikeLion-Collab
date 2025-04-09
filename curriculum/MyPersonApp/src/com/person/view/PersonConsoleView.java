@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.person.model.Person;
 
-public class PersonColsoleView {
+public class PersonConsoleView {
 	
 	// 전체 출력
 	public void showAllList(List<Person> list) {
@@ -15,7 +15,7 @@ public class PersonColsoleView {
 	}
 	
 	// 알림 메시지
-	public void showMessge(String message) {
+	public void showMessage(String message) {
 		System.out.println(" [알림] " + message);
 	}
 }

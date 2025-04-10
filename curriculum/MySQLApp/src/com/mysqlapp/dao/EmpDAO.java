@@ -3,6 +3,7 @@ package com.mysqlapp.dao;
 import java.util.List;
 import com.mysqlapp.model.Emp;
 import com.mysqlapp.model.EmpDeptDTO;
+import com.mysqlapp.model.EmpSalGradeDTO;
 
 public interface EmpDAO {
     String INSERT_SQL = "INSERT INTO emp(ename, job, mgr, hiredate, sal, comm, deptno) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -17,11 +18,15 @@ public interface EmpDAO {
     		+ "        FROM emp e \n"
     		+ "        JOIN dept d ON e.deptno = d.deptno ";
     
+    String Eqjoin = "SELECT ENAME, SAL, GRADE as 등급결과 \n"
+    		+ "FROM EMP JOIN SALGRADE ON (SAL>=LOSAL AND SAL <= HISAL)";
+    
 
     int insert(Emp e);
     int update(Emp e);
     int delete(int empno);
     Emp findByEmpno(int empno);
     List<Emp> findAll();
-    List<EmpDeptDTO> findEmpWithDept();
+    List<EmpDeptDTO> findEmpWithDept(); //join 코드 
+    List<EmpSalGradeDTO> getEmpWithSalgrade();
 }

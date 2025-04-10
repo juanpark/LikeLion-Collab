@@ -23,7 +23,35 @@ MySQLApp
             │   └── EmpServiceImpl.java (C)
             ├── view
             │   ├── DeptView.java
-            │   └── EmpView.java
+            │   └── EmpView.java    
             └── common
                 └── JDBCTemplate.java      -- [2]
     └── db.properties                  -- [1]
+    
+    
+    ===========================================================================
+     1.  model의 클래스들은 record로 구현되어  필드 생성자와 getter만 구성됨을 확인  
+     
+     2.  com.mysqlapp.dao의 클래스들을 try~ with~resoures 구문을 사용한 것을 확인 후 
+         JDBCTemplate에서 close() 구현 사용중 반드시  finally{ close(conn);} 명시 확인
+         
+     3.  try~ with~resoures 구문을 사용한 객체는   finally{ close()}를 명시하지 않아도 된다.
+       -> 코드간결, 누수방지용 
+         
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

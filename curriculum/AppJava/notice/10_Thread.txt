@@ -1,0 +1,66 @@
+<< 스레드 프로그래밍>> 
+
+1. 스레드란?
+- 프로세스: 실행 중인 프로그램, 독립된 메모리 공간 가짐.
+- 스레드: 프로세스 내 실행 흐름 단위, 자원 공유, 동시에 동작 가능.
+- 멀티태스킹: 여러 프로세스가 동시에 실행.
+- 멀티스레딩: 하나의 프로세스 안에서 여러 스레드가 동시에 실행됨.
+
+2. 자바에서 스레드를 쓰는 이유
+- 동시성 향상: UI 응답성, 백그라운드 작업 처리 등.
+- 자원 활용 증가: 블로킹 상황에서도 다른 스레드가 실행 가능.
+- 복잡한 작업 분할: 유지보수 용이, 병렬 처리 가능.
+
+3. 주요 클래스/인터페이스
+- Thread: 스레드 생성 및 실행.
+- Runnable: 실행 코드 정의 인터페이스.
+- java.util.concurrent: ExecutorService, Future, Callable 등 고수준 유틸리티.
+- java.util.concurrent.locks: 명시적 Lock, Condition.
+- java.util.concurrent.atomic: AtomicInteger 등 원자 변수 클래스.
+
+4. 스레드 생성 방법
+case01:  Thread 상속
+  - run() 오버라이드, start()로 실행.
+case02:  Runnable 구현
+  - Thread 생성자에 Runnable 전달.
+case03: 람다 표현식 (Runnable은 함수형 인터페이스)
+
+5. 스레드 상태
+- NEW: 생성만 됨
+- RUNNABLE: 실행 준비됨
+- BLOCKED: 락 대기 중
+- WAITING: 무한 대기 중
+- TIMED_WAITING: 시간 제한 대기
+- TERMINATED: 실행 종료
+
+6. 스레드 제어 메서드
+- start(), run(), sleep(), join(), interrupt()
+- isAlive(), getName(), setName(), currentThread()
+
+7. 동기화 기초
+- 경쟁 조건 방지 → synchronized 사용
+- 임계 영역 설정 → 한 번에 하나의 스레드만 접근 가능
+- 예시: Counter 클래스에서 synchronized로 카운터 보호
+
+8. JDK 21 새로운 기능
+- Virtual Threads (가상 스레드, Project Loom)
+  → 경량 스레드, 대량 동시성, 기존 API와 호환성 있음
+
+9. 추가적인 요소  
+- ExecutorService, Future, Callable
+- Lock, Condition, Atomic 변수
+- Thread Pool
+- 데드락 방지
+- 스레드 안전 컬렉션 등
+i_ExecutorServiceExample.java : 	고정 크기 스레드 풀 사용
+j_FutureCallableExample.java	 : Future와 Callable 결과 반환
+k_LockConditionExample.java	 : Lock과 Condition 활용
+l_AtomicExample.java	 : AtomicInteger를 활용한 안전한 증가
+m_DeadlockFreeExample.java	: 데드락 방지를 위한 락 순서 고정
+n_ConcurrentMapExample.java	:ConcurrentHashMap 예제
+
+10. 주의사항
+- 설계 복잡성 증가 주의
+- 동기화 없이는 공유 자원 안전 보장 어려움
+- 과도한 스레드 생성 → 자원 낭비 → 스레드 풀 권장
+

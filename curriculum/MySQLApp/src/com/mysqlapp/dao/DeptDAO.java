@@ -10,6 +10,8 @@ public interface DeptDAO {
     String SELECT_ALL_SQL = "SELECT * FROM dept";
     String SELECT_BY_DEPTNO = "SELECT * FROM dept WHERE deptno=?";
 
+    
+    
     int insert(Dept d);
     int update(Dept d);
     int delete(int deptno);

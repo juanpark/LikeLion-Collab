@@ -16,7 +16,7 @@ MyPersonAPP /src
                 |com.person.model.Person					-- [3]
                 |com.person.service.PersonService(I)		-- [5]
                 |com.person.service.PersonServiceImple(C)
-                |com.person.view.PersonConsoleView			-- [6] 전체 출력 코드
+                |com.person.view.PersonConsoleView			-- [6] 전체 출력 코드 / 알림코드
                 |common.JDBCTemplate						-- [2]
                 |db.properties								-- [1]
 			/lib
@@ -29,3 +29,35 @@ HOMEWORK:
         		notice 09_StudentMVC.png :: 홍길동_java.zip
 
         2폴더:	05.WorkShop_CONSTRAINTS.PDF :: 홍길동_db.zip [홍길동_db.sql]
+        
+ 
+ MyPersonApp
+├── lib
+│   └── mysql-connector-j-9.1.0.jar
+└── src
+    └── com
+        └── person
+            ├── controller
+            │   └── PersonController.java  	-- [7]
+            ├── dao
+            │   ├── PersonDao.java (I)     	-- [4]
+            │   └── PersonDaoImpl.java (C)
+            ├── model
+            │   └── Person.java          	-- [3]
+            ├── service
+            │   ├── PersonService.java (I) 	-- [5]
+            │   └── PersonServiceImpl.java (C)
+            ├── view
+            │   └── PersonConsolView.java  	-- [6] 전체 출력 코드 / 알림코드
+            └── common
+                └── JDBCTemplate.java      	-- [2]
+    └── db.properties                  		-- [1]
+    
+    ===============================================================================================================
+    1. model의 클래스들은 record로 구현되어 필드 생성자와 getter만 구성됨을 확인
+    
+    2. com.mysqlapp.dao의 클래스들을 try~with~resources 구문을 사용한 것을 확인 후
+    JDBCTemplate에서 close() 구현 사용 중 반드시 finally{ close(conn); } 명시 확인
+    
+    
+  

@@ -59,5 +59,9 @@ HOMEWORK:
     2. com.mysqlapp.dao의 클래스들을 try~with~resources 구문을 사용한 것을 확인 후
     JDBCTemplate에서 close() 구현 사용 중 반드시 finally{ close(conn); } 명시 확인
     
+    3. try~with~resources 구문을 사용한 객체는 finally{ close() }를 명시하지 않아도 된다.
+    -> 코드 간결, 누수 방지용
+    
+    
     
   

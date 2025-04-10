@@ -21,7 +21,7 @@ public class DeptDAOImpl implements DeptDAO {
             rollback(conn);
             e.printStackTrace();
         } finally {
-        	close(conn);
+            close(conn);
         }
         return result;
     }
@@ -40,7 +40,7 @@ public class DeptDAOImpl implements DeptDAO {
             rollback(conn);
             e.printStackTrace();
         } finally {
-        	close(conn);
+            close(conn); 
         }
         return result;
     }
@@ -57,7 +57,7 @@ public class DeptDAOImpl implements DeptDAO {
             rollback(conn);
             e.printStackTrace();
         } finally {
-        	close(conn);
+            close(conn);
         }
         return result;
     }
@@ -66,9 +66,10 @@ public class DeptDAOImpl implements DeptDAO {
     public Dept findByDeptno(int deptno) {
         Connection conn = getConnection();
         Dept dept = null;
+        ResultSet rs = null;
         try (PreparedStatement pstmt = conn.prepareStatement(SELECT_BY_DEPTNO)) {
             pstmt.setInt(1, deptno);
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
             if (rs.next()) {
                 dept = new Dept(
                     rs.getInt("deptno"),
@@ -76,11 +77,11 @@ public class DeptDAOImpl implements DeptDAO {
                     rs.getString("loc")
                 );
             }
-            close(rs);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-        	close(conn);
+            close(rs);
+            close(conn);
         }
         return dept;
     }
@@ -102,7 +103,7 @@ public class DeptDAOImpl implements DeptDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-        	close(conn);
+            close(conn);
         }
         return list;
     }

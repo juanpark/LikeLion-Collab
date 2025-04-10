@@ -6,14 +6,21 @@ import com.mysqlapp.model.EmpDeptDTO;
 import java.sql.*;
 import java.util.*;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.*; // static 메서드 명명 import 
+
+/*
+ *	try(){}
+ * 	1. Connection, Statement, ResultSet -> SQL 관련 close()
+ * 	2. Scanner, java.io -> IO 관련 close()
+ * 
+ */
 
 //record 기반
 public class EmpDAOImpl implements EmpDAO {
-
+	
 	@Override
 	public int insert(Emp e) {
-		Connection conn = getConnection();
+		Connection conn = getConnection(); // static 메서드 바로 호출 
 		int result = 0;
 		try (PreparedStatement pstmt = conn.prepareStatement(INSERT_SQL)) {
 			pstmt.setString(1, e.ename());
@@ -23,16 +30,16 @@ public class EmpDAOImpl implements EmpDAO {
 			pstmt.setDouble(5, e.sal());
 			pstmt.setDouble(6, e.comm());
 			pstmt.setInt(7, e.deptno());
-			result = pstmt.executeUpdate();
+			result = pstmt.executeUpdate(); // sql 실행 리턴값은 개행 행 수 : int
 			if (result > 0)
-				commit(conn);
+				commit(conn); // DB 종류에 따라서 예외 발생하지 않을 경우 대비 안전 장치 
 			else
-				rollback(conn);
+				rollback(conn); // DB 종류에 따라서 예외 발생하지 않을 경우
 		} catch (Exception ex) {
 			rollback(conn);
 			ex.printStackTrace();
 		} finally {
-			close(conn);
+			close(conn); // 안전장치 추가
 		}
 		return result;
 	}
@@ -56,8 +63,8 @@ public class EmpDAOImpl implements EmpDAO {
 			rollback(conn);
 			ex.printStackTrace();
 		} finally {
-			close(conn);
-		}
+        	close(conn);
+        }
 		return result;
 	}
 
@@ -76,28 +83,40 @@ public class EmpDAOImpl implements EmpDAO {
 			rollback(conn);
 			ex.printStackTrace();
 		} finally {
-			close(conn);
-		}
+        	close(conn);
+        }
 		return result;
 	}
 
 	@Override
 	public Emp findByEmpno(int empno) {
 		Connection conn = getConnection();
-		Emp e = null;
+		Emp e = null; // 한줄의 레코드를 담아서 리턴할 객체
+		
 		try (PreparedStatement pstmt = conn.prepareStatement(SELECT_BY_EMPNO)) {
+		
 			pstmt.setInt(1, empno);
+			
 			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				e = new Emp(rs.getInt("empno"), rs.getString("ename"), rs.getString("job"), rs.getInt("mgr"),
-						rs.getDate("hiredate"), rs.getDouble("sal"), rs.getDouble("comm"), rs.getInt("deptno"));
+			
+			if (rs.next()) { // 단일 레코드 비교 유무
+				// 레코드에 선언된 필드 순서대로 매개인자 생성자가 내부적으로 선언된다 
+				e = new Emp(
+						rs.getInt("empno"), 
+						rs.getString("ename"), 
+						rs.getString("job"), 
+						rs.getInt("mgr"),
+						rs.getDate("hiredate"), 
+						rs.getDouble("sal"), 
+						rs.getDouble("comm"), 
+						rs.getInt("deptno"));
 			}
 			close(rs);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			close(conn);
-		}
+        	close(conn);
+        }
 		return e;
 	}
 
@@ -105,7 +124,8 @@ public class EmpDAOImpl implements EmpDAO {
 	public List<Emp> findAll() {
 		List<Emp> list = new ArrayList<>();
 		Connection conn = getConnection();
-		try (PreparedStatement pstmt = conn.prepareStatement(SELECT_ALL_SQL); ResultSet rs = pstmt.executeQuery()) {
+		try (PreparedStatement pstmt = conn.prepareStatement(SELECT_ALL_SQL); 
+				ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
 				Emp e = new Emp(rs.getInt("empno"), rs.getString("ename"), rs.getString("job"), rs.getInt("mgr"),
 						rs.getDate("hiredate"), rs.getDouble("sal"), rs.getDouble("comm"), rs.getInt("deptno"));
@@ -114,8 +134,8 @@ public class EmpDAOImpl implements EmpDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			close(conn);
-		}
+        	close(conn);
+        }
 		return list;
 	}
 
@@ -133,8 +153,8 @@ public class EmpDAOImpl implements EmpDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			close(conn);
-		}
+        	close(conn);
+        }
 		return list;
 	}
 

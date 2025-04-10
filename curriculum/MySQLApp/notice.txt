@@ -1,0 +1,29 @@
+ << Emp-Dept  N:1 >>  
+MySQLApp
+└── src
+    └── com
+        └── mysqlapp
+            ├── Main.java
+            ├── controller
+            │   ├── DeptController.java
+            │   └── EmpController.java
+            ├── dao
+            │   ├── DeptDAO.java (I)
+            │   ├── DeptDAOImpl.java (C)
+            │   ├── EmpDAO.java (I)
+            │   └── EmpDAOImpl.java (C)
+            ├── model
+            │   ├── Dept.java
+            │   ├── Emp.java
+            │   └── EmpDeptDTO.java
+            ├── service
+            │   ├── DeptService.java (I)
+            │   ├── DeptServiceImpl.java (C)
+            │   ├── EmpService.java (I)
+            │   └── EmpServiceImpl.java (C)
+            ├── view
+            │   ├── DeptView.java
+            │   └── EmpView.java
+            └── common
+                └── JDBCTemplate.java      -- [2]
+    └── db.properties                  -- [1]

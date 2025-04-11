@@ -1,15 +1,17 @@
 package com.sec16;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 // 동기화 기초 - synchronized 메서드 사용
 public class e_SynchronizationBasic {
     public static void main(String[] args) throws InterruptedException {
-        final int[] count = {0};
+    	// final int[] count = {0};
+    	// 동기화 정수를 호출
+    	AtomicInteger count = new AtomicInteger(0);
 
         Runnable incrementTask = () -> {
             for (int i = 0; i < 1000; i++) {
-                synchronized (count) {
-                    count[0]++;
-                }
+                    count.incrementAndGet();
             }
         };
 
@@ -21,6 +23,6 @@ public class e_SynchronizationBasic {
         thread1.join();
         thread2.join();
 
-        System.out.println("Final Count: " + count[0]);
+        System.out.println("Final Count: " + count.get());
     }
 }

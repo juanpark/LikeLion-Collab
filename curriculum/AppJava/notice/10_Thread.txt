@@ -25,12 +25,12 @@ case02:  Runnable 구현
   - Thread 생성자에 Runnable 전달.
 case03: 람다 표현식 (Runnable은 함수형 인터페이스)
 
-4-1. Thread의 종류
+4-1. Thread의 종류	d_exam.java
 메인 스레드 main() (일반 스레드 포함): 주요흐름 담당 (프로그램이 지니고 있는 진입점) / 일반 스레드가 모두 종료되면 종료 / 
 데몬 스레드 = 백그라운드 스레드 : 스레드의 보조역할 (자동저장, GC, 로그 생성, 모니터링 등) / 모든 작업 후 자동종료 
 
 
-5. 스레드 상태	: Enum Thread.State 	: Thread.getState()
+5. 스레드 상태	: Enum Thread.State 	: Thread.getState()	d_ThreadState.java
 - NEW: 생성만 됨
 - RUNNABLE: 실행 준비됨
 - BLOCKED: 락 대기 중
@@ -44,9 +44,27 @@ case03: 람다 표현식 (Runnable은 함수형 인터페이스)
 
 7. 동기화 기초
 - 경쟁 조건 방지 → synchronized 사용
+	- 멀티스레드 환경에서 공유 자원에 대한 동시 접근을 제어하고 스레드 간의 동기화를 보장하는 키워드
+	- 여러 스레드가 동시에 공유 자원에 접근하여 발생하는 데이터 불일치, 경쟁 조건 (race condition) 등의 문제를 해결한다.
 - 임계 영역 설정 → 한 번에 하나의 스레드만 접근 가능
 - 예시: Counter 클래스에서 synchronized로 카운터 보호
-
+[선언방법]
+	1. 메서드 전체에 synchronized 적용
+	public synchronized void methodName() {
+	// 임계 영역 코드
+		// 파일을 다운로드 받고 있다.
+	}
+	2. 특정 코드 블록에 synchronized
+	public void methodName() {
+		synchronized (lockObject) {
+			// 파일을 다운로드 받고 있다.
+		}
+	}
+	class 파일다운로드 클래스 {
+		public void methodName() {
+		//파일을 다운로드 받고 있다. -임계 영역
+		}
+	}
 8. JDK 21 새로운 기능
 - Virtual Threads (가상 스레드, Project Loom)
   → 경량 스레드, 대량 동시성, 기존 API와 호환성 있음

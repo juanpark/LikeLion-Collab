@@ -1,0 +1,33 @@
+ javafx
+ 
+ 
+ 
+ =======<<설치 : SDK(lib), Scene Builder(GUI tool), Eclipse plugin>> ===================================================================
+  1. https://gluonhq.com/products/javafx/를 운영체제에 맞게 다운로드후 압축
+     openjfx-21.0.6_windows-x64_bin-sdk.zip
+  
+  2. 이클립스 : 프로젝트에서 우클릭 → Build Path → Configure Build Path->Libraries 탭 → Add External JARs->lib
+      위치의 .jar 파일들 모두 추가
+  
+  3.  Run → Run Configurations -> 좌측에서 실행 클래스 선택 후, 우측 탭에서
+   ->Arguments → VM arguments 입력-> --module-path "C:\javafx-sdk-21\lib" --add-modules javafx.controls,javafx.fxml
+   
+   
+  4. 이클립스-> Help → Eclipse Marketplace... -> 검색창 "Scene Builder" 또는 "e(fx)clipse" 를 검색
+  ->e(fx)clipse를 찾아 Install   
+   
+   
+  5. Scene Builder는 JavaFX 화면(UI)을 마우스로 직접 그릴 수 있는 GUI 디자인 툴 설치
+     https://gluonhq.com/products/scene-builder/  
+    [FXML (뷰)] ← Scene Builder로 작성
+     ↓
+    [Controller (자바코드)] ← 버튼 클릭 등 이벤트 처리
+     ↓
+    [Main App (Application 클래스)] ← 시작점
+  
+  6. src/
+		├─ application/
+		│  ├─ MainApp.java
+		│  ├─ MyController.java
+		│  └─ main.fxml   ← Scene Builder로 만든 화면  
+=====================================================================================

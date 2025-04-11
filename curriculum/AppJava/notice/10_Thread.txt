@@ -25,7 +25,12 @@ case02:  Runnable 구현
   - Thread 생성자에 Runnable 전달.
 case03: 람다 표현식 (Runnable은 함수형 인터페이스)
 
-5. 스레드 상태
+4-1. Thread의 종류
+메인 스레드 main() (일반 스레드 포함): 주요흐름 담당 (프로그램이 지니고 있는 진입점) / 일반 스레드가 모두 종료되면 종료 / 
+데몬 스레드 = 백그라운드 스레드 : 스레드의 보조역할 (자동저장, GC, 로그 생성, 모니터링 등) / 모든 작업 후 자동종료 
+
+
+5. 스레드 상태	: Enum Thread.State 	: Thread.getState()
 - NEW: 생성만 됨
 - RUNNABLE: 실행 준비됨
 - BLOCKED: 락 대기 중

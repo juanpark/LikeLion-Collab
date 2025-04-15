@@ -1,0 +1,96 @@
+ 1. 목표 정리 
+[목표1] Thread.Builder가 어떤 타입인지 구분하자 
+[목표2] 해당 타입에 맞는 스레드를 생성해서 실행 결과를 확인하자. 
+
+2. 용어 빈칸 채우기 : 아래 빈칸을 채워보세요 (단어: Virtual, Platform, sealed, join, start)
+Thread.Builder는 ________ interface로 선언되어 있다.
+
+Thread.ofVirtual()은 내부적으로 ________ 스레드를 생성한다.
+
+실제 스레드를 실행할 때는 builder._______(Runnable)을 호출한다.
+
+작업이 끝날 때까지 기다리기 위해 thread._______()을 사용한다.
+
+일반적인 OS 기반 스레드는 Thread.Builder.Of________이다.
+
+3. 예측 퀴즈 (O/X)
+Thread.Builder는 직접 구현해서 사용하는 것이 권장된다.	(O/X)
+
+VirtualThread는 블로킹 메서드도 안전하게 사용할 수 있다.	(O/X)
+
+switch 문에서 Builder 타입을 구분하려면 preview 기능이 필요하다.(O/X)
+
+Platform Thread는 Virtual Thread보다 경량이다.	(O/X)
+
+sealed interface는 switch-case의 완전성을 보장한다.(O/X)
+
+
+ 4. 코드 추론 실습 (빈칸 채우기)  g_exam
+Thread.Builder builder = Thread.of_______().name("my-", 0);
+
+switch (builder) {
+    case Thread.Builder.OfVirtual v -> {
+        Thread thread = v.____(() -> {
+            System.out.println("실행 중: " + Thread.currentThread());
+            Thread._________(500);
+        });
+        thread._______();
+    }
+}
+5. 실행 결과
+실행 중 (Virtual): ____________
+실행 시간: _____ ms
+
+6. 한 줄 정리
+sealed interface와 switch 패턴 매칭을 함께 사용하면 ___________하게 타입 분기를 처리할 수 있다.
+
+7. 야옹이 🐱 vs 멍멍이 🐶 사과 따기 경쟁" (동기화 실습) 
+public class AppleTreeCompetition {
+    private static int apples = 100;
+    private static int catCount = 0;
+    private static int dogCount = 0;
+
+    public static void main(String[] args) throws InterruptedException {
+        Runnable catTask = () -> {
+            while (true) {
+                if (!pickApple("🐱 야옹이")) break;
+            }
+        };
+
+        Runnable dogTask = () -> {
+            while (true) {
+                if (!pickApple("🐶 멍멍이")) break;
+            }
+        };
+
+        Thread t1 = new Thread(___________);   // 🐱 야옹이 스레드 시작
+        Thread t2 = new Thread(___________);   // 🐶 멍멍이 스레드 시작
+
+        t1.start();
+        t2.start();
+
+        t1.___________();  // 스레드 종료 대기
+        t2.___________();
+
+        System.out.println("🍎 수확 종료!");
+        System.out.println("🐱 야옹이: " + ________ + "개");
+        System.out.println("🐶 멍멍이: " + ________ + "개");
+    }
+
+    private static synchronized boolean pickApple(String who) {
+        if (apples <= 0) return false;
+
+        apples--;
+        if (who.contains("야옹이")) catCount++;
+        else dogCount++;
+
+        System.out.println(who + " 가 사과를 땄습니다! 🍎 남은 사과: " + apples);
+        try {
+            Thread.sleep((int)(Math.random() * 50));
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return true;
+    }
+}
+

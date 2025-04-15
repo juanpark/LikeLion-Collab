@@ -7,7 +7,7 @@ public class h_VirtualGameServer {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("💥 가상 게임 서버 접속 시뮬레이션 시작 💥");
 
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= 1000; i++) {
             int userId = i;
             Thread.startVirtualThread(() -> {
                 String threadName = "User-" + userId;

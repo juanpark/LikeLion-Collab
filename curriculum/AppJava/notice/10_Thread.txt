@@ -68,6 +68,18 @@ case03: 람다 표현식 (Runnable은 함수형 인터페이스)
 8. JDK 21 새로운 기능
 - Virtual Threads (가상 스레드, Project Loom)
   → 경량 스레드, 대량 동시성, 기존 API와 호환성 있음
+  
+  - Virtual Threads
+  	1. 운영체제 스레드에 직접적으로 매핑되지 않는다.
+  	2. JVM에서 가상으로 운영체제 스레드를 만들어서 스케줄링 한다.
+  	3. 수천개의 가상스레드 -> JVM OS thread [코루틴 방식]
+  	4. 블로킹 호출 시에서 JVM이 자동으로 스레드에서 다른 작업으로 전환한다.
+  	
+  	일반 스레드는 OS(천단위 동접)에서 직접 처리하고 Virtual Threads(수십만 단위 동접)는 JVM에서 처리한다. 
+  	
+  	Thread.Builder로 체크
+  	플랫폼 스레드=일반 스레드(PlatformThread): 1:1 운영체제 매핑, 블로킹 처리는 자원 점유 후 대기 / CPU 바운드 작업
+  	가상 스레드(Virtual Thread): JavaVM 관리, 블로킹 처리는 일시 중단 후 다른 스레드 생성 / IO 바운드 작업 
 
 9. 추가적인 요소  
 - ExecutorService, Future, Callable
@@ -75,11 +87,21 @@ case03: 람다 표현식 (Runnable은 함수형 인터페이스)
 - Thread Pool
 - 데드락 방지
 - 스레드 안전 컬렉션 등
-i_ExecutorServiceExample.java : 	고정 크기 스레드 풀 사용
-j_FutureCallableExample.java	 : Future와 Callable 결과 반환
-k_LockConditionExample.java	 : Lock과 Condition 활용
+i_ExecutorServiceExample.java : 	고정 크기 스레드 풀 사용 -> Executor, submit, shutdown
+
+j_FutureCallableExample.java	 : Future와 Callable 결과 반환 -> Future, Callable<T>, get() -> 리턴값 있는 비동기
+	-> 결과 대기 중 상태값을 측정하고 싶을 때, 타임아웃 처리 하고 싶을 때 
+	
+k_LockConditionExample.java	 : 교착상태 해결, Lock과 Condition 활용 -> Lock, Condition, await/signal
+	하나의 스레드는 await()으로 대기 / 다른 스레드는 signal()로 깨움 
+	java.lang.Object wait()대기 / notify() 깨움
+	
+	 
+
 l_AtomicExample.java	 : AtomicInteger를 활용한 안전한 증가
+
 m_DeadlockFreeExample.java	: 데드락 방지를 위한 락 순서 고정
+
 n_ConcurrentMapExample.java	:ConcurrentHashMap 예제
 
 10. 주의사항

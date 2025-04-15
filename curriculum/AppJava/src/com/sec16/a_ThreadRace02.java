@@ -25,7 +25,7 @@ class a_ThreadRace02 {
 		@Override
 		public void run() {
 			for (int i = 1; i <= 5; i++) {
-				System.out.println(getName() + " 달리는 중: " + i + "미터");
+				System.out.println(getName() + " 달리는 중 🏃‍ ️: " + i + "미터");
 				try {
 					Thread.sleep((int)(Math.random() * 400 + 100));
 				} catch (InterruptedException e) {

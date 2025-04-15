@@ -7,7 +7,17 @@ public class a_exam implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("나 스레드야!!! ❤️❤️");
+		for (int i = 0; i <= 200; i++ ) {
+			System.out.println("나 스레드야!!! ❤️❤️");
+			
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	public static void main(String[] args) {

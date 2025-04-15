@@ -1,50 +1,68 @@
  1. 목표 정리 
 [목표1] Thread.Builder가 어떤 타입인지 구분하자 
+	- Thread.Builder는 sealed interface
+	- 두 가지 구현체만 가질 수 있음:
+		- Thread.Builder.OfVirtual
+		- Thread.Builder.OfPlatform
+		- 즉 둘 중 하나의 타입이 된다.
 [목표2] 해당 타입에 맞는 스레드를 생성해서 실행 결과를 확인하자. 
+	switch (builder) {
+	case Thread.Builder.OfVirtual v -> {
+		System.out.println("가상 스레드 빌더");
+		}
+	case Thread.Builder.OfPlatform p -> {
+		System.out.println("플랫폼 스레드 빌더");
+		}
+	}
 
 2. 용어 빈칸 채우기 : 아래 빈칸을 채워보세요 (단어: Virtual, Platform, sealed, join, start)
-Thread.Builder는 ________ interface로 선언되어 있다.
+Thread.Builder는 sealed interface로 선언되어 있다.
 
-Thread.ofVirtual()은 내부적으로 ________ 스레드를 생성한다.
+Thread.ofVirtual()은 내부적으로 virtual 스레드를 생성한다.
 
-실제 스레드를 실행할 때는 builder._______(Runnable)을 호출한다.
+실제 스레드를 실행할 때는 builder.start(Runnable)을 호출한다.
 
-작업이 끝날 때까지 기다리기 위해 thread._______()을 사용한다.
+작업이 끝날 때까지 기다리기 위해 thread.join()을 사용한다.
 
-일반적인 OS 기반 스레드는 Thread.Builder.Of________이다.
+일반적인 OS 기반 스레드는 Thread.Builder.OfPlatform이다.
 
 3. 예측 퀴즈 (O/X)
-Thread.Builder는 직접 구현해서 사용하는 것이 권장된다.	(O/X)
 
-VirtualThread는 블로킹 메서드도 안전하게 사용할 수 있다.	(O/X)
+Thread.Builder는 직접 구현해서 사용하는 것이 권장된다.	(X)
+
+VirtualThread는 블로킹 메서드도 안전하게 사용할 수 있다.	(O)
 
 switch 문에서 Builder 타입을 구분하려면 preview 기능이 필요하다.(O/X)
 
-Platform Thread는 Virtual Thread보다 경량이다.	(O/X)
+Platform Thread는 Virtual Thread보다 경량이다.	(X)
 
-sealed interface는 switch-case의 완전성을 보장한다.(O/X)
+sealed interface는 switch-case의 완전성을 보장한다.(O)
 
 
  4. 코드 추론 실습 (빈칸 채우기)  g_exam
-Thread.Builder builder = Thread.of_______().name("my-", 0);
+Thread.Builder builder = Thread.ofVirtual().name("my-", 0);
 
 switch (builder) {
     case Thread.Builder.OfVirtual v -> {
-        Thread thread = v.____(() -> {
+        Thread thread = v.start(() -> {
             System.out.println("실행 중: " + Thread.currentThread());
-            Thread._________(500);
+            Thread.sleep(500);
         });
-        thread._______();
+        thread.join();
     }
 }
+** Thread.sleep(500)과 thread.join()은 try...catch... 적용 해야 함 **
+
 5. 실행 결과
-실행 중 (Virtual): ____________
-실행 시간: _____ ms
+실행 중: VirtualThread[#20,my-0]/runnable@ForkJoinPool-1-worker-1
+실행 시간: 521ms
 
 6. 한 줄 정리
-sealed interface와 switch 패턴 매칭을 함께 사용하면 ___________하게 타입 분기를 처리할 수 있다.
+sealed interface와 switch 패턴 매칭을 함께 사용하면 완전하게 타입 분기를 처리할 수 있다.
 
-7. 야옹이 🐱 vs 멍멍이 🐶 사과 따기 경쟁" (동기화 실습) 
+7. package com.sec16;
+
+// 야옹이 🐱 vs 멍멍이 🐶 사과 따기 경쟁" (동기화 실습) 
 public class AppleTreeCompetition {
     private static int apples = 100;
     private static int catCount = 0;
@@ -63,18 +81,18 @@ public class AppleTreeCompetition {
             }
         };
 
-        Thread t1 = new Thread(___________);   // 🐱 야옹이 스레드 시작
-        Thread t2 = new Thread(___________);   // 🐶 멍멍이 스레드 시작
+        Thread t1 = new Thread(catTask);   // 🐱 야옹이 스레드 시작
+        Thread t2 = new Thread(dogTask);   // 🐶 멍멍이 스레드 시작
 
         t1.start();
         t2.start();
 
-        t1.___________();  // 스레드 종료 대기
-        t2.___________();
+        t1.join();  // 스레드 종료 대기
+        t2.join();
 
         System.out.println("🍎 수확 종료!");
-        System.out.println("🐱 야옹이: " + ________ + "개");
-        System.out.println("🐶 멍멍이: " + ________ + "개");
+        System.out.println("🐱 야옹이: " + catCount + "개");
+        System.out.println("🐶 멍멍이: " + dogCount + "개");
     }
 
     private static synchronized boolean pickApple(String who) {
@@ -93,4 +111,5 @@ public class AppleTreeCompetition {
         return true;
     }
 }
+
 

@@ -34,7 +34,7 @@ public class JDBCTemplate {
 		try (InputStream  input  =   JDBCTemplate.class.getClassLoader().getResourceAsStream("db.properties")){
 			 
 			if (input == null) {
-				  throw new RuntimeException("db.properties 파일 없어!!!!");
+				  throw new RuntimeException("db.properties 파일 오류!!!!");
 			 }
 			
 			prop.load(input);			
@@ -51,7 +51,7 @@ public class JDBCTemplate {
 			
 
 			if (!conn.isClosed()) {
-				System.out.println("연결 중이야  ");
+				System.out.println("DB 연결 중 ...  ");
 			}
 		} catch (Exception e) {
 			System.out.println(e);

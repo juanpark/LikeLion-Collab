@@ -14,6 +14,7 @@
 3. 주요 클래스/인터페이스
 - Thread: 스레드 생성 및 실행.
 - Runnable: 실행 코드 정의 인터페이스.
+
 - java.util.concurrent: ExecutorService, Future, Callable 등 고수준 유틸리티.
 - java.util.concurrent.locks: 명시적 Lock, Condition.
 - java.util.concurrent.atomic: AtomicInteger 등 원자 변수 클래스.

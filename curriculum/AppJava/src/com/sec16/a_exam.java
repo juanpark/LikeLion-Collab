@@ -7,11 +7,11 @@ public class a_exam implements Runnable {
 
 	@Override
 	public void run() {
-		for (int i = 0; i <= 200; i++ ) {
+		for (int i = 0; i <= 10; i++ ) {
 			System.out.println("나 스레드야!!! ❤️❤️");
 			
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -22,12 +22,19 @@ public class a_exam implements Runnable {
 	
 	public static void main(String[] args) {
 		// new Thread(new a_exam()).start();
-		
+		System.out.println("========= main start =========");
 		Thread t1 = new Thread(new a_exam(), "야옹이");
 		Thread t2 = new Thread(new a_exam(), "멍멍이");
 		t1.start();
 		t2.start();
-
+		System.out.println("========= main mid =========");
+		try {
+			t1.join(); // t1이 종료 될 때까지 main 스레드를 대기
+			t2.join(); // t2이 종료 될 때까지 main 스레드를 대기
+		} catch (InterruptedException i) {
+			i.getStackTrace();
+		}
+		System.out.println("========= main end =========");
 	}
 
 //	@Override

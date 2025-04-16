@@ -19,7 +19,7 @@ public class a_ZipCompression{
              ZipOutputStream zipOut = new ZipOutputStream(fos);
              OutputStreamWriter writer = new OutputStreamWriter(zipOut, StandardCharsets.UTF_8)) {
 
-            // ✅ Add a ZipEntry before writing
+            // Add a ZipEntry before writing (압축항목 정의)
             ZipEntry entry = new ZipEntry("output.txt");
             zipOut.putNextEntry(entry);
         	

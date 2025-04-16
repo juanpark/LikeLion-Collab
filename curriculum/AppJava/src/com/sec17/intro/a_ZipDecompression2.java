@@ -10,10 +10,12 @@ public class a_ZipDecompression2 {
 
         try (FileInputStream fis = new FileInputStream(gzipFile);
              ZipInputStream zipIn = new ZipInputStream(fis);
+        		
              InputStreamReader reader = new InputStreamReader(zipIn, StandardCharsets.UTF_8);
              BufferedReader br = new BufferedReader(reader)) {
         	
-        	 ZipEntry entry = zipIn.getNextEntry();
+        	// Read a ZipEntry before reading (압축항목 확인)
+        	ZipEntry entry = zipIn.getNextEntry();
         	
             System.out.println(" 압축 해제된 내용:");
             String line;

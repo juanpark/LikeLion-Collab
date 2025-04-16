@@ -136,9 +136,11 @@ executor.awaitTermination(5, TimeUnit.SECONDS);
 ================>   어떤걸 사용해야 할까?
 작업을 순서대로 하나씩 실행하고 싶을 때:	Executors.newSingleThreadExecutor()	
 동시에 일정 수의 작업만 처리하고 싶을 때 DB :	Executors.newFixedThreadPool(n)
+
 짧고 빠른 작업이 많은데 유동적으로 처리하고 싶을 때 :	Executors.newCachedThreadPool()	
 작업을 일정 시간 간격으로 반복 실행하고 싶을 때:	Executors.newScheduledThreadPool(n)	
 예약 작업을 단 하나의 스레드에서 순서대로 실행해야 할 때	: Executors.newSingleThreadScheduledExecutor()	
+
 CPU 코어 수에 따라 병렬 분할 처리하고 싶을 때:	Executors.newWorkStealingPool()	
 수십만 개의 작업을 동시에 안전하게 처리하고 싶을 때 (I/O 중심):	Executors.newVirtualThreadPerTaskExecutor()
 

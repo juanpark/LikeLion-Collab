@@ -110,3 +110,32 @@ n_ConcurrentMapExample.java	:ConcurrentHashMap 예제
 - 동기화 없이는 공유 자원 안전 보장 어려움
 - 과도한 스레드 생성 → 자원 낭비 → 스레드 풀 권장
 
+11. 개념 정리 << 작업은 Executor / 동기화는 synchronized가 처리한다 >>
+
+Executor [누가 일할지 결정]: 작업관리자[스레드 풀] -> 스레드 생성과 실행 시점 
+	=> Executor -> ExecutorService -> submit(Runnable or Callable) -> 스레드 풀에서 스레드를 가져와서 실행
+
+synchronized [동시에 들어오지 못하게 문을 잠근다]: 작업 시 공유 자원의 접근제어 -> 스레드 경쟁 조건 방지 / 일관성 보장 
+	=> 공유 작원 -> synchronized, Lock, Atomic 등 -> 스레드간의 동시 접근 제어 
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

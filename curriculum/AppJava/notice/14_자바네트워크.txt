@@ -3,6 +3,13 @@
 ───────────────────────────────────────────────
 
 [1] 자바 네트워크 개요
+URL (Universal Resource Locator): 찾아가는 경로		-> 접속 주소 -> 프로토콜 + 호스트 + 포트 + 패스 + 쿼리
+URI (Universal Resource Identifier): 식별하는 방식	-> 정의하는 방식 -> [scheme:]scheme-specific-part[#fragment]
+	mailto:java-ne@java.sun.com
+	news:comp.lang.java
+	urn:isbn:096139210x
+
+URL은 URI의 하위 개념이다. (URI -> URL로 변환해서 사용된다.)
 
 - 네트워크 프로그래밍이란?
   → 여러 컴퓨터가 연결되어 데이터를 주고받는 시스템을 설계 및 구현하는 기술

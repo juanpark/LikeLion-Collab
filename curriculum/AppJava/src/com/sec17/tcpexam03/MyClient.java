@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+// 블록킹 : 실제로 스레드가 멈춰 있는 상태 
 public class MyClient {
 
 	public static void main(String[] args) {

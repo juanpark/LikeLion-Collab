@@ -65,11 +65,16 @@ HOMEWORK:
     ===============================================================================================================
     4월17일목요일
     
-    com.set17.tcpexam		-> 	1:1	통신 serverSocket.accept(0로 단일연결 처리
-    com.set17.tcpexam02		-> 	1:N	가상스레드 접목 통신 : 여러명의 클라이언트 접속 시 동시처리
+    com.sec17.tcpexam		-> 	1:1	통신 serverSocket.accept(0로 단일연결 처리
+    com.sec17.tcpexam02		-> 	1:N	가상스레드 접목 통신 : 여러명의 클라이언트 접속 시 동시처리
     							Thread.startVirtualThread(() -> handleClient(clientSocket));
     
-    com.set17.tcpexamp03	-> 	1:N	클라이언트 IP, 포트, 접속시간 기록, 클라이언트 고유 ID 출력 후 로그 파일 생성하기
+    com.sec17.tcpexamp03	-> 	1:N	클라이언트 IP, 포트, 접속시간 기록, 클라이언트 고유 ID 출력 후 로그 파일 생성하기
+    
+    com.sec17.exam.
+    			ProtocolServer	: 가상 스레드 기반의 응답 서버 
+    			ProtocolClient	: 사용자가 메시지를 입력하면 서버에 전송하고 응답을 받는 구조
+    			Protocol		: 요청의 의미를 구분하기 위한 명령 코드정의 상수 
     
     
   

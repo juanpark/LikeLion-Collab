@@ -9,11 +9,11 @@ import java.net.UnknownHostException;
 
 public class MyClient_student {
 	public static void main(String[] args) {
-//		1. 서버와 통신을 위한 Socket 객체를 생성한다. 이때 접속 요청할 서버의 IP주소와 Port 번호를 매개변수로 지정한다.
+		// 1. 서버와 통신을 위한 Socket 객체를 생성한다. 
+		// 이때 접속 요청할 서버의 IP주소와 Port 번호를 매개변수로 지정한다.
 		
 		try (Socket socket = new Socket("localhost", 9999)) // closeable
 		{
-			;
 			System.out.println("나 클라이언트!");
 	
 //			2. Socket 객체로부터 서버와의 통신을 위한 InputStream, OutputStream을 얻는다.

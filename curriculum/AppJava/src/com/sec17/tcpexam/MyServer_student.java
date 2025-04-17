@@ -12,18 +12,19 @@ public class MyServer_student {
 		ServerSocket serverSocket = null;
 		Socket socket = null;
 		try {
+			//1. ServerSocket(9999)
 			serverSocket = new ServerSocket(9999);
 			
 //			2.ServerSocket의 accept() 메서드를 이용하여 클라이언트의 접속을 기다린다.
 			socket = serverSocket.accept();
+			OutputStream os = socket.getOutputStream();
+			
+			// 3. 클라이언트가 접속하면 Socket 객체 생성됨
 			System.out.println("클라이언트 접속");
 			
-			OutputStream os = socket.getOutputStream();
-			os.write("서버가 클리언트에게".getBytes());
+			// OusputStream을 이용하여 클라이언트에게 메시지 전송
+			os.write("서버가 클리언트에게".getBytes("UTF-8")); // 인코딩 명시 추가
 			os.close();
-			
-//			3.클라이언트의 접속 요청이 들어오면 accept() 메서드가 실행되어 클라이언트와의 통신을 위한 Socket 객체를 생성한다.
-			
 			
 		} catch (Exception e) {
 			try {

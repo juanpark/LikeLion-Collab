@@ -62,6 +62,14 @@ HOMEWORK:
     3. try~with~resources 구문을 사용한 객체는 finally{ close() }를 명시하지 않아도 된다.
     -> 코드 간결, 누수 방지용
     
+    ===============================================================================================================
+    4월17일목요일
+    
+    com.set17.tcpexam		-> 	1:1	통신 serverSocket.accept(0로 단일연결 처리
+    com.set17.tcpexam02		-> 	1:N	가상스레드 접목 통신 : 여러명의 클라이언트 접속 시 동시처리
+    							Thread.startVirtualThread(() -> handleClient(clientSocket));
+    
+    com.set17.tcpexamp03	-> 	1:N	클라이언트 IP, 포트, 접속시간 기록, 클라이언트 고유 ID 출력 후 로그 파일 생성하기
     
     
   

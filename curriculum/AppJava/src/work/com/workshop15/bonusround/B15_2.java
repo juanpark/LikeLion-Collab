@@ -1,9 +1,10 @@
-package work.com.workshop15.solutions;
+package work.com.workshop15.bonusround;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
-public class Exam15_5 {
+public class B15_2 {
 	public static void main(String[] args) throws InterruptedException {
 		// ① Virtual Thread용 Executor 생성
 		ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
@@ -26,16 +27,16 @@ public class Exam15_5 {
 		// ⑤ Executor 종료 요청
 		executor.shutdown();
 
-		// ⑥ 모든 작업이 종료될 때까지 대기	
-		// isTerminated() -> ExecutorService 스레드풀에 전체 작업이 종료되었는지 확인하는 메서드
-		while (!executor.isTerminated()) {
-			Thread.sleep(100);
+		// 최대 3초 동안 모든 작업이 종료 되기를 기다리자
+		if(executor.awaitTermination(3, TimeUnit.SECONDS)) {	
+			System.out.println("모든 작업 종료");
+		} else {
+			System.out.println("종료 안된 작업 있음");
 		}
-
+		
 		// ⑦ 모든 가상 스레드 종료 후 메시지 출력
-		System.out.println("main 종료");
+		System.out.println("main 종료");	
 	}
-
 }
 
 /*

@@ -43,11 +43,17 @@ public class Exam15_1_variations {
     	} );
     	t05.start();
     	
-    	// 6. 위의 경우를 플랫폼 스레드로...
+    	// 6. 위의 경우를 플랫폼 스레드로... 생성 후 실행 .unstarted
     	Thread t06 = Thread.ofPlatform().name("os-", 1).unstarted(() -> {	
-    		System.out.println("hello platform thread05 " + Thread.currentThread().getName());
+    		System.out.println("hello platform thread06 " + Thread.currentThread().getName());
     	} );
     	t06.start();
+    	
+       	// 7. 위의 경우를 플랫폼 스레드로... 생성과 바로 실행 .start
+    	Thread t07 = Thread.ofPlatform().name("os-", 2).start(() -> {	
+    		System.out.println("hello platform thread07 " + Thread.currentThread().getName());
+    	} );
+   
     	
     	
         MyThreadVar t1 = new MyThreadVar("멍멍이");

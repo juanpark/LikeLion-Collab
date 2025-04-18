@@ -4,6 +4,9 @@ import java.net.InetAddress;
 import java.util.List;
 import java.util.concurrent.*;
 
+// [1] 도메인 확인 후 IP 출력, 탐색시간
+// [2] 가상 스레드로 실행 해보자
+
 public class a_VirtualThreadDomainScanner {
 
     public static void main(String[] args) throws InterruptedException {
@@ -34,7 +37,7 @@ public class a_VirtualThreadDomainScanner {
         System.out.println("\n전체 완료 시간: " + (end - start) + "ms");
     }
 
-    private static void resolveDomain(String domain) {
+    private static void resolveDomain(String domain) { // 도메인 확인 후 IP 
         long startTime = System.nanoTime();
 
         try {

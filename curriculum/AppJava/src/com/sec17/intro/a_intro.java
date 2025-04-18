@@ -7,6 +7,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.*;
 import java.util.zip.GZIPInputStream;
 
+// 웹페이지 요청한 후 페이지를 다운로드 받아서 출력 해보자
+// [1] 가상 스레드
+// [2] URL 주소 요청 openStream()
+// [3] executor.awaitTermination(10, TimeUnit.SECONDS); // 10초후 완전히 종료 요청 
+// [4] GZIPInputStream() .gz 확장자 압축 파일을 풀어보자
+
 public class a_intro {
 	public static void main(String[] args) throws InterruptedException {
 
@@ -36,7 +42,7 @@ public class a_intro {
 			}
 		});
 
-		executor.shutdown();
-		executor.awaitTermination(10, TimeUnit.SECONDS);
+		executor.shutdown(); // 종료요청
+		executor.awaitTermination(10, TimeUnit.SECONDS); // 10초후 완전호 종료 해줘
 	}
 }

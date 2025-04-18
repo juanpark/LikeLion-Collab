@@ -21,8 +21,8 @@ URL은 URI의 하위 개념이다. (URI -> URL로 변환해서 사용된다.)
 - 주요 클래스
   Socket, ServerSocket, DatagramSocket, URLConnection 등
 
-<<각 Executors 생성 메서드 >>  
- 1. newSingleThreadExecutor()
+<<각 Executors 생성 메서드 : 스레드 풀 객체를 쉽게 생성할 수 있는 클래스>>  
+ 1. newSingleThreadExecutor() 다중병렬 / Thread.startVirtualTrhead() 단일
 
 - 단일 스레드로 작업을 순차적으로 처리
 - 스레드 안전을 확보해야 하는 작업에 적합
@@ -35,7 +35,7 @@ executor.shutdown();
 
 --------------------------------------------------
 
-2. newFixedThreadPool(int n)
+2. newFixedThreadPool(int n) : CPU 바운드 
 
 - 고정된 스레드 개수(n)를 가진 스레드 풀 생성
 - n개의 작업까지 동시에 실행, 그 외 작업은 큐에서 대기
@@ -51,7 +51,7 @@ executor.shutdown();
 
 --------------------------------------------------
 
-3. newCachedThreadPool()
+3. newCachedThreadPool() : 필요할 때 무한 생성, 제거 
 
 - 작업이 들어올 때마다 새로운 스레드 생성
 - 일정 시간 미사용 스레드는 재활용
@@ -68,11 +68,13 @@ executor.shutdown();
 
 --------------------------------------------------
 
-4. newScheduledThreadPool(int n)
+4. newScheduledThreadPool(int n)	--- 이제는 많이 사용하지 않는다. Timer 대체
 
 - 예약 또는 주기적인 작업 실행 가능
 - n개의 스레드로 동시에 예약된 작업 수행
 - 반복적인 작업 처리, 타이머 등 스케줄 기반 작업에 적합
+	
+  schedule(Runnable command, long delay, TimeUnit unit)
 
 ex) 
 ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
@@ -93,7 +95,7 @@ scheduler.schedule(() -> System.out.println("딱 한 번 2초 후 실행"), 2, T
 
 --------------------------------------------------
 
-6. newWorkStealingPool()
+6. newWorkStealingPool()	-- 이제는 많이 사용하지 않는다.
 
 - ForkJoinPool 기반의 고성능 병렬 처리 풀
 - 내부적으로 작업을 나누고, 남은 작업은 다른 스레드가 "훔쳐" 수행
@@ -149,9 +151,9 @@ executor.awaitTermination(5, TimeUnit.SECONDS);
 예약 작업을 단 하나의 스레드에서 순서대로 실행해야 할 때	: Executors.newSingleThreadScheduledExecutor()	
 
 CPU 코어 수에 따라 병렬 분할 처리하고 싶을 때:	Executors.newWorkStealingPool()	
-수십만 개의 작업을 동시에 안전하게 처리하고 싶을 때 (I/O 중심):	Executors.newVirtualThreadPerTaskExecutor()
+[*추천*] 수십만 개의 작업을 동시에 안전하게 처리하고 싶을 때 (I/O 중심):	Executors.newVirtualThreadPerTaskExecutor()
 
-
+[*추천*] 가상 / 플래폼: ExecutorService.newThreadPerTaskExecutor(ThreadFactory threadFactory)
 ───────────────────────────────────────────────
 
 [2] TCP 통신 구조

@@ -1,6 +1,5 @@
 package work.com.workshop15.solutions;
 
-// case01: Thread 상속하는 방법 -> 스레드 클래스의 멤버를 상속시 자유롭게 호출 
 class MyThread extends Thread {
     public void run() {
         System.out.println("스레드 실행 중");

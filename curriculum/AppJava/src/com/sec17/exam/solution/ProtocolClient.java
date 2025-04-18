@@ -2,6 +2,7 @@ package com.sec17.exam.solution;
 
 import java.io.*;
 import java.net.*;
+import static com.sec17.exam.solution.Protocol.*;
 
 public class ProtocolClient {
     public static void main(String[] args) {
@@ -11,10 +12,9 @@ public class ProtocolClient {
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         ) {
-        	Protocol protocol = new Protocol();
             System.out.print("이름을 입력하세요: ");
             String name = keyIn.readLine();
-            bw.write(protocol.ENTER + ":" + name + "\n");
+            bw.write(ENTER + ":" + name + "\n");
             bw.flush();
 
             String line;
@@ -25,12 +25,14 @@ public class ProtocolClient {
                  
                 System.out.print("메시지 입력: ");
                 line = keyIn.readLine();
+                if (line.equals("")) line = " ";
+                
                 if ("exit".equalsIgnoreCase(line)) {
-                    bw.write(protocol.EXIT + ":" + name + "\n");
+                    bw.write(EXIT + ":" + name + "\n");
                     bw.flush();
-                    // break;
+                    
                 } else {
-                    bw.write(protocol.SEND_MESSAGE + ":" + name + ":" + line + "\n");
+                    bw.write(SEND_MESSAGE + ":" + name + ":" + line + "\n");
                     bw.flush();
                 }
             }

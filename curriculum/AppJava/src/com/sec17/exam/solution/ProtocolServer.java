@@ -3,6 +3,7 @@ package com.sec17.exam.solution;
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.*;
+import static com.sec17.exam.solution.Protocol.*;
 
 public class ProtocolServer {
     public static void main(String[] args) throws IOException {
@@ -22,30 +23,28 @@ public class ProtocolServer {
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))
         ) {
-            Protocol protocol = new Protocol();
             String line = null;
 
             while ((line = br.readLine()) != null) {
                 String[] words = line.split(":");
-                
-                switch (words[0]) {
-                    case Protocol.ENTER -> {
+                Protocol select = Protocol.valueOf(words[0]);
+                switch (select) {
+                    case ENTER -> {
                         bw.write(words[1] + "님이 입장하였습니다.\n");
                     }
-                    case Protocol.EXIT -> {
+                    case EXIT -> {
                         bw.write(words[1] + "님이 퇴장하였습니다.\n");
+                        return;
                     }
-                    case Protocol.SEND_MESSAGE -> {
+                    case SEND_MESSAGE -> {
                         bw.write("[" + words[1] + "]" + words[2] + "\n");
                     }
-                    case Protocol.SECRET_MESSAGE -> {
+                    case SECRET_MESSAGE -> {
                         bw.write("<" + words[1] + ">" + words[3] + "\n");
                     }
                     default -> bw.write("잘못된 요청입니다.\n");
                 }
                 bw.flush();
-
-                if (words[0].equals(Protocol.EXIT)) break;
             }
 
         } catch (IOException e) {

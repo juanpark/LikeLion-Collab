@@ -1,43 +1,69 @@
-package work.com.workshop15.solutions;
+package work.com.workshop15;
 
-public class Buffer {
+
+class Buffer {
 	
-	private int[] bufferArray;
+	private int shared;
+	private boolean hasData = false;
 	
 	public Buffer() {}
 
-	public synchronized void produce() {
-		System.out.println("생산됨: " + i);
+	public synchronized void produce(int i) {
+		while (hasData) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		shared = i;
+		hasData = true;
+		System.out.println("생산됨: " + shared);
+		notify();
 	}
 	
 	public synchronized void consume() {
-		System.out.println("소비됨: " + i);
+		while (!hasData) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println("소비됨: " + shared);
+		hasData = false;
+		notify();
 	}
 	
 	
 }
 
+public class PCMain {
 	public static void main(String[] args) {
 		// ① 공유 자원 생성
 		Buffer buffer = new Buffer();
-		
+
 		// ② 생산자 스레드 정의
 		Thread producer = new Thread(() -> {
-		for (int i = 1; i <= 5; i++)
-			buffer.produce(i);
+			for (int i = 1; i <= 5; i++)
+				buffer.produce(i);
 		});
-		
+
 		// ③ 소비자 스레드 정의
 		Thread consumer = new Thread(() -> {
-		for (int i = 1; i <= 5; i++)
-			buffer.consume();
+			for (int i = 1; i <= 5; i++)
+				buffer.consume();
 		});
-		
+
 		// ④ 스레드 시작
 		producer.start();
 		consumer.start();
-		}
+		
 	}
+}
 
 /*
 • Buffer 클래스를 생성하여 하나의 데이터를 저장할 수 있는 공유 자원을 구현한다.

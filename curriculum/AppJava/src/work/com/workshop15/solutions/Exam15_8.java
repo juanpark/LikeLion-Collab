@@ -1,5 +1,6 @@
 package work.com.workshop15.solutions;
 
+
 class Buffer {
 	private int data;
 	private boolean hasData = false;

@@ -156,6 +156,7 @@ CPU 코어 수에 따라 병렬 분할 처리하고 싶을 때:	Executors.newWor
 [*추천*] 가상 / 플래폼: ExecutorService.newThreadPerTaskExecutor(ThreadFactory threadFactory)
 ───────────────────────────────────────────────
 
+데이터 단방향 / 양방향, 블로킹 유무
 [2] TCP 통신 구조
 
 - Server 흐름
@@ -246,7 +247,7 @@ CPU 코어 수에 따라 병렬 분할 처리하고 싶을 때:	Executors.newWor
   
 [8] 동기 vs 비동기
 
-블로킹  :  ServerSocket + accept() 
+블로킹  :  ServerSocket + accept() 	ver. jdk8
 고성능 비동기로 이벤트 기반 구조  :Selector, SocketChannel (NIO, 여전히 사용됨, 특히 네이티브 통합 필요 시)
 고성능 서버로 단순,경량 (I/O 중심):     Virtual Thread + ExecutorService	(ver. jdk21)
 

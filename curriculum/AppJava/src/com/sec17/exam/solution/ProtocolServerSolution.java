@@ -3,9 +3,9 @@ package com.sec17.exam.solution;
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.*;
-import static com.sec17.exam.solution.Protocol.*;
+import static com.sec17.exam.solution.ProtocolSolution.*;
 
-public class ProtocolServer {
+public class ProtocolServerSolution {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(9500);
         System.out.println("서버 시작 (Virtual Thread 기반)");
@@ -27,8 +27,8 @@ public class ProtocolServer {
 
             while ((line = br.readLine()) != null) {
                 String[] words = line.split(":");
-                Protocol select = Protocol.valueOf(words[0]);
-                switch (select) {
+                int code= Integer.parseInt(words[0]);
+                switch (findByCode(code)) {
                     case ENTER -> {
                         bw.write(words[1] + "님이 입장하였습니다.\n");
                     }

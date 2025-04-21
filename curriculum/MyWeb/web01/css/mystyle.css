@@ -1,0 +1,20 @@
+/*paragraph.html*/
+.myclass{
+    background-color: bisque;
+    color: blue;
+    padding:20px;
+}
+/* id = myhr 고유성 페이지하나당 한번만 사용
+#id 는 .class 보다 우선순위가 높다.  -> 한번만 사용용
+태그선택자{},  -> 여러번 사용가능
+속성선택자. input[type="text"]{} -> 여러번 사용가능
+#id > 속성선택자 > .class > 태그선택자 순으로 우선순위
+*/
+#myhr {
+    border : 1;
+    height: 2px;
+    width: 50%;
+
+    background-color: blue;
+
+}

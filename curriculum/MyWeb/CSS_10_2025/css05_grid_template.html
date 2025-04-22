@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Grid 레이아웃</title>
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      grid-template-rows: 100px 100px;
+      gap: 10px;
+    }
+    .grid div {
+      background: #90caf9;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <div>1</div><div>2</div><div>3</div><div>4</div>
+  </div>
+</body>
+</html>

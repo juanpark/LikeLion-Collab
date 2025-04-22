@@ -3,8 +3,8 @@
 <head><meta charset="UTF-8"><title>입력 타입</title></head>
 <body>
 <form>
-  이메일: <input type="email"><br>
-  날짜: <input type="date"><br>
-  숫자: <input type="number"><br>
+  이메일: <input type="email" onchange="alert('email changed')"><br>
+  날짜: <input type="date" onchange="alert('date changed')"><br>
+  숫자: <input type="number" oninput="console.log('숫자입력중')"><br>
 </form>
 </body></html>

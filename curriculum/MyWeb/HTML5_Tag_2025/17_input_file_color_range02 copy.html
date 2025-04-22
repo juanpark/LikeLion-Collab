@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>파일, 색상, 범위</title></head>
+  <style>
+    .output-area {
+      margin-top:20px;
+      border: 1px solid #000;
+      background-color: #fff;
+      font-size: 16px;
+    }
+  </style>
+<body>
+<form>
+  파일 업로드: <input type="file" name="mfile" accept="image/*, .pdf" onchange="myhandle(event)"><br>
+  좋아하는 색상: <input type="color" name="mcolor" value="#ffff00" onchange="myhandle(event)"><br>
+  만족도 (0~10): <input type="range" name="mrange" min="0" max="10" oninput="myhandle(event)"><br>
+  <div class="output-area">
+    <label>선택한 파일 : <output id = "Id_mfile"> 없음 </output></label><br>
+    <label>선택한 파일 크기 : <output id = "Id_mfilesize"> 없음 </output></label><br>
+    <label>선택한 파일 타입 : <output id = "Id_mfiletype"> 없음 </output></label><br><br>
+    <label>선택한 색상 : <output id = "Id_mcolor"> 없음 </output></label><br>
+    <label>선택한 범위 : <output id = "Id_mrange"> 없음 </output></label><br>
+  </div>
+  <div class="output-area"></div>
+</form>
+<script>
+  function myhandle(e) {
+    const mytarget = e.target;
+    if(mytarget.type === "file") {
+      const file = mytarget.files[0];
+      if(file){
+        document.getElementById("Id_mfile").innerText = file.name;
+        document.getElementById("Id_mfilesize").innerText = file.size;
+        document.getElementById("Id_mfiletype").innerText = file.type;
+      } else {
+        document.getElementById("Id_mfile").innerText = "파일이 선택되지 않았습니다.";
+      }
+    } else if(mytarget.type === "color") {
+      document.getElementById("Id_mcolor").innerText = mytarget.value;
+    } else if(mytarget.type === "range") {
+      document.getElementById("Id_mrange").innerText = mytarget.value;
+    }
+  }
+</script>
+</body></html>

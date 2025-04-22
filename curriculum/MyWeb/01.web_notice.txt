@@ -1,0 +1,44 @@
+=========== HTML5 실습 예제 (총 25개) ===========
+
+ 1. 기본 태그 실습 (12개)
+01_heading.html : <h1>~<h6> 제목 태그 실습
+02_paragraph.html : <p>, <br> 문단 및 줄바꿈
+03_strong_em_span.html : 텍스트 강조 태그 <strong>, <em>, <span>
+04_list.html : <ul>, <ol>, <li> 리스트
+05_link.html : <a> 하이퍼링크
+06_image.html : <img> 이미지 삽입
+07_table.html : <table>, <thead>, <tbody>, <tr>, <td>
+08_form.html : 기본 <form> 구조
+09_div_span.html : <div>, <span> 박스 요소와 인라인 요소 비교
+10_block_inline.html : 블록 vs 인라인 요소 이해
+11_input_types.html : <input type="email|number|date"> 다양한 입력
+12_meta_lang.html : <meta> 정보와 lang 속성
+
+ 2. 폼 태그 확장 실습 (5개)
+13_fieldset_legend.html : <fieldset>, <legend>로 폼 그룹화
+14_select_option.html : <select>, <option> 드롭다운 메뉴
+15_button_types.html : <button> 종류 (submit, reset, button)
+16_input_radio_checkbox.html : <input type="radio">, <input type="checkbox">
+17_input_file_color_range.html : <input type="file|color|range">
+
+ 3. 시맨틱 구조 실습 (8개)
+semantic_01_basic.html : 기본 시맨틱 구조 (header, main, footer)
+semantic_02_nav_article.html : nav, article 포함
+semantic_03_aside.html : aside 사이드 콘텐츠 영역
+semantic_04_nested.html : 시맨틱 중첩 구조
+semantic_05_layout.html : 전체 시맨틱 레이아웃 템플릿
+semantic_06_multiple_article.html : 블로그 글처럼 반복되는 article 구조
+semantic_07_layout_grid.html : Grid 레이아웃과 시맨틱 구조 결합
+semantic_08_form_sectioning.html : 시맨틱 <section> 안에 폼 분리 구성
+
+=========== CSS 실습 예제 (총 10개) ===========
+css01_color_typography.html : 색상 및 텍스트 스타일
+css02_margin_padding_border.html : 여백과 테두리 실습
+css03_display_position.html : display vs position
+css04_flexbox_justify_align.html : Flexbox 정렬
+css05_grid_template.html : Grid 레이아웃
+css06_hover_active.html : 마우스 이벤트 스타일링
+css07_transition_animation.html : 전환 효과 실습
+css08_media_query_responsive.html : 반응형 웹 실습
+css09_custom_font.html : 외부 폰트 사용
+css10_table_style.html : 테이블 스타일링

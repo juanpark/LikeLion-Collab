@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>테이블 꾸미기</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    th {
+      background: #eee;
+    }
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <tr><th>이름</th><th>직업</th></tr>
+    <tr><td>홍길동</td><td>개발자</td></tr>
+    <tr><td>김영희</td><td>디자이너</td></tr>
+  </table>
+</body>
+</html>

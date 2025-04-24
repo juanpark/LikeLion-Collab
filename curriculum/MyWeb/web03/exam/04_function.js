@@ -53,3 +53,13 @@ const test03 = (a,b) => {
 console.log(test03());
 console.log(test03(50));
 console.log(test03(50,30));
+
+console.log("================한줄로 변경======================")
+
+const test04 = (a,b) => a === undefined ? 100 : b === undefined ? a : a + b;
+
+console.log(test03());
+console.log(test03(50));
+console.log(test03(50,30));
+
+// const func = (params) => expression

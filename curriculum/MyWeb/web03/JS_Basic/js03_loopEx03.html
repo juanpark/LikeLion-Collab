@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8">
+  <title>반복문</title>
+  <style>
+    body {
+      font-family: 'Gill Sans', 'Gill Sans MT', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    .result {
+      margin: 20px;
+      padding: 10px;
+      background-color: bisque;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>숫자를 입력하고 버튼을 클릭해보자</h2>
+  <input type="number" id="number" placeholder="숫자 입력"/>
+  <button onclick="addElement()">클릭</button>
+  <div class="result" id="divResult"></div>
+
+  
+
+  <script>
+    function addElement() {
+      const count = Number(document.getElementById("number").value);
+      const nDiv = document.getElementById("divResult");
+      nDiv.innerHTML = "";
+
+      for (let i = 1; i <= count; i++) {
+        const newbt = document.createElement("button");
+        newbt.textContent="button" + i;
+        nDiv.appendChild(newbt);
+      }
+      
+      
+    }
+
+    
+  </script>
+</body>
+</html>

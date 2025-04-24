@@ -38,7 +38,8 @@
       for (let i = 1; i <= num; i++) {
         forPrint += i + " ";
       }
-      document.getElementById("forResult").textContent = forPrint.trim();
+      // document.getElementById("forResult").textContent = forPrint.trim();
+      Output("forResult", forPrint);
 
       // while loop
       let whilePrint = "";
@@ -47,7 +48,25 @@
         whilePrint += j + " ";
         j++;
       }
-      document.getElementById("whileResult").textContent = whilePrint.trim();
+      // document.getElementById("whileResult").textContent = whilePrint.trim();
+      Output("whileResult", whilePrint);
+    }
+
+    function Output(eId, text){
+      const target = document.getElementById(eId);
+      target.textContent = " "; // 초기화
+      
+      const chars = text.trim().split(" ");
+      let i = 0;
+
+      const interval = setInterval(() => {
+          if (i < chars.length) {
+            target.textContent += chars[i] + " ";
+            i++;
+          } else {
+            clearInterval(interval);
+          }
+       }, 1000);
     }
     
   </script>

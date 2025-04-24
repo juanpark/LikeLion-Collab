@@ -35,3 +35,21 @@ function test02(a,b) {
 console.log(test02());
 console.log(test02(50));
 console.log(test02(50,30));
+
+console.log("================람다식으로 변경======================")
+
+const test03 = (a,b) => {
+    if ( a == undefined && b == undefined) {
+        return 100;
+    }
+    else if ( b == undefined) {
+        return a;
+    }
+    else {
+        return a + b;
+    }
+};
+
+console.log(test03());
+console.log(test03(50));
+console.log(test03(50,30));

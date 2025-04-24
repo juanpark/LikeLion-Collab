@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"><title>DOM 조작</title></head>
+<body>
+  <h1 id="title">원래 제목</h1>
+  <button onclick="changeTitle()">제목 변경</button>
+  <script>
+    function changeTitle() {
+      document.getElementById("title").innerText = "변경된 제목입니다";
+    }
+  </script>
+</body>
+</html>

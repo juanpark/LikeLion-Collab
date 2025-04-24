@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"><title>async/await</title></head>
+<body>
+  <ul id="users"></ul>
+  <script>
+    async function loadUsers() {
+      const res = await fetch("https://jsonplaceholder.typicode.com/users");
+      const users = await res.json();
+      users.slice(0, 3).forEach(user => {
+        const li = document.createElement("li");
+        li.textContent = user.name;
+        document.getElementById("users").appendChild(li);
+      });
+    }
+    loadUsers();
+  </script>
+</body>
+</html>

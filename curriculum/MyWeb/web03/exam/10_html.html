@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클래스 연습</title>
+</head>
+
+<body>
+    <h2>목록</h2>
+    <ul id="p_list"></ul>
+
+    <script type="module">
+        import{Person} from './10_class.js';
+        const p_list = [
+            new Person('111','1111','1111'),
+            new Person('222','1111','1111'),
+            new Person('333','1111','1111')
+        ];
+
+        const ul = document.getElementById("p_list");
+
+        p_list.forEach((p,index) => {
+            const li = document.createElement("li");
+            li.textContent = p.toString();
+            ul.appendChild(li);
+        });
+
+    </script>
+</body>
+</html>

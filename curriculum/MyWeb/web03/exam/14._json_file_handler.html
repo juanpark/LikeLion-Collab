@@ -38,12 +38,14 @@
         // JSON 파일 저장 기능
         function saveJson() {
             const blob = new Blob([JSON.stringify(sampleData, null, 2)], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
+            const url = URL.createObjectURL(blob); // Blog, File 객체의 임시 URL을 생성한다.
             const a = document.createElement("a");
             a.href = url;
             a.download = "users.json";
             a.click();
-            URL.revokeObjectURL(url);
+            console.log(blob);
+            console.log(url)
+            URL.revokeObjectURL(url); // 메모리 누수 방지 -> 소멸 
         }
 
         // JSON 파일 불러오기 기능
@@ -54,12 +56,15 @@
             const reader = new FileReader();
             reader.onload = function (event) {
                 try {
+                    // 읽은 텍스트를 Json 파싱
                     const jsonData = JSON.parse(event.target.result);
+                    // 결과를 문자열로 변환해서 html에 맞게 코딩한다.
                     document.getElementById("output").textContent = JSON.stringify(jsonData, null, 2);
                 } catch (err) {
                     alert("유효하지 않은 JSON 형식입니다.");
                 }
             };
+            // 파일 내용을 텍스트로 읽는다.
             reader.readAsText(file);
         });
     </script>

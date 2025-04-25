@@ -2,10 +2,28 @@
 <html lang="ko">
 <head><meta charset="UTF-8"><title>반복문</title></head>
 <body>
+  <button onclick="Test()">확인01</button><br>
+  <button id="mybutton">확인02</button><br>
+  <div id="result"></div>
+
+  
+  
+
+
   <script>
+    const resultDiv = document.getElementById('result');
+    const myButton = document.getElementById('mybutton');
+
+  function Test() {
+    resultDiv.innerHTML = '';    
     for (let i = 1; i <= 5; i++) {
-      document.write("반복 " + i + "<br>");
+      resultDiv.innerHTML += "반복 " + i + "<br>";
     }
+  }
+  myButton.addEventListener('click', Test);
+    
+window.onload = Test;
+
   </script>
 </body>
 </html>

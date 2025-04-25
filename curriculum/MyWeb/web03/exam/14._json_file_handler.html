@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSON 저장 및 불러오기</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 30px;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>JSON 불러오기</h2>
+    <input type="file" id="fileInput" accept=".json">
+    <pre id="output">여기에 JSON 내용이 표시됩니다</pre>
+
+    <h2> JSON 저장하기</h2>
+    <button onclick="saveJson()">JSON 저장 (다운로드)</button>
+
+    <script>
+        // 저장할 샘플 데이터
+        const sampleData = {
+            users: [
+                { name: "홍길동", age: 28 },
+                { name: "정길동", age: 31 }
+            ]
+        };
+
+        // JSON 파일 저장 기능
+        function saveJson() {
+            const blob = new Blob([JSON.stringify(sampleData, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "users.json";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // JSON 파일 불러오기 기능
+        document.getElementById("fileInput").addEventListener("change", function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                try {
+                    const jsonData = JSON.parse(event.target.result);
+                    document.getElementById("output").textContent = JSON.stringify(jsonData, null, 2);
+                } catch (err) {
+                    alert("유효하지 않은 JSON 형식입니다.");
+                }
+            };
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+
+</html>

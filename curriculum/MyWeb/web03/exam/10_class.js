@@ -1,4 +1,18 @@
-//
+// export: 하나의 모듈에 하나의 기본값으로 지정, class, const, function
+
+export default function(name){
+    return `Hello default, ${name}`;
+}
+// 선언된 함수를 default export 하는 경우 확인 (함수 이름은 외부에서 import 되지 않음 / 사용되지 않음)
+//function greet(name) {
+//    return `Hello, ${name}`;
+//}
+
+// export default greet;
+
+export const PI = 3.14;
+
+export function add(a,b) {return a+b};
 
 export class Person {
     constructor(tname, taddress, phone) {
@@ -17,6 +31,7 @@ export class Person {
 
 }
 
+/*
 const p1 = new Person('111','1111','1111');
 const p2 = new Person('222','2222','2222');
 p1.printInfo();
@@ -33,3 +48,4 @@ const p_list = [
 p_list.forEach((p, index) => {
     console.log(`${index + 1} ${p.toString()}`);
 });
+*/

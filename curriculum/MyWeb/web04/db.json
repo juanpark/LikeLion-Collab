@@ -1,0 +1,85 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "노트북",
+      "price": 1200,
+      "categoryId": 1,
+      "stock": 10
+    },
+    {
+      "id": "2",
+      "name": "마우스",
+      "price": 45,
+      "categoryId": 2,
+      "stock": 50
+    },
+    {
+      "id": "3",
+      "name": "키보드",
+      "price": 60,
+      "categoryId": 2,
+      "stock": 30
+    },
+    {
+      "id": "4",
+      "name": "모니터",
+      "price": 300,
+      "categoryId": 3,
+      "stock": 15
+    },
+    {
+      "id": "5",
+      "name": "웹캠",
+      "price": 90,
+      "categoryId": 4,
+      "stock": 25
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "productId": 1,
+      "userId": 1,
+      "quantity": 2,
+      "orderDate": "2024-04-21"
+    },
+    {
+      "id": "2",
+      "productId": 3,
+      "userId": 2,
+      "quantity": 1,
+      "orderDate": "2024-04-22"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "홍길동",
+      "email": "hong@example.com"
+    },
+    {
+      "id": "2",
+      "name": "김철수",
+      "email": "kim@example.com"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "노트북"
+    },
+    {
+      "id": "2",
+      "name": "입력장치"
+    },
+    {
+      "id": "3",
+      "name": "디스플레이"
+    },
+    {
+      "id": "4",
+      "name": "영상장비"
+    }
+  ]
+}

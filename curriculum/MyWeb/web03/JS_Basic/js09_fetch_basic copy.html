@@ -9,7 +9,7 @@
       .then(data => {
         data.slice(0, 100).forEach(user => {
           const li = document.createElement("li");
-          li.textContent = user.name;
+          li.textContent = `${user.name} (${user.email}, ${user.address.city})`;
           document.getElementById("list").appendChild(li);
         });
       });

@@ -1,0 +1,193 @@
+[실습: JSON Server를 활용한 Mock API 실습]  
+위치: D:\myWork\My\Web04  
+필요 도구: VS Code, 명령 프롬프트 (CMD), Node.js, Postman
+
+
+
+[Step 01: Node.js 설치]
+1. https://nodejs.org 접속 → LTS 버전 다운로드 및 설치
+2. 설치 후 CMD 또는 VSCode 터미널에서 다음 명령 실행하여 버전 확인
+node -v
+npm -v
+
+[Step 02: JSON Server 전역 설치]
+npm install -g json-server
+
+
+설치 확인:  json-server --version
+
+[Step 03: JSON 데이터 파일 생성]
+1. `D:\myWork\My\Web04` 폴더로 이동
+2. `db.json` 파일 생성, 아래 내용 붙여넣기 
+products:	상품 목록, 카테고리와 재고 추가
+orders:	주문 내역, userId, orderDate 포함
+users	:주문자 정보
+categories:	상품 카테고리 정의
+
+{
+  "products": [
+    { "id": 1, "name": "노트북", "price": 1200, "categoryId": 1, "stock": 10 },
+    { "id": 2, "name": "마우스", "price": 45, "categoryId": 2, "stock": 50 },
+    { "id": 3, "name": "키보드", "price": 60, "categoryId": 2, "stock": 30 },
+    { "id": 4, "name": "모니터", "price": 300, "categoryId": 3, "stock": 15 },
+    { "id": 5, "name": "웹캠", "price": 90, "categoryId": 4, "stock": 25 }
+  ],
+  "orders": [
+    { "id": 1, "productId": 1, "userId": 1, "quantity": 2, "orderDate": "2024-04-21" },
+    { "id": 2, "productId": 3, "userId": 2, "quantity": 1, "orderDate": "2024-04-22" }
+  ],
+  "users": [
+    { "id": 1, "name": "홍길동", "email": "hong@example.com" },
+    { "id": 2, "name": "김철수", "email": "kim@example.com" }
+  ],
+  "categories": [
+    { "id": 1, "name": "노트북" },
+    { "id": 2, "name": "입력장치" },
+    { "id": 3, "name": "디스플레이" },
+    { "id": 4, "name": "영상장비" }
+  ]
+}
+
+[ Step 04: JSON Server 실행 ]
+cd D:\myWork\My\Web04
+json-server --watch db.json --port 3000
+
+브라우저에 아래 주소 입력 시 API 확인 가능:
+- http://localhost:3000/products
+- http://localhost:3000/orders
+
+
+[Step 05: Postman으로 테스트]  https://marketplace.visualstudio.com/items?itemName=Postman.postman-for-vscode  설치한다.
+- `GET`: http://localhost:3000/products
+- `POST`: http://localhost:3000/products  
+  Body → raw → JSON 선택
+{ "name": "키보드", "price": 80 }
+
+< Postman 요청 테스트>
+1) GET 요청
+- Method: GET
+- URL: http://localhost:3000/products
+- 클릭 후 'Send' 버튼 → 결과 목록 확인
+
+2) POST 요청
+- Method: POST
+- URL: http://localhost:3000/products
+- Body → raw → JSON
+- 예시 데이터:
+  { "name": "키보드", "price": 80 }
+
+3) DELETE 요청
+- Method: DELETE
+- URL: http://localhost:3000/products/3
+
+4) 결과 확인
+- json-server 콘솔 로그에서 요청 로그 출력 확인
+- Postman 하단 응답창에 결과 코드/데이터 확인
+
+[Step06] Postman 실습 과제
+
+1. [GET] 상품 목록 불러오기
+- URL: http://localhost:3000/products
+- 요청 방식: GET
+- 응답 확인: 목록이 배열로 출력되는지 확인
+
+2. [POST] 상품 추가
+- URL: http://localhost:3000/products
+- 요청 방식: POST
+- Body (raw → JSON):
+  {
+    "name": "헤드셋",
+    "price": 95,
+    "categoryId": 2,
+    "stock": 20
+  }
+
+3. [DELETE] 상품 삭제
+- URL: http://localhost:3000/products/1
+- 요청 방식: DELETE
+- 응답 코드가 200 또는 204인지 확인
+
+
+
+[Step07] 응답 결과를 스크립트로 검증
+
+1. 상태 코드 테스트 (200 OK)
+- 	Scripts → Post-response 탭에서 작성
+
+. JSON 응답 필드 검사
+pm.test("Contains name and price", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData[0]).to.have.property("name");
+    pm.expect(jsonData[0]).to.have.property("price");
+});
+
+2. 응답 시간 체크 (성능 기준)
+pm.test("Response time < 500ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(500);
+});
+
+
+
+[Step 08] REST API 설계 워크시트
+
+ API 명세 예시: 쇼핑몰 상품 관리
+
+1)GET	  /products	상품 목록 조회	-
+2) POST	 /products	상품 추가	name, price, categoryId
+3) GET	 /orders	주문 내역 조회	-
+4)POST	 /orders	주문 등록	productId, userId, quantity
+
+
+
+
+
+
+1. [GET] /products
+- 설명: 상품 목록 전체 조회
+- 응답 예시: [{"id":1,"name":"노트북","price":1200}, ...]
+
+2. [POST] /products
+- 설명: 새 상품 추가
+- 요청 Body:
+  {
+    "name": "마우스",
+    "price": 40,
+    "categoryId": 2
+  }
+
+3. [GET] /orders
+- 설명: 주문 내역 조회
+
+4. [POST] /orders
+- 설명: 새 주문 생성
+- 요청 Body:
+  {
+    "productId": 2,
+    "userId": 1,
+    "quantity": 3
+  }
+
+==========================================================================================
+동기 / 비동기 통신
+REST API ? 클라이언트[FE] <-> 서버[BE] 통신규약 = URL + HTTP 메서드 
+1. 자원 :     데이터 단위 (사용자, 글, 상품 : user, content, product)
+2. 표현 :     json, xml
+3. 상태전이(state transfer) : 클라이언트가 서버와 통신하며 상태 변화 측정 (CRUD 생성, 조회, 수정, 삭제) -> 관리 단위 측정 
+
+http 메서드와 REST API
+1) GET      /products 상품 목록 조회  <a href="http://www.my.com/users">모든 사용자 조회</a>
+2) POST     /products 상품 추가 (name, price, categoryId)
+3) PUT      /products 전체수정
+4) PATCH    /products 부분수정
+5) DELETE   /products 삭제
+
+<FORM Method = "GET" ACTION ="/products">
+
+EX) http://www.my.com/users
+1) GET      /products 상품 목록 조회  <a href="http://www.my.com/users">모든 사용자 조회</a>
+2) POST     /products 상품 추가 (name, price, categoryId)
+3) PUT      /products 전체수정
+4) PATCH    /products 부분수정
+5) DELETE   
+
+

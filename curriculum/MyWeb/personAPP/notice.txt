@@ -1,0 +1,26 @@
+브라우저에서 사용할 수 있는 저장소 
+
+[동기]
+1.  localStorage	간단한 문자열 저장 (설정값, 토큰 등) 약 5MB ,지속적	동기
+2.  sessionStorage	탭/세션 단위 임시 저장소	, 약 5MB,탭 종료 시 삭제	동기
+
+[비동기]
+3.  IndexedDB	대용량 구조화된 데이터 저장 (NoSQL 방식)	, 수백 MB 이상	지속적	비동기 _가장많이 사용!!! 
+4.  Cookies	서버/브라우저 간 데이터 교환 (작은 인증정보, 세션ID), 약 4KB	만료일 설정	요청 헤더 전송
+5.  File System API	브라우저에서 실제 파일처럼 읽고 쓰기 (Sandbox 방식),	OS 제한	지속적/임시	비동기 (실험적)
+6.  Cache API (Service Worker)	HTML, JS, 이미지 등 정적 자산 캐싱 (오프라인 앱용),	수백 MB 이상	지속적	비동기
+7.  StorageManager API	디스크 할당량 관리 및 요청	브라우저 전체	,영속성+관리용	비동기
+
+
+저장소 선택 기준
+1.  사용자 설정값 저장	localStorage
+2.  탭별 로그인 상태 유지	sessionStorage
+3.  대용량 데이터 저장 (목록 등)	IndexedDB
+4.  서버 전송용 인증정보	Cookies
+5.  오프라인 앱 리소스 저장	Cache API + Service Worker
+6.  사용자 파일 저장	File System Access API (최신 브라우저)
+
+JSON 타입
+https://www.json.org/json-en.html   -> .json : API 통신할 때 데이터 타입 { , , , } 
+http://bjson.org/                   -> .json : 비정형서버에서 사용하는 데이터 타입 { , , , } 
+http//jsonlines.org/                -> .jsonl : 데용량 데이터의 생성형 AI퉝할 사용하는 단위 {}{}{}{} 

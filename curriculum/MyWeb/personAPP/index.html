@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Person Manager V2</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    input {
+      margin: 5px;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+
+    button.delete-btn {
+      margin-left: 10px;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <h2> 사용자 등록</h2>
+  <input type="text" id="name" placeholder="이름" />
+  <input type="text" id="address" placeholder="주소" />
+  <input type="text" id="phone" placeholder="전화번호" />
+  <button onclick="addPerson()">추가</button>
+  <button onclick="saveToLocal()"> 저장</button>
+  <button onclick="loadFromLocal()"> 불러오기</button>
+  <button onclick="downloadCSV()"> CSV 저장</button>
+
+  <h3> 사용자 검색</h3>
+  <input type="text" id="search" placeholder="이름으로 검색" oninput="filterList()" />
+
+  <h3> 사용자 목록</h3>
+  <ul id="personList"></ul>
+
+  <script type="module">
+    import { Person } from './person.js';
+
+    let people = [];
+
+    function renderList(filtered = people) {
+      const ul = document.getElementById("personList");
+      ul.innerHTML = "";
+      filtered.forEach((p, idx) => {
+        const li = document.createElement("li");
+        li.textContent = p.toString();
+        const btn = document.createElement("button");
+        btn.textContent = "삭제";
+        btn.className = "delete-btn";
+        btn.onclick = () => { people.splice(idx, 1); renderList(); };
+        li.appendChild(btn);
+        ul.appendChild(li);
+      });
+    }
+
+    window.addPerson = () => {
+      const name = document.getElementById("name").value.trim();
+      const address = document.getElementById("address").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      if (!name || !address || !phone) return alert("모든 항목을 입력하세요.");
+      const p = new Person(name, address, phone);
+      people.push(p);
+      renderList();
+    };
+
+    window.saveToLocal = () => {
+      localStorage.setItem("personData", JSON.stringify(people));
+      alert("저장 완료!");
+    };
+
+    window.loadFromLocal = () => {
+      const data = localStorage.getItem("personData");
+      if (!data) return alert("저장된 데이터가 없습니다.");
+      const parsed = JSON.parse(data);
+      people = parsed.map(obj => new Person(obj.tname, obj.taddress, obj.phone));
+      renderList();
+    };
+
+    window.filterList = () => {
+      const keyword = document.getElementById("search").value.trim().toLowerCase();
+      const result = people.filter(p => p.tname.toLowerCase().includes(keyword));
+      renderList(result);
+    };
+
+    window.downloadCSV = () => {
+      const csv = people.map(p => `${p.tname},${p.taddress},${p.phone}`).join("\n");
+      const blob = new Blob(["이름,주소,전화\n" + csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "people.csv";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+  </script>
+</body>
+
+</html>

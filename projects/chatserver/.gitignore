@@ -1,0 +1,11 @@
+# Ignore application.properties
+src/main/resources/application.properties
+
+# Gradle build files
+/build/
+/.gradle/
+
+# IDE settings
+.idea/
+/*.iml
+

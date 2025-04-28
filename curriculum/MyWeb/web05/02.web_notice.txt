@@ -29,7 +29,7 @@ jq10_ajax_post_mock.html : POST 방식으로 데이터 전송 (모의 API)
 2) Props를 통한 데이터 전달: 컴포넌트 간에 데이터를 전달하는 방법 (react02_Props.jsx, react10_ParentChild.jsx)
 3) State 관리: 컴포넌트 내부에서 동적인 데이터를 관리하고 화면을 업데이트하는 방법 (react03_UseState.jsx, react04_InputBinding.jsx, react09_FormSubmit.jsx)
 4) 이벤트 핸들링: 사용자의 입력이나 동작에 반응하는 방법 (react04_InputBinding.jsx, react09_FormSubmit.jsx)
-5)조건부 렌더링: 특정 조건에 따라 다른 UI를 보여주는 방법. (react05_ConditionalRender.jsx)
+5) 조건부 렌더링: 특정 조건에 따라 다른 UI를 보여주는 방법. (react05_ConditionalRender.jsx)
 6) 리스트 렌더링: 배열의 데이터를 반복하여 화면에 표시하는 방법. (react06_ListRender.jsx, react08_FetchData.jsx)
 7) Effect Hook: 컴포넌트가 렌더링된 후에 특정 작업을 수행하는 방법. (react07_UseEffect.jsx, react08_FetchData.jsx)
 8) 데이터 가져오기: 외부 API에서 데이터를 가져오는 방법. (react08_FetchData.jsx)
@@ -45,3 +45,11 @@ react07_UseEffect.jsx : useEffect로 실시간 시계 구현
 react08_FetchData.jsx : 외부 API 데이터 가져오기
 react09_FormSubmit.jsx : 폼 입력 및 제출 처리
 react10_ParentChild.jsx : 부모 → 자식 컴포넌트 데이터 전달
+
+==========================================================================================================
+npm (node package manager)
+npm 패키지 이름 규칙: 소문자만 허용, _ - 허용, 특수문사 안됨, 길이제한, 예약어 안됨, 점(.) 공백( ) 안됨
+
+1. npx create-react-app testui   // package dependency(modules) 모두 자동으로 설치 
+2. cd testui
+3. npm start      // autobuilds, if you want to create a production build, use => npm run build 

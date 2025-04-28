@@ -19,6 +19,13 @@
     <p>Or me to see a color change.</p>
     <script>
         // case 1: 단계적 이벤트를 on("event_type", function());
+        // $ -> $(document).ready(function() { ... });
+        /*
+        $("#id"), $("tag"), $("*") : 모든 요소 선택
+        $("parent > child") : 특정 부모의 자식
+        $("parent child") : 특정 부모의 모든 자식
+        $(element:first) , , , 기타 연산자
+        */
         $("p").on("mouseover", function() {
             $(this).css("color", "red");
         }).on("mouseout", function() {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>val demo</title>
+    <style>
+        p {
+            color: blue;
+            margin: 8px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+
+<body>
+    <input type="text" value="some text"><br><br>
+    <label>ID<input type="text" id="tid"></label><br><br>
+    <label>PW<input type="text" id="tpw"></label><br><br>
+    <button id="ok">확인</button>
+    <p></p>    
+
+    <script>
+        $("#ok").on("click", function() {
+            const id=$("#tid").val();
+            const pw=$("tpw").val();
+            $("p").text("ID : " + id + " PW: " + pw);
+
+        })
+
+
+
+
+        $("input")
+        .on("keyup", function() {
+            var value = $(this).val();
+            $("p").text(value);
+        })
+        .trigger("keyup");
+    </script>
+</body>
+</html>

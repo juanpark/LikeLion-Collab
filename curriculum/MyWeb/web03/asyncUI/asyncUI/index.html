@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>JS 비동기 예제 모음</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+    button { margin: 5px; padding: 10px; }
+    pre { background: #f0f0f0; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h2>비동기 실습 예제</h2>
+
+  <button onclick="runSetTimeout()">1. setTimeout 순서 확인</button><br/>
+  <button onclick="runCallback()">2. 콜백 실행</button><br/>
+  <button onclick="runPromise()">3. Promise fetch()</button><br/>
+  <button onclick="runAsyncAwait()">4. async/await</button><br/>
+  <button onclick="runAjax()">5. XMLHttpRequest (AJAX)</button>
+
+  <h3>출력 결과</h3>
+  <pre id="output">출력 결과가 여기에 표시됩니다...</pre>
+
+  <script>
+    const output = document.getElementById('output');
+
+    function log(msg) {
+      output.textContent += '\n' + msg;
+    }
+
+    function clearLog() {
+      output.textContent = '출력 결과가 여기에 표시됩니다...';
+    }
+
+    function runSetTimeout() {  // 비동기 지연 테스트
+      clearLog();
+      log("1번");
+      setTimeout(() => log("2번 (2초 후 실행)"), 2000);
+      log("3번");
+    }
+
+    function runCallback() {  // 콜백함수 테스트 -> 순차 실행 확인 
+      clearLog();
+      function greet(name, callback) {
+        log("안녕하세요 " + name);
+        callback();
+      }
+      greet("철수", () => log("환영합니다!"));
+    }
+
+    function runPromise() { // Promise 함수 테스트 
+      clearLog();
+      fetch("https://jsonplaceholder.typicode.com/posts/1")
+        .then(res => res.json())
+        .then(data => log("데이터: " + JSON.stringify(data)))
+        .catch(err => log("에러: " + err));
+    }
+
+    async function runAsyncAwait() {  // 비동기 -> 동기화 처리확인 
+      clearLog();
+      try {
+        const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+        const data = await res.json();
+        log("결과: " + JSON.stringify(data));
+      } catch (e) {
+        log("에러 발생: " + e);
+      }
+    }
+
+    function runAjax() {  // 과거 Ajax 방식 -> fetch()로 대체됨 
+      clearLog();
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://jsonplaceholder.typicode.com/users");
+      xhr.onload = () => {
+        const result = JSON.parse(xhr.responseText);
+        log("유저 리스트: " + JSON.stringify(result.slice(0, 2)));
+      };
+      xhr.send();
+    }
+  </script>
+</body>
+</html>

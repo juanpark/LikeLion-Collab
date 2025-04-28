@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"><title>클릭 이벤트</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script></head>
+<body>
+  <button id="btn">눌러보세요</button>
+  <p id="msg"></p>
+  <script>
+    $("#btn").click(function() {
+      $("#msg").text("클릭 완료!");
+    });
+  </script>
+</body>
+</html>

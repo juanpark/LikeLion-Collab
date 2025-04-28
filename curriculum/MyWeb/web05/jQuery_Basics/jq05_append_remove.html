@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"><title>append/remove</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script></head>
+<body>
+  <ul id="list"></ul>
+  <button id="add">추가</button>
+  <button id="remove">삭제</button>
+  <script>
+    $("#add").click(() => $("#list").append("<li>항목</li>"));
+    $("#remove").click(() => $("#list").empty());
+  </script>
+</body>
+</html>

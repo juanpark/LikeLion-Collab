@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"><title>AJAX POST</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script></head>
+<body>
+  <input id="title" placeholder="제목 입력">
+  <button id="send">전송</button>
+  <script>
+    $("#send").click(() => {
+      const data = { title: $("#title").val() };
+      $.post("https://jsonplaceholder.typicode.com/posts", data, res => {
+        alert("등록 성공: ID " + res.id);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -76,14 +76,16 @@
       alert("저장 완료!");
     };
 
+    // local storage 저당된 사용자 데이터를 로드한다 
     window.loadFromLocal = () => {
       const data = localStorage.getItem("personData");
       if (!data) return alert("저장된 데이터가 없습니다.");
-      const parsed = JSON.parse(data);
+      const parsed = JSON.parse(data);  // data가 있으면 다시 객체 배열로 복원해서 리턴 
       people = parsed.map(obj => new Person(obj.tname, obj.taddress, obj.phone));
       renderList();
     };
 
+    // 입력한 검색어로 사용자 목록을 필터링 
     window.filterList = () => {
       const keyword = document.getElementById("search").value.trim().toLowerCase();
       const result = people.filter(p => p.tname.toLowerCase().includes(keyword));
@@ -95,10 +97,11 @@
       const blob = new Blob(["이름,주소,전화\n" + csv], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
+      console.log(link);
       link.download = "people.csv";
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
+      document.body.removeChild(link); // 클릭한 다음 페이지에서 제거 
     };
   </script>
 </body>

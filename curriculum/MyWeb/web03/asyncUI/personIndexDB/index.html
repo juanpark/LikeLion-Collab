@@ -42,7 +42,9 @@
   <h3> 사용자 목록</h3>
   <ul id="personList"></ul>
 
-  <script type="module">
+  <script type="module"> // 현재 파일에만 영역을 제한, 모듈을 사용하겠다, import
+  // type="module" -> 전역 등록 안됨 / import, export 가능
+  // 해당 이벤트 등록할 때 영역을 지정 window.
     import { Person } from './person.js';
 
     let db;

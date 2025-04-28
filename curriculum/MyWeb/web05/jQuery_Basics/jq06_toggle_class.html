@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"><title>클래스 토글</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>.on { color: red; }</style>
+</head>
+<body>
+  <p id="target">클릭하면 색이 바뀜</p>
+  <script>
+    $("#target").click(function() {
+      $(this).toggleClass("on");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX GET</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+  <ul id="users"></ul>
+  <script>
+    $.get("https://jsonplaceholder.typicode.com/users", function (data) {
+      data.slice(0, 3).forEach(u => {
+        $("#users").append(`<li> ${u.name}</li>`);
+      });
+    });
+  </script>
+</body>
+
+</html>

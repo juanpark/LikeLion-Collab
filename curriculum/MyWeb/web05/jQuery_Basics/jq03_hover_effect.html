@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"><title>hover 효과</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+  .box { width: 100px; height: 100px; background: gray; }
+</style>
+</head>
+<body>
+  <div class="box"></div>
+  <script>
+    $(".box").hover(
+      function() { $(this).css("background", "green"); },
+      function() { $(this).css("background", "gray"); }
+    );
+  </script>
+</body>
+</html>

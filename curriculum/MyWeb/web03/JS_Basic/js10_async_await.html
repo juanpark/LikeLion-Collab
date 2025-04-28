@@ -4,16 +4,31 @@
 <body>
   <ul id="users"></ul>
   <script>
+    // 비동기 코드를 동기적인 스타일로 작성할 수 있게 해준다. async / await
+    // await 키워드를 만나면 비동기 완료 될때 까지의 함수 실행을 일시 중단하고 완료되면 결과를 리턴한다.
     async function loadUsers() {
+      console.log("1. before fetch");
+
       const res = await fetch("https://jsonplaceholder.typicode.com/users");
+      
+      console.log("2. after fetch");
+
       const users = await res.json();
-      users.slice(0, 3).forEach(user => {
+      
+      console.log("3. after converting from json")
+
+      users.slice(0, 10).forEach(user => {
         const li = document.createElement("li");
         li.textContent = user.name;
         document.getElementById("users").appendChild(li);
+        console.log(`${user.name}`);
       });
+
+     console.log("all users added");
     }
+    console.log("before calling loadUsers()");
     loadUsers();
+    console.log("after calling loadUsers()");
   </script>
 </body>
 </html>

@@ -1,0 +1,47 @@
+=========== JavaScript 실습 예제 (10개) ===========
+js01_variables.html : 변수 선언 (var, let, const)
+js02_condition.html : 조건문 (if, else if, else)
+js03_loop.html : 반복문 (for)
+js04_function.html : 함수 정의 및 호출
+js05_event_click.html : 클릭 이벤트 처리
+js06_dom_change.html : DOM 요소 변경
+js07_array_loop.html : 배열 반복 (forEach)
+js08_object.html : 객체 생성 및 출력
+js09_fetch_basic.html : fetch()로 외부 API 호출
+js10_async_await.html : async/await 기반 비동기 통신
+
+=========== jQuery 실습 예제 (10개) ===========
+jq01_selector.html : 기본 선택자 및 스타일 변경
+jq02_click_event.html : 클릭 이벤트 처리
+jq03_hover_effect.html : 마우스 hover 이벤트 처리
+jq04_input_value.html : 입력값 읽기 및 출력
+jq05_append_remove.html : 항목 추가 및 삭제
+jq06_toggle_class.html : 클래스 토글로 효과 변경
+jq07_ajax_get.html : 외부 API 데이터를 가져오는 AJAX GET
+jq08_fade_toggle.html : fade 효과로 요소 토글
+jq09_chaining.html : jQuery 메서드 체이닝 실습
+jq10_ajax_post_mock.html : POST 방식으로 데이터 전송 (모의 API)
+
+
+=========== React 실습 예제 (10개) ===========
+1) 컴포넌트 정의 및 사용: React의 가장 기본적인 구성 요소인 컴포넌트를 만들고 사용하는 방법
+   (react01_Hello.jsx, react02_Props.jsx, react10_ParentChild.jsx)
+2) Props를 통한 데이터 전달: 컴포넌트 간에 데이터를 전달하는 방법 (react02_Props.jsx, react10_ParentChild.jsx)
+3) State 관리: 컴포넌트 내부에서 동적인 데이터를 관리하고 화면을 업데이트하는 방법 (react03_UseState.jsx, react04_InputBinding.jsx, react09_FormSubmit.jsx)
+4) 이벤트 핸들링: 사용자의 입력이나 동작에 반응하는 방법 (react04_InputBinding.jsx, react09_FormSubmit.jsx)
+5)조건부 렌더링: 특정 조건에 따라 다른 UI를 보여주는 방법. (react05_ConditionalRender.jsx)
+6) 리스트 렌더링: 배열의 데이터를 반복하여 화면에 표시하는 방법. (react06_ListRender.jsx, react08_FetchData.jsx)
+7) Effect Hook: 컴포넌트가 렌더링된 후에 특정 작업을 수행하는 방법. (react07_UseEffect.jsx, react08_FetchData.jsx)
+8) 데이터 가져오기: 외부 API에서 데이터를 가져오는 방법. (react08_FetchData.jsx)
+9) Form 처리: Form을 통해 사용자 입력을 받고 처리하는 방법 (react09_FormSubmit.jsx)
+
+react01_Hello.jsx : 기본 출력 컴포넌트   
+react02_Props.jsx : Props 전달 및 출력
+react03_UseState.jsx : useState로 카운터 구현
+react04_InputBinding.jsx : 입력 바인딩 및 상태 반영
+react05_ConditionalRender.jsx : 조건부 렌더링
+react06_ListRender.jsx : 리스트 반복 렌더링
+react07_UseEffect.jsx : useEffect로 실시간 시계 구현
+react08_FetchData.jsx : 외부 API 데이터 가져오기
+react09_FormSubmit.jsx : 폼 입력 및 제출 처리
+react10_ParentChild.jsx : 부모 → 자식 컴포넌트 데이터 전달

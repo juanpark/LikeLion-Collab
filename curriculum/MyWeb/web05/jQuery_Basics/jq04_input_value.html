@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"><title>입력 값 처리</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script></head>
+<body>
+  <input id="name" type="text" placeholder="이름 입력">
+  <button id="show">출력</button>
+  <p id="result"></p>
+  <script>
+    $("#show").click(function() {
+      let val = $("#name").val();
+      $("#result").text("입력된 이름: " + val);
+    });
+  </script>
+</body>
+</html>

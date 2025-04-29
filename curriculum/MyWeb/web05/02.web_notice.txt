@@ -61,5 +61,21 @@ test-ui project
 3) props = 읽기 전용: 컴포넌트에 값을 전달하는 방법, 부모 -> 자식으로 정보 전달
 4) state = 컴포넌트 안에서 변경할 수 있는 값 / 변하는 값 
 
+- useState
 const [현재상태값, 상태변경함수] = useState(초기값)
-const [state,   setState] = useState(false);
+const [state,   setState] = useState(initialState);
+ex) const [count, setCount] = useState(0) // 초기값 0
+const handleCalc=() => {
+   setCount(count +1);
+}
+
+- useEffect: 사이드 이펙트 담당 -> 데이터 가져오기, DOM직접 접근 조작, 타이머, 외부리소스 제어
+useEffect(setup, dependencies)
+   useEffect(() => {
+      // 수행할 작업 (사이드 이펙트)
+      // DB 연결
+      return() => {
+         // 정리할 코드
+         // DB 연결 해
+      };
+   }, [dependencies])

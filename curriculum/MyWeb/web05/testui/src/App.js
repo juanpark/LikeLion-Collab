@@ -5,7 +5,8 @@ import Counter02 from "./React_Basic/react03_UseState"
 import NameInput, {DateInput} from "./React_Basic/react04_InputBinding"
 import LoginStatus from "./react05_ConditionalRender";
 import SkillList from "./React_Basic/react06_ListRender";
-
+import Clock from "./React_Basic/react07_UseEffect";
+import UserList, {TodosOne} from "./React_Basic/react08_FetchData";
 
 function App() {
   const [CurrentComponent, setCurrentComponent] = useState("React01");
@@ -17,6 +18,8 @@ function App() {
         case "React04" : return <React04/>;
         case "React05" : return <React05/>;
         case "React06" : return <React06/>;
+        case "React07" : return <React07/>;
+        case "React08" : return <React08/>;
         default : return <React01/>;
       }
     };
@@ -41,12 +44,35 @@ function App() {
       <div>
         <button onClick={() => setCurrentComponent("React06")}>React06</button>
       </div>
+      <div>
+        <button onClick={() => setCurrentComponent("React07")}>React07</button>
+      </div>
+      <div>
+        <button onClick={() => setCurrentComponent("React08")}>React08</button>
+      </div>
       {/* 현재 선택된 컴포넌트 표시 */}
       <div style={{ border: "3px solid gray", padding: "20px" }}>
         {listComponent()}
       </div>
     </>
   );
+}
+
+function React08() {
+  return (
+    <div>
+      <UserList/>
+      <TodosOne/>
+    </div>
+  )
+}
+
+function React07() {
+  return (
+    <div>
+      <Clock/>
+    </div>
+  )
 }
 
 function React06() {

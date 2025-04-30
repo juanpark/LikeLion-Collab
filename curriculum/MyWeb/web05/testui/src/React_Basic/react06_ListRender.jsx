@@ -1,3 +1,5 @@
+import React from "react";
+
 const items = ["HTML", "CSS", "JS", "React"];
 export default function SkillList() {
   return (

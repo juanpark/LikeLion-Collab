@@ -79,3 +79,12 @@ useEffect(setup, dependencies)
          // DB 연결 해
       };
    }, [dependencies])
+
+
+- node.js로 서버를 실행한 다음 react 클라이언트로 값을 리턴 받자. 
+1) my-node-server 폴더를 생성한다.
+2) 터미널에서 cd my-node-server 
+3) my-node-server> npm init -> pacakge.json 설치
+4) npm install exress -> 모듈 설치
+5) server.js 파일을 생성 
+6) node server.js -> 서버 실행 

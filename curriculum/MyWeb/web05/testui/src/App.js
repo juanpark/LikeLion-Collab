@@ -6,7 +6,7 @@ import NameInput, {DateInput} from "./React_Basic/react04_InputBinding"
 import LoginStatus from "./react05_ConditionalRender";
 import SkillList from "./React_Basic/react06_ListRender";
 import Clock from "./React_Basic/react07_UseEffect";
-import UserList, {TodosOne} from "./React_Basic/react08_FetchData";
+import UserList, {TodosOne, MyNode} from "./React_Basic/react08_FetchData";
 
 function App() {
   const [CurrentComponent, setCurrentComponent] = useState("React01");
@@ -63,6 +63,7 @@ function React08() {
     <div>
       <UserList/>
       <TodosOne/>
+      <MyNode/>
     </div>
   )
 }

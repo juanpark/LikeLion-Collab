@@ -1,3 +1,5 @@
+import React from "react";
+
 function Hello() {
   return <h1>Hello! Your first REACT page!</h1>;
 }

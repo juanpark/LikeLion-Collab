@@ -48,3 +48,83 @@ export function MyNode() {
     </div>
   );
 }
+
+export function MyText() {
+  const [message, setMessage] = useState(null);
+  useEffect(() => {
+    fetch('http://localhost:7777/api/text',
+      {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({text:"Hello, from CLIENT"})
+      }
+    )
+      .then(res => res.json())
+      .then(data => setMessage(data.message));
+  }, []);
+  
+  return (
+    <div className="App">
+      <header className="App-header">
+        <p>{message}</p>
+      </header>
+    </div>
+  );
+}
+
+export function MyUser() {
+  const [message, setMessage] = useState('Loading');
+
+  useEffect(() => {
+    fetch('http://localhost:7777/api/user',
+      {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({
+          username: "Hong",
+          email: "hong@gmail.com",
+          addr: "Woosando"
+        })
+      }
+    )
+      .then(res => res.json())
+      .then(data => setMessage(`
+        [name: ${data.user.username}] 
+        [email: ${data.user.email}] 
+        [addr: ${data.user.addr}]`))
+      .catch(err => {
+        console.error(err);
+        setMessage("요청싪패");
+      });
+  }, []);
+  
+  return (
+    <div className="App">
+      <header className="App-header">
+        <p>{message}</p>
+      </header>
+    </div>
+  );
+}
+
+export function MyTime() {
+  const [message, setMessage] = useState('Loading...');
+  useEffect(() => {
+    fetch('http://localhost:7777/api/time',
+      {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+      }
+    )
+      .then(res => res.json())
+      .then(data => setMessage(`Time from server: ${data.serverTime}`))
+  }, []);
+  
+  return (
+    <div className="App">
+      <header className="App-header">
+        <p>{message}</p>
+      </header>
+    </div>
+  );
+}

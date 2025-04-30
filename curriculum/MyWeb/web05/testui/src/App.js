@@ -6,7 +6,8 @@ import NameInput, {DateInput} from "./React_Basic/react04_InputBinding"
 import LoginStatus from "./react05_ConditionalRender";
 import SkillList from "./React_Basic/react06_ListRender";
 import Clock from "./React_Basic/react07_UseEffect";
-import UserList, {TodosOne, MyNode} from "./React_Basic/react08_FetchData";
+import UserList, {TodosOne, MyNode, MyText, MyUser, MyTime} from "./React_Basic/react08_FetchData";
+import FormSubmit, {NameSubmit} from "./React_Basic/react09_FormSubmit";
 
 function App() {
   const [CurrentComponent, setCurrentComponent] = useState("React01");
@@ -20,35 +21,23 @@ function App() {
         case "React06" : return <React06/>;
         case "React07" : return <React07/>;
         case "React08" : return <React08/>;
+        case "React09" : return <React09/>;
         default : return <React01/>;
       }
     };
 
   return (
     <>
-      <div>
+      <div style={{ margin: "10px" }}>
         <button onClick={() => setCurrentComponent("React01")}>React01</button>
-      </div>
-      <div>
-        <button onClick={() => setCurrentComponent("React02")}>React02</button>
-      </div>
-      <div>
+        <button onClick={() => setCurrentComponent("React02")}>React02</button>  
         <button onClick={() => setCurrentComponent("React03")}>React03</button>
-      </div>
-      <div>
         <button onClick={() => setCurrentComponent("React04")}>React04</button>
-      </div>
-      <div>
         <button onClick={() => setCurrentComponent("React05")}>React05</button>
-      </div>
-      <div>
         <button onClick={() => setCurrentComponent("React06")}>React06</button>
-      </div>
-      <div>
         <button onClick={() => setCurrentComponent("React07")}>React07</button>
-      </div>
-      <div>
         <button onClick={() => setCurrentComponent("React08")}>React08</button>
+        <button onClick={() => setCurrentComponent("React09")}>React09</button>
       </div>
       {/* 현재 선택된 컴포넌트 표시 */}
       <div style={{ border: "3px solid gray", padding: "20px" }}>
@@ -58,12 +47,24 @@ function App() {
   );
 }
 
+function React09() {
+  return (
+    <div>
+      <FormSubmit/>
+      <NameSubmit/>
+    </div>
+  )
+}
+
 function React08() {
   return (
     <div>
       <UserList/>
       <TodosOne/>
       <MyNode/>
+      <MyText/>
+      <MyUser/>
+      <MyTime/>
     </div>
   )
 }

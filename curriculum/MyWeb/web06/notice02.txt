@@ -1,2 +1,15 @@
 1. DB 생성, 테이블 생성 -> 스키마 생성
 2. backend/config/db.js -> 연결객체 추가한다. (db, ID, PW 지정)
+3. 순서도에 따라 로직 작성하고 흐름을 확인 
+    클라이언트 -> app.js -> travelRoutes(routing) -> travelController(logic) 
+    -> travelModel(Dao) -> db.js(DB) -> DB(MySQL)
+4. 서버 세팅
+$ cd backend
+$ npm init -y   -> package.json
+
+5. 플러그인 설치 
+$ npm install express cors mysql2
+
+6. 실행 명령    npm start -> 스크립트 실행 / npm run dev (여러 개 실행)
+node app.js     -> 기본 명령 
+

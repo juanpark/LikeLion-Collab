@@ -1,5 +1,8 @@
 
-const model = require('../models/travelModel');
+const model = require('../models/travelModel'); // 모델 컴포넌트를 가져온다 
+
+// 클라이언트 값을 서버유효성 검사 / 페이지 이동 <클라이언트 값 <-> Dao> <클라이언트 값을 biz <-> dao> <클라이언트 값을 <-> biz>
+// pool.promise();를 선언해서 aync/await을 선언해서 사용한다 
 
 exports.getAll = async (req, res) => {
   try {

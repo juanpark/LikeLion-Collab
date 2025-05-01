@@ -1,5 +1,5 @@
 
-const mysql = require('mysql2');
+const mysql = require('mysql2'); // mysql 플러그인 호출 
 
 const pool = mysql.createPool({
   host: 'localhost',
@@ -8,7 +8,7 @@ const pool = mysql.createPool({
   database: 'travel_db'
 });
 
-module.exports = pool.promise();
+module.exports = pool.promise();  // DB 연결 객체를 promise 기반으로 내보내겠다 
 
 /*
 driver=com.mysql.cj.jdbc.Driver

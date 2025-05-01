@@ -8,6 +8,7 @@ import SkillList from "./React_Basic/react06_ListRender";
 import Clock from "./React_Basic/react07_UseEffect";
 import UserList, {TodosOne, MyNode, MyText, MyUser, MyTime} from "./React_Basic/react08_FetchData";
 import FormSubmit, {NameSubmit} from "./React_Basic/react09_FormSubmit";
+import React11_Router from "./React_Basic/React11_Router";
 
 function App() {
   const [CurrentComponent, setCurrentComponent] = useState("React01");
@@ -22,6 +23,7 @@ function App() {
         case "React07" : return <React07/>;
         case "React08" : return <React08/>;
         case "React09" : return <React09/>;
+        case "React11" : return <React11/>;
         default : return <React01/>;
       }
     };
@@ -38,6 +40,7 @@ function App() {
         <button onClick={() => setCurrentComponent("React07")}>React07</button>
         <button onClick={() => setCurrentComponent("React08")}>React08</button>
         <button onClick={() => setCurrentComponent("React09")}>React09</button>
+        <button onClick={() => setCurrentComponent("React11")}>React11</button>
       </div>
       {/* 현재 선택된 컴포넌트 표시 */}
       <div style={{ border: "3px solid gray", padding: "20px" }}>
@@ -45,6 +48,14 @@ function App() {
       </div>
     </>
   );
+}
+
+function React11() {
+  return (
+    <div>
+      <React11_Router/>
+    </div>
+  )
 }
 
 function React09() {

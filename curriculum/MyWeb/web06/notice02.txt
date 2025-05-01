@@ -1,0 +1,2 @@
+1. DB 생성, 테이블 생성 -> 스키마 생성
+2. backend/config/db.js -> 연결객체 추가한다. (db, ID, PW 지정)

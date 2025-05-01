@@ -1,0 +1,106 @@
+
+[프로젝트 이름] Travel Journal CRUD App (React + Node.js + MySQL)
+
+[프로젝트 설명]
+React로 제작한 여행지 카드 UI를 Express + MySQL과 연결하여 CRUD 기능을 구현하는 프로젝트입니다.
+백엔드는 MVC 패턴(Model-View-Controller)으로 구성되며, 프론트엔드는 React에서 REST API로 서버와 통신합니다.
+
+=====================================================
+[ 프로젝트 구조]
+
+MVC_TravelApp/
+├── backend/
+│   ├── config/
+│   │   └── db.js              # MySQL 연결 설정
+│   ├── controllers/
+│   │   └── travelController.js # CRUD 로직
+│   ├── models/
+│   │   └── travelModel.js     # DB 쿼리 정의
+│   ├── routes/
+│   │   └── travelRoutes.js    # REST API 라우팅
+│   └── app.js                 # Express 서버 시작점
+├── frontend/
+│   ├── components/
+│   │   ├── Header.jsx         # 상단 네비게이션
+│   │   ├── Footer.jsx         # 하단 푸터
+│   │   ├── TravelCard.jsx     # 여행지 카드 UI
+│   │   └── TravelForm.jsx     # 여행지 등록 폼
+│   ├── App.jsx                # 전체 앱 구성
+│   └── index.js               # React 진입점
+└── notice.txt                 # 실행 안내 파일
+
+=====================================================
+[step 01] MySQL 설치 및 테이블 준비
+
+1. MySQL 설치
+2. 다음 SQL로 DB 및 테이블 생성
+
+CREATE DATABASE travel_db;
+USE travel_db;
+
+CREATE TABLE travels (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(100),
+  location VARCHAR(100),
+  googleMapsUrl TEXT,
+  startDate DATE,
+  endDate DATE,
+  description TEXT,
+  imageUrl TEXT
+);
+
+// " " -> TEXT 변환 transform.tools (not good enough)
+CREATE TABLE generic (
+  id INT,
+  title TEXT,
+  location TEXT,
+  googleMapsUrl TEXT,
+  startDate TEXT,
+  endDate TEXT,
+  description TEXT,
+  imageUrl TEXT,
+  PRIMARY KEY (id)
+);
+=====================================================
+[step 02] 백엔드 서버 설정 및 실행
+
+1. Node.js가 설치되어 있어야 합니다
+2. 아래 명령어로 의존성 설치
+
+$ cd backend
+$ npm init -y
+$ npm install express cors mysql2
+
+3. routes 연결을 app.js에 추가
+app.use('/api/travels', require('./routes/travelRoutes'));
+
+4. 실행 명령
+$ node app.js
+
+ 정상 실행되면 http://localhost:3001/api/travels 에서 JSON 응답을 확인할 수 있습니다.
+
+=====================================================
+[step 03] 프론트엔드 실행
+
+1. 의존성 설치
+$ cd frontend
+$ npm install
+
+2. 실행
+$ npm start
+
+3. 기능
+- 여행지 목록 조회
+- 여행지 등록 폼 (POST API 연동)
+- 카드 UI 출력 (GET API 연동)
+
+=====================================================
+[ 사용 기술]
+
+- React: useState, useEffect, props
+- Express: Router, Controller, Model 구조 (MVC)
+- MySQL2: Promise 기반 pool 연결
+- fetch: REST API 통신
+- CORS: 포트 간 통신 허용
+
+

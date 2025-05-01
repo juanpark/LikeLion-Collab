@@ -31,6 +31,7 @@ export default function TravelCard(props) {
         </h2>
 
         <p className="card--date">{props.startDate} ~ {props.endDate}</p>
+         <button onClick={() => onDelete(props.id)}> 삭제</button>
 
         {isOpen && (
           <div className="card--detail">
@@ -41,3 +42,4 @@ export default function TravelCard(props) {
     </div>
   );
 }
+

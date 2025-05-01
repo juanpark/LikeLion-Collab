@@ -1,3 +1,5 @@
+[BE] 코드 작성 후 테스트
+
 1. DB 생성, 테이블 생성 -> 스키마 생성
 2. backend/config/db.js -> 연결객체 추가한다. (db, ID, PW 지정)
 3. 순서도에 따라 로직 작성하고 흐름을 확인 
@@ -20,4 +22,28 @@ GET     http://localhost:3001/api/travels/1     상세 조회 getOne
 PUT     http://localhost:3001/api/travels/1     수정 update
 DELETE  http://localhost:3001/api/travels/1     삭제 delete
 
-8. API 주소 요청 TEST 해보자 
+8. API 주소 요청 TEST 해보자 -> POSTMAN으로 테스트 후 결과 저장 (Documentation까지)
+
+> 벡엔드 테스트 완료
+
+==================================================================
+[FE] 작성 후 테스트 
+
+1. 환경구성
+$ cd frontend
+$ npm init -y   -> package.json
+
+package.json에 없을 경우 추가: 
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
+  },
+
+
+$ npm install react-scripts -> 모듈설치 
+
+2. 실행 
+$ npm.start
+
+

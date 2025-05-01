@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 // 여행지 관련 API 엔드포인트는 여기에 추가 예정
-// app.use('/api/travels', require('./routes/travelRoutes'));
+app.use('/api/travels', require('./routes/travelRoutes'));
 
 // 서버 실행 
 const PORT = 3001;

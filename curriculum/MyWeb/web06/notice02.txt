@@ -13,3 +13,11 @@ $ npm install express cors mysql2
 6. 실행 명령    npm start -> 스크립트 실행 / npm run dev (여러 개 실행)
 node app.js     -> 기본 명령 
 
+7. API 요청 주소 정리
+GET     http://localhost:3001/api/travels       전체출력 getALL
+POST    http://localhost:3001/api/travels       입력 create
+GET     http://localhost:3001/api/travels/1     상세 조회 getOne
+PUT     http://localhost:3001/api/travels/1     수정 update
+DELETE  http://localhost:3001/api/travels/1     삭제 delete
+
+8. API 주소 요청 TEST 해보자 

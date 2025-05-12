@@ -1,0 +1,19 @@
+ 프로젝트명: GoF_Creational_RealWorld
+
+ 생성 패턴 5가지(Singleton, Factory Method, Abstract Factory, Builder, Prototype)를
+
+ 패키지 구조 및 설명
+1. com.sec01.Singleton - 하나의 인스턴스를 생성하고 어디서든 접근 가능하게 하는 패턴
+2. com.sec02.FactoryMethod - 객체 생성을 서브클래스에서 처리하도록 위임하는 생성 패턴
+3. com.sec03.AbstractFactory - {관련된 객체}들, 의존성 관계를 일관성 있게 생성하기 위한 추상적인 인터페이스 제공
+	ex) IDE의 테마변경
+	
+4. com.sec04.Builder - 복잡한 객체를 단계적으로 생성할 수 있게 해주는 생성 패턴
+5. com.sec05.Prototype - 기존 객체=prototype를 복제하여 새로운 객체를 생성하는 패턴
+
+디렉토리 구조
+└── com/sec01/Singleton/...
+└── com/sec02/FactoryMethod/...
+└── com/sec03/AbstractFactory/...
+└── com/sec04/Builder/...
+└── com/sec05/Prototype/...

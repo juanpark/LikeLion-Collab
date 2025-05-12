@@ -13,7 +13,8 @@ public class Document implements Cloneable {
     public void show() {
         System.out.println("Document: " + content);
     }
-
+    
+    @Override
     public Document clone() {
         return new Document(this.content); // shallow copy
     }

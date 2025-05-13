@@ -1,0 +1,60 @@
+문제 1) 싱글톤 패턴은 애플리케이션에서 여러 개의 인스턴스를 만들어서 자유롭게 공유할 수 있도록 한다.
+X -> 싱글튼은 하나의 인스턴스만 생성 후 전역으로 공유를 위해 만드는 패턴 
+
+문제 2) 팩토리 메서드 패턴은 객체 생성을 서브클래스에게 위임하여, 클라이언트 코드의 변경을 최소화한다.
+O -> 선조 클래스에서 객체 생성 인터페이스를 정의하고, 하위 클래스에서 구체적인 객체 생성을 처리하는 구조
+	= 클라이언트 코드 변경이 줄어든다.
+
+문제 3) 데코레이터 패턴은 기존 객체를 수정하지 않고 기능을 확장하는 데 유용하다.
+O -> 
+
+문제 4) 브릿지 패턴은 상속을 최대한 활용해서 구현과 인터페이스를 강하게 결합시킨다.
+X -> 분리가 목적이다
+
+문제 5) 프록시 패턴은 실제 객체에 접근하지 않고, 가짜 객체가 대신 역할을 수행한다.
+O -> 
+
+문제 6) 다음 중 객체 생성을 캡슐화하는 패턴이 아닌 것은? D. Composite
+A. Factory Method / B. Singleton / C. Abstract Factory / D. Composite
+
+문제 7) 복잡한 서브시스템을 단순화하는 인터페이스를 제공하는 패턴은? B. Facade
+A. Adapter / B. Facade / C. Proxy / D. Decorator
+
+*Facade : 여러 객체/서브시스템을 간단한 인터페이스 하나로 통합하는 기능
+
+문제 8) 여러 종류의 버튼(UI 컴포넌트)을 상황에 맞게 생성하는 패턴은? A. Abstract Factory
+A. Abstract Factory / B. Singleton / C. Decorator / D. Bridge
+
+문제 9) 출력에 여러 효과(굵게, 밑줄 등)를 {동적으로 추가 = 기능 중첩}할 수 있는 패턴은? C. Decorator
+A. Composite / B. Proxy / C. Decorator / D. Adapter
+
+문제 10) 객체가 생성되는 과정을 {단계별로 나누고} 싶은 경우 사용하는 생성 패턴은? A. Builder
+A. Builder / B. Factory Method / C. Singleton / D. Facade
+
+문제 11) 서로 다른 인터페이스를 연결시켜주는 역할을 하는 구조 패턴은? A. Adapter
+A. Adapter / B. Proxy / C. Bridge / D. Composite
+
+문제 12) 부분-전체 계층 구조를 동일하게 다루고 싶을 때 적절한 패턴은? B. Composite
+A. Proxy / B. Composite / C. Decorator / D. Facade
+
+문제 13) 클라이언트와 실제 객체 사이에 대리자를 두는 구조 패턴은? C. Proxy
+A. Adapter / B. Decorator / C. Proxy / D. Strategy
+
+문제 14) 객체 생성을 제한하여 프로그램 전체에서 하나의 인스턴스만 사용하게 하는 패턴은? A. Singleton
+A. Singleton / B. Builder / C. Prototype / D. Abstract Factory
+
+문제 15) 객체를 {복사하여 새 객체를 생성}하고 싶은 경우 사용하는 생성 패턴은? C. Prototype
+A. Singleton / B. Factory / C. Prototype / D. Composite
+
+문제 16) 다형성을 이용해 구현과 인터페이스를 분리하는 구조 패턴은? A. Bridge
+A. Bridge / B. Adapter / C. Proxy / D. Facade
+
+문제 17) 객체들의 생성 과정을 서브클래스에서 구체화하는 패턴은? A. Factory Method
+A. Factory Method / B. Singleton / C. Adapter / D. Facade
+
+문제 18) 비슷한 제품군을 생성하는 인터페이스를 제공하는 패턴은? B. Abstract Factory
+A. Prototype / B. Abstract Factory / C. Decorator / D. Composite
+
+문제 19) 기존 클래스에 새로운 기능을 추가할 수 있게 래핑하는 구조 패턴은? B. Decorator
+A. Facade / B. Decorator / C. Bridge / D. Adapter
+

@@ -1,0 +1,77 @@
+ 프로젝트명: GoF_Behavioral_RealWorld
+
+ 패키지 구조 및 설명:
+1. com.sec01.ChainOfResponsibility - 요청을 처리할 수 있는 객체를 체인으로 연결
+
+2. com.sec02.Command - 요청을 캡슐화하여 다양한 방식으로 실행
+
+3. com.sec03.Interpreter - 언어 규칙을 클래스 구조로 {표현하고 해석} -> 검색, 계산, 문제/풀이, sql WHERE 등
+
+4. com.sec04.Iterator - 집합 객체의 내부 구조에 상관없이 요소 순회
+
+=================================================================================================
+5. com.sec05.Mediator - 객체 간 직접 통신 대신 {중재자} 객체를 통한 통신
+
+Dispatcher Servlet
+- http로 페이지를 요청하면 값을 핸들러로 전달하고, 처리 결과를 뷰로 전달하는 역할을 한다.
+- request -> [FilterChain] -> DispatcherServlet {중재자} -> view -> response
+
+web application 설정파일
+<web-app>
+	// 1. ContextLoaderListener
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	// 2. app-context.xml -> context.xml 메모리 로드해서 설정 정보 확인 
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/app-context.xml</param-value>
+	</context-param>
+
+	// 3. 페이지 요청 정보	http://localhost:80/test/app/*
+	<servlet>
+		<servlet-name>app</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>app</servlet-name>
+		<url-pattern>/app/*</url-pattern>
+	</servlet-mapping>
+</web-app>
+
+application -> context -> session -> request -> page는 각각의 이벤트를 이용한 중재자 패턴을 유지한다.
+https://docs.spring.io/spring-framework/reference/core/beans/context-introduction.html#context-functionality-events
+=================================================================================================
+
+6. com.sec06.Memento - 객체 상태를 저장하고 복원
+	-> 객체 상태를 캡처했다가 되돌리는 작업
+
+7. com.sec07.Observer - 상태 변화 시 관련 객체에 알림 = 관찰자 패턴 
+
+8. com.sec08.State - 객체 상태에 따라 동작을 변경 = 상태에 따라 다른 동작을 구현하는 패턴 
+
+9. com.sec09.Strategy - 알고리즘을 캡슐화하고 동적으로 교체 가능
+
+10. com.sec10.TemplateMethod - 알고리즘 뼈대를 상위 클래스에 정의
+
+11. com.sec11.Visitor - 객체 구조를 변경하지 않고 기능 추가
+
+디렉토리 구조:
+└── com/sec01/ChainOfResponsibility/TestChainOfResponsibility.java
+└── com/sec02/Command/TestCommand.java
+└── com/sec03/Interpreter/TestInterpreter.java
+└── com/sec04/Iterator/TestIterator.java
+└── com/sec05/Mediator/TestMediator.java
+└── com/sec06/Memento/TestMemento.java
+└── com/sec07/Observer/TestObserver.java
+└── com/sec08/State/TestState.java
+└── com/sec09/Strategy/TestStrategy.java
+└── com/sec10/TemplateMethod/TestTemplateMethod.java
+└── com/sec11/Visitor/TestVisitor.java

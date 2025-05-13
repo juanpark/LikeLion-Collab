@@ -11,9 +11,9 @@
 	-> Score를 과목 단위로 나누고, CompositeScore를 통해 여러 과목을 합산 처리
 
 4. Decorator:	기능 동적 추가	  
-	-> Score에  WithRankScore, WithGradeScore 등을 추가하여 확장 (ex. 등급 부여, 코멘트 추가 등)
+	-> Score에  [WithRankScore], WithGradeScore 등을 추가하여 확장 (ex. 등급 부여, 코멘트 추가 등)
 
-5. Facade:	복잡한 시스템 간단화	 -> ScoreService를 만들어 내부적으로 Score, Grade, Rank 등 객체를 종합적으로 관리
+5. Facade:	복잡한 시스템 간단화	 -> ScoreService를 만들어 내부적으로 Score, Grade, [Rank] 등 객체를 종합적으로 관리
 
 6. Flyweight:	메모리 절약 공유	
 	-> 수많은 학생이 같은 Subject 객체(Kor, Eng, Math)를 공유하도록 SubjectFlyweightFactory에서 관리

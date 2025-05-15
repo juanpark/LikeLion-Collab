@@ -1,0 +1,24 @@
+com.sec01: application 객체의 명시 소멸 확인
+
+com.set02: 다형성 객체 Bean 리턴 명령 수행 / Bean 생명주기 확인
+	초기화 -> 수행 -> 소멸의 속성을 이용해서 사용자가 수행할 명령을 구현할 수 있다. 
+	lazy-init="true" : 객체 초기화를 지연시킨다 -> 비동기 / 멀티스레드 / 메시지 큐 사용 
+	
+com.set03: setter Injection
+    singleton (기본) = 공통로직 : 
+    같은 id bean을 여러번 호출! -> 생성과 소멸관리
+    
+    prototype (scope 옵션) = 개별, 사용자 세션, 임시 계산, 클라이언트 요청별 데이터가 달라지는 경우 : 
+    하나의 id를 여러개의 getBean()을 이용한 객체로 생성한다. > applicationContext03.xml 옵션 추가
+    -> 요청할 때마다 새로 생성 -> 생성만 관리
+    
+com.exam: 사용자 scope
+	1. import org.sprintframework.beans.factory.config.Scope를 상속받아 사용 스코프를 정의한다.
+	2. org.springframework.beans.factory.config.CustomScopeConfigurer" xml로 등록한다
+		public void setScopes( MAP<key, scope> map){} setter Injection
+		public void setScopes( MAP<"user", "com.exam.UserScope"> map){} setter Injection
+		
+	3. Bean 생성 후 사용자 scope를 적용 = UserBean
+	<bean id = "userBean" class = "com.exam.UserBean" scope="user"></bean>
+	
+	

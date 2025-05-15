@@ -4,7 +4,7 @@ public class HelloMessage implements Message {
 
 	@Override
 	public String getMessage() {
-		return "Hello Spring! Hello Maven!!";
+		return "HelloMessage: Hello Spring! Hello Maven!!";
 	}
 	
 }

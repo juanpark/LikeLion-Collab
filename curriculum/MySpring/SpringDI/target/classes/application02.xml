@@ -7,7 +7,13 @@
 	<bean id="hellomessage" class="com.sec02.HelloMessage"/>
 	
 	<bean id="messagePrint" class="com.sec02.MessagePrinter">
-		<constructor-arg ref="hellomessage"/>
+		<constructor-arg ref="hellomessage"/> <!--객체 주입-->
+	</bean>
+	
+		<bean id="mymessage" class="com.sec02.MyMessage"/>
+	
+	<bean id="messagePrint02" class="com.sec02.MessagePrinter">
+		<constructor-arg ref="mymessage"/> <!--객체 주입-->
 	</bean>
 	
 

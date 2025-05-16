@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="s1" class="com.test01.Student">
+        <constructor-arg value="홍길동"/>
+        <constructor-arg value="15"/>
+        <constructor-arg value="170"/>
+        <constructor-arg value="80"/>
+    </bean>
+
+    <bean id="s2" class="com.test01.Student">
+        <constructor-arg value="정길동"/>
+        <constructor-arg value="13"/>
+        <constructor-arg value="180"/>
+        <constructor-arg value="70"/>
+    </bean>
+
+    <bean id="s3" class="com.test01.Student">
+        <constructor-arg value="이순신"/>
+        <constructor-arg value="16"/>
+        <constructor-arg value="175"/>
+        <constructor-arg value="65"/>
+    </bean>
+
+    <bean id="studentService" class="com.test01.StudentService">
+        <property name="students">
+            <list>
+                <ref bean="s1"/>
+                <ref bean="s2"/>
+                <ref bean="s3"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

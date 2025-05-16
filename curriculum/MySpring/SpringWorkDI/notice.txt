@@ -15,6 +15,7 @@ com.set03: setter Injection
 com.exam: 사용자 scope
 	1. import org.sprintframework.beans.factory.config.Scope를 상속받아 사용 스코프를 정의한다.
 	2. org.springframework.beans.factory.config.CustomScopeConfigurer" xml로 등록한다
+		public void setScopes(Map<String,Object> scopes)
 		public void setScopes( MAP<key, scope> map){} setter Injection
 		public void setScopes( MAP<"user", "com.exam.UserScope"> map){} setter Injection
 		

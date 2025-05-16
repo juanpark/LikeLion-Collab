@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="emp1" class="com.test02.Employee">
+        <constructor-arg value="홍길동"/>
+        <constructor-arg value="사원"/>
+    </bean>
+
+    <bean id="emp2" class="com.test02.Employee">
+        <constructor-arg value="김유신"/>
+        <constructor-arg value="대리"/>
+    </bean>
+
+    <bean id="emp3" class="com.test02.Employee">
+        <constructor-arg value="이순신"/>
+        <constructor-arg value="과장"/>
+    </bean>
+
+    <bean id="emp4" class="com.test02.Employee">
+        <constructor-arg value="유관순"/>
+        <constructor-arg value="주임"/>
+    </bean>
+
+    <bean id="employeeService" class="com.test02.EmployeeService">
+        <property name="departmentMap">
+            <map>
+                <entry key="Sales">
+                    <list>
+                        <ref bean="emp1"/>
+                        <ref bean="emp2"/>
+                    </list>
+                </entry>
+                <entry key="Development">
+                    <list>
+                        <ref bean="emp3"/>
+                        <ref bean="emp4"/>
+                    </list>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+</beans>

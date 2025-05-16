@@ -2,9 +2,12 @@ package com.person.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.person.model.Person;
 
 // view -> Controller -> Model (Service(biz), Dao) -> DB
+@Service
 public interface PersonService {
 	// biz
 	// Dao

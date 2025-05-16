@@ -2,8 +2,11 @@ package com.person.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.person.model.Person;
 
+@Repository
 public interface PersonDao {
 	String insert_sql="insert into person(name, address, phone) values (?,?,?)";
 	String update_sql="update person set address=?, phone=? where name=?";

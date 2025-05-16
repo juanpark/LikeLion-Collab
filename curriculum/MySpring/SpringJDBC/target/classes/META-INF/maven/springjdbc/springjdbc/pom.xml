@@ -3,4 +3,34 @@
   <groupId>springjdbc</groupId>
   <artifactId>springjdbc</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+  <dependencies>
+  
+  	<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>6.2.7</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-core</artifactId>
+	    <version>6.2.7</version>
+	</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jdbc</artifactId>
+	    <version>6.2.7</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.mysql</groupId>
+	    <artifactId>mysql-connector-j</artifactId>
+	    <version>9.3.0</version>
+	</dependency>	
+
+  </dependencies>
+  
 </project>

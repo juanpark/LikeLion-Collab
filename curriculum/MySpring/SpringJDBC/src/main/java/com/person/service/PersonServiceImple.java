@@ -2,6 +2,8 @@ package com.person.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.person.dao.PersonDao;
 import com.person.dao.PersonDaoImple;
 import com.person.model.Person;
@@ -9,6 +11,7 @@ import com.person.model.Person;
 // biz, dao 관리 및 구현
 // 현재 Person 테이블의 insert 값은 계산형 데이터 또는 로직이 없어서 dao만 호출 되어 controller, db 연동된다.
 // controller -> service(bix X, dao O) -> db
+@Service
 public class PersonServiceImple implements PersonService {
 
 	private final PersonDao dao = new PersonDaoImple();

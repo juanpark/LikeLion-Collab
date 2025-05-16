@@ -17,12 +17,12 @@ public class AppConfig {
 
 	@Bean
 	public DataSource dataSource(org.springframework.core.env.Environment env) {
-		DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setDriverClassName(env.getProperty("jdbc.driver"));
-		ds.setUrl("jdbc.url");
-		ds.setUsername("jdbc.user");
-		ds.setPassword("jdbc.password");
-		return ds;
+	    DriverManagerDataSource ds = new DriverManagerDataSource();
+	    ds.setDriverClassName(env.getProperty("jdbc.driver"));
+	    ds.setUrl(env.getProperty("jdbc.url"));          
+	    ds.setUsername(env.getProperty("jdbc.user"));   
+	    ds.setPassword(env.getProperty("jdbc.password"));
+	    return ds;
 	}
 	
 	@Bean

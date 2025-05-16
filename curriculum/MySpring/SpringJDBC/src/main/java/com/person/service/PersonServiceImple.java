@@ -2,6 +2,7 @@ package com.person.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.person.dao.PersonDao;
@@ -13,8 +14,13 @@ import com.person.model.Person;
 // controller -> service(bix X, dao O) -> db
 @Service
 public class PersonServiceImple implements PersonService {
-
-	private final PersonDao dao = new PersonDaoImple();
+	
+	private PersonDao dao = null;
+	
+	@Autowired
+	public void PersonServiceImpl(PersonDao dao) {
+	    this.dao = dao;
+	}
 	
 	@Override
 	public List<Person> selectAllPerson() {

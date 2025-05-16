@@ -7,14 +7,21 @@ import com.person.view.*;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 // view -> controller -> model (service(biz, dao)) -> db
 @Controller
 public class PersonController {
-	private final PersonService service = new PersonServiceImple();
-	private final PersonConsoleView view = new PersonConsoleView();
+	private final PersonService service;
+	private final PersonConsoleView view;
 	private final Scanner sc = new Scanner(System.in);
+	
+	@Autowired
+	public PersonController(PersonService service, PersonConsoleView view) {
+		this.service = service;
+		this.view = view;
+	}
 	
 	public void run() {
 		// 메뉴 생성 = 페이지 이동

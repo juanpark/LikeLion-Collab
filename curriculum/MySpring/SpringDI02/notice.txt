@@ -1,0 +1,29 @@
+com.sec01 :MyAddress () 단일 클래스 생성 / Bean 객체 호출
+
+com.sec02 : 생성자 주
+   |
+   |ㅡㅡㅡㅡㅡㅡㅡ Message(Interface)
+   			   HelloMessage(C)
+   			   MessagePrinter 생성자 주입 Message
+   			   MessageMain
+   			   application02.xml
+   			   
+   			   - ApplicationContext    빈 팩토리 관리 , 리소스관리, 환경관리 확인!!
+					MessageMain02          빈 팩토리 관리 확인
+					MessageMain03          환경관리 확인
+					MessageMain04          리소스관리 확인!!
+
+com.sec03 - Setter 주입 예제
+- Fruit 인터페이스 기반 Setter 방식 주입
+- Apple 구현체, FruitService가 setFruit() 메서드로 주입받음
+
+com.sec04 - List 컬렉션 주입 예제
+- MyCollection 클래스에 <list>를 이용한 문자열 컬렉션 주입
+- MyCollection 클래스에 <array>를 이용한 문자열 컬렉션 주입
+- MyCollection 클래스에 <set>를 이용한 문자열 컬렉션 주입
+- MyCollection 클래스에 <map>를 이용한 문자열 컬렉션 주입
+- MyCollection 클래스에 <map>를 com.sec01.MyAddress의 value-ref 로 주
+
+- XML 기반 리스트 DI 구성 실습
+
+com.sec05- jdk21에서 추가된 record로 객체 주입.

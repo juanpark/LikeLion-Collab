@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class Nic_NamePrn {
 	Nic_Name nic_name;
 
-	@Autowired
+	@Autowired // 자동 인젝
 	public void setNic_name(Nic_Name nic_name) {
 		this.nic_name = nic_name;
 	}

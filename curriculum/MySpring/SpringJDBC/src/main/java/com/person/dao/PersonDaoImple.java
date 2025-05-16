@@ -2,6 +2,7 @@ package com.person.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.person.model.Person;
@@ -24,29 +25,29 @@ public class PersonDaoImple implements PersonDao {
 	}
 	*/
 	
-	// 1. Insert
+	// 1. Insert : update(String sql, Object... args)
 	public int insertPerson(Person p) {
-	
-		return 0;
+		return jdbcTemplate.update(insert_sql, p.getName(), p.getAddress(), p.getPhone());
 	}
 	
-	// 2. delete
+	// 2. delete : update(String sql, Object... args)
 	public int deletePerson(Person p) {
-
-		return 0;
+		return jdbcTemplate.update(delete_sql, p.getName());
 	}
 	
-	// 3. update
+	// 3. update : update(String sql, Object... args)
 	public int updatePerson(Person p) {
-		
-		return 0;
+		return jdbcTemplate.update(update_sql, p.getAddress(), p.getPhone(), p.getName());
 	}
 	
-	// 4. select
-	public List<Person> selectAllPerson() {
+	private RowMapper<Person> personRowMapper = (rs, rowNum) -> 
+		new Person(	rs.getString("name"),
+					rs.getString("address"),
+					rs.getString("phone"));
 	
-		
-		return null;
+	// 4. select All : query(String sql, RowMapper<T> rowMapper)
+	public List<Person> selectAllPerson() {
+		return jdbcTemplate.query(select_sql, personRowMapper);
 	}
 
 	@Override

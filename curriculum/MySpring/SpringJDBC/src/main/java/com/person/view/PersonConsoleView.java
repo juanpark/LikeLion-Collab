@@ -3,8 +3,11 @@ package com.person.view;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.person.model.Person;
 
+@Component
 public class PersonConsoleView {
 	
 	// 전체 출력

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myaddress01" class="com.sec05.AddressRecord">
+        <constructor-arg value="박길동" index="1"/>
+        <constructor-arg value="seoul" index="0"/>
+        <constructor-arg value="010-1234" index="2"/>
+    </bean>
+
+</beans>

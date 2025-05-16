@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+           
+	<import resource="application02-2.xml"/>
+	
+	<bean id="helloMessage" class="com.sec02.HelloMessage" /> <!-- singleton pattern -->
+	 
+    <bean id="messagePrint" class="com.sec02.MessagePrinter"> <!-- 객체 주입 -->
+        <constructor-arg ref="helloMessage"/>
+    </bean>
+	 
+    <bean id="messagePrint02" class="com.sec02.MessagePrinter"> <!-- 객체 주입 -->
+        <constructor-arg ref="mymessage"/>
+    </bean>
+    
+    <!-- 객체 주입된 class의 Integer(String) 
+     <bean id="myResource02" class="java.lang.Integer"> 
+        <constructor-arg value="100"/>
+    </bean>
+    
+     <bean id="myResourceString" class="java.lang.String"> 
+        <constructor-arg value="여기는 리소스 파일입니다 "/>
+    </bean> -->
+
+</beans>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context 
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--  애노테이션 기반 컴포넌트 스캔 -->
+    <context:component-scan base-package="com.test01" />
+
+    <!--  기존 XML 방식 등록도 병행 가능 -->
+   <!-- <bean id="mynamePrn" class="com.test01.Nic_NamePrn">
+        <property name="nic_name" ref="myname" />
+    </bean>
+    
+    <bean id="myname" class="com.test01.Nic_Name" />
+    -->
+</beans>

@@ -1,0 +1,94 @@
+Spring AOP 핵심 정리
+
+1. AOP(Aspect-Oriented Programming)란?
+- OOP의 한계를 보완하는 관점 지향 프로그래밍
+- 핵심 기능(Core Concern)과 공통 기능(Crosscutting Concern)을 분리하여 모듈화
+- 대표적인 공통 기능: 로깅, 보안, 트랜잭션 등
+- 사용방법  3가지  
+   (1) XML 기반 AOP (Legacy) :<aop:config> 사용하여 XML에서 Pointcut, Advice 직접 설정	
+                             beans.xml에서 <aop:aspect>, <aop:pointcut> 등 사용
+   (2) @Aspect 어노테이션 기반  : AOP	Java 클래스에서 @Aspect, @Before, @After 등으로 설정	자바 코드에 AOP 규칙을 작성하고 
+                       <aop:aspectj-autoproxy />만 설정
+                       
+   (3)Proxy 기반 AOP (MethodInterceptor) :	MethodInterceptor 인터페이스를 구현해서 공통 로직 정의	
+                        DefaultPointcutAdvisor, JdkRegexpMethodPointcut 사용
+
+
+2. 주요 용어
+- Joinpoint: 실행 가능한 지점 (메서드 호출, 예외 처리 등)
+- Pointcut: Joinpoint 중 Advice가 적용될 조건
+- Advice: 실제 실행되는 공통 기능 (before, after, around 등)
+- Aspect: Pointcut + Advice를 모은 단위 모듈
+- Weaving: Aspect를 핵심 코드에 적용하는 과정
+- Advisor: Pointcut과 Advice를 묶은 객체 
+
+ex)
+Advice: 	"수업 전 출석체크", "수업 후 퇴실체크"
+Pointcut :	언제 실행할까? → "classWork() 메서드 실행 시"
+Aspect	 :출석 + 퇴실 기능을 묶은 모듈
+Advisor	 : 이걸 Bean으로 묶은 Spring 객체
+Weaving	 :실제 수업 전에 출석체크가 자동으로 실행되게 연결하는 것
+
+ex) 흐름  
+[Aspect] = Pointcut + Advice
+    ↓
+[Advisor] = Spring이 관리하는 실제 적용 객체
+    ↓
+[Weaving] = 이걸 진짜 메서드에 적용하는 과정
+
+
+
+
+
+3. AOP 구현 방식 비교
+1) AspectJ: 강력한 기능, 별도 컴파일 필요, Eclipse/IBM 지원
+2) AspectWerkz: Eclipse 플러그인 기반, XML 설정 중심
+3) Spring AOP: Spring DI 기반, @ 어노테이션 및 XML 설정 지원
+
+4. Pointcut 표현식 예시
+execution([접근제어자] [리턴타입] [패키지.클래스명].[메서드명]([매개변수]))
+- execution(* set*(..)): set으로 시작하는 모든 메서드
+- execution(* main(..)): main이라는 이름의 메서드
+- execution(* org.com.test..*.*(..)): 해당 패키지 이하 모든 클래스의 메서드
+- execution(!private * *(..)): private이 아닌 메서드
+- execution(* main(*, .., String, *)): 세 번째 파라미터가 String인 메서드
+- execution(* new(..)): 모든 생성자
+- execution(Address.new(..)): Address 클래스의 생성자
+
+5. 기타 표현식 키워드
+- call(...): 메서드 호출 시점 포착
+- get(...), set(...): 필드 접근 시점 포착
+- handler(...): 예외 처리 포착
+- within(...): 특정 클래스/패키지 범위 내 제한
+- withincode(...): 특정 메서드 내에서만 적용
+- this(...): 프록시 기준 대상
+- target(...): 실제 대상 객체 기준
+
+6. 구현 예제별 설명
+- com.test01: 일반 클래스 기반 AOP 예제
+- com.test02: MyAspect 클래스와 XML 설정을 활용한 AOP 예제 ,MethodInterceptor       
+      1)Pointcut 설정	 : org.springframework.aop.support.JdkRegexpMethodPointcut	
+                    어떤 메서드에 AOP를 적용할지를 결정하는 정규식 기반 포인트컷. 
+                    .*classWork으로 설정되어 있어 classWork() 메서드가 대상
+                    
+      2)Advisor 설정	 : org.springframework.aop.support.DefaultPointcutAdvisor
+                     	Pointcut과 Advice를 하나로 묶는 설정. myAdvice를 classWork()에 적용한다는 뜻
+                     	
+      3)자동 프록시 생성기: 	org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator	
+                설정된 Advisor를 자동으로 대상 Bean에 프록시로 적용해주는 Bean. 
+                수동 프록시 설정 없이도 AOP를 자동으로 적용해줌.
+   
+- com.test03: @Aspect 어노테이션 기반 AOP 예제
+- com.test04: <aop:config> 태그 기반 XML 설정 AOP 예제 ,MethodInterceptor
+- com.test05 :  Pointcut 표현식 XML AOP
+- com.test06  : Pointcut 표현식 @Aspect
+
+7. 핵심 정리
+- Spring AOP는 DI와 자연스럽게 통합되어 사용이 편리하며 프록시 기반이다.
+- AspectJ 표현식을 Spring AOP에서도 사용할 수 있다.
+- 공통 관심사를 모듈화함으로써 유지보수성과 재사용성이 향상된다.
+
+
+
+
+

@@ -1,0 +1,173 @@
+[ 프로젝트: Spring Core (AOP + 트랜잭션 확장)]
+
+- Java Config 기반 AOP와 @Transactional을 적용한 Spring Core 프로젝트를 만들자 
+- 웹 없이 콘솔 기반 실행입니다.
+
+[기능]
+- @Transactional: EmpService 전체 트랜잭션 처리
+- @Aspect: 메서드 실행 전후 로그 출력
+
+[주요 파일]
+- AppConfig.java: @EnableAspectJAutoProxy, @EnableTransactionManagement
+- LogAspect.java: AOP Aspect 정의
+- EmpService.java: 비즈니스 로직 + 트랜잭션
+- EmpApp.java: main 실행
+
+
+[구조]  
+SpringAOP_JDBC/
+├── pom.xml                            # Maven 의존성 관리 파일
+├── notice.txt                         # 수업 정리용 텍스트 파일
+│
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/
+│       │       └── mydb/
+│       │           └── core/
+│       │               ├── AppConfig.java       # Spring Java 설정 클래스 (@Configuration)
+│       │               ├── Emp.java             # VO/DTO 클래스 (직원 정보)
+│       │               ├── EmpAppMain.java      # 메인 실행 클래스
+│       │               ├── EmpDao.java          # DB 접근 계층 (JDBC 기반)
+│       │               ├── EmpService.java      # 서비스 계층 (비즈니스 로직)
+│       │               └── LogAspect.java       # AOP 클래스 (@Aspect)
+│       │
+│       └── resources/               ← 필요 시 여기에 application.properties 배치
+│
+├── target/                          # 컴파일 결과 폴더 (자동 생성)
+└── bin/                             # 컴파일된 클래스 파일 위치
+
+[JDBCTemplate 주요 메소드]
+
+[JDBCTemplate 주요 메소드 정리]
+
+1. query() :   SELECT 실행 결과를 여러 행(List)으로 조회할 때 사용, RowMapper<T>를 이용하여 객체로 매핑
+
+2. queryForObject(): SELECT 실행 결과가 단일 행인 경우 객체로 조회 ,: COUNT(*), 단일 row 조회
+
+3. queryForList(): SELECT 결과를 List<Map<String, Object>> 형식으로 반환 ,컬럼명 → 값으로 맵핑
+
+4. queryForMap(): SELECT 결과가 한 행일 때 Map<String, Object> 형태로 반환 , 1행만 나와야 함 (2행 이상이면 예외 발생)
+
+5. update() :- INSERT, UPDATE, DELETE 실행, 리턴값은 영향받은 행(row)의 개수
+
+6. batchUpdate()  : 여러 개의 INSERT/UPDATE 등을 한번에 실행
+ 
+7. execute()
+ - 일반적인 SQL 실행 (DDL이나 커스텀 트랜잭션 등)
+ - 콜백이나 SQL 문자열 전달 방식 모두 사용 가능
+
+8. call()
+ - 저장 프로시저(Stored Procedure) 호출 시 사용
+ - CallableStatementCreator와 사용됨
+
+
+=============================================================================
+[Spring JdbcTemplate - 수동 커밋/롤백 처리 정리]
+
+1. 개요
+- JdbcTemplate는 기본적으로 자동 커밋(auto-commit) 모드이다.
+- 수동 커밋/롤백 처리를 위해서는 Spring의 PlatformTransactionManager를 사용한다.
+
+[방법]
+
+(1) 수동 처리 시: PlatformTransactionManager + commit()/rollback()
+(2) 선언적 처리 시: @Transactional 애노테이션 사용 -> @Service 객체에 DI 지정한다.
+(3) 트랜잭션 매니저 등록 필요 (DataSourceTransactionManager)
+
+
+2. 수동 트랜잭션 처리 코드 예시
+TransactionStatus: 트랜젝션의 현재 상태를 관리하는 인터페이스로 트랜젝션이 진행하는 동안 모든 정보를 제공한다.
+	-> 트랜젝션 관리자가 트랜젝션을 제어하고 상태를 확인하는데 사용한다. 
+	status.setRollbackOnly() : 트랜젝션을 제어하는 메서드 -> 무조건 롤백
+
+@Autowired
+private PlatformTransactionManager transactionManager;
+
+public void runWithTransaction() {
+	
+	DefaultTransactionDefinition dtd = new DefaultTransactionDefinition();
+	// setPropagationBehavior(int) setIsolationLevel(int) setTimeout(30) setReadOnly(true) setName(java.lang.String)
+
+	TransactionStatus status = transactionManager.getTransaction(dtd);
+    
+    // TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+    
+
+    try {
+        jdbcTemplate.update("INSERT INTO emp (empno, ename, job, deptno) VALUES (?, ?, ?, ?)", 1001, "홍길동", "개발자", 10);
+        jdbcTemplate.update("UPDATE dept SET loc = ? WHERE deptno = ?", "서울", 10);
+
+        // 수동 커밋
+        transactionManager.commit(status);
+    } catch (Exception e) {
+    	status.setRollbackOnly();	//예외 발생 시 롤백 설정
+        // 수동 롤백
+        // transactionManager.rollback(status);
+        throw e;
+    }
+}
+
+3. 트랜잭션 매니저 Bean 설정 (AppConfig.java)
+
+@Bean
+public PlatformTransactionManager transactionManager(DataSource dataSource) {
+    return new DataSourceTransactionManager(dataSource);
+}
+
+4. 선언적 트랜잭션 처리 (@Transactional 사용 예시)
+
+@Service
+public class EmpService {
+
+    @Transactional
+    public void saveAll(Emp emp1, Emp emp2) {
+        jdbcTemplate.update("INSERT INTO emp VALUES (?, ?, ?, ?)", ...);
+        jdbcTemplate.update("INSERT INTO emp VALUES (?, ?, ?, ?)", ...);
+        // 예외 발생 시 자동으로 전체 롤백됨
+    }
+}
+
+======================롬복 온라인 리소스  =======================
+공식 웹사이트: https://projectlombok.org/
+
+Baeldung 튜토리얼: https://www.baeldung.com/intro-to-project-lombok
+
+Auth0 블로그: https://auth0.com/blog/a-complete-guide-to-lombok/
+
+Vogella 튜토리얼: https://www.vogella.com/tutorials/Lombok/article.html
+
+GitHub: https://github.com/projectlombok/lombok
+
+
+<<  주요 어노테이션 >>	
+@Getter	 : 필드에 대한 getter 메서드를 자동으로 생성
+@Setter	 : 필드에 대한 setter 메서드를 자동으로 생성,	final 필드에는 적용 불가, 접근 제어자 설정 가능
+
+@NoArgsConstructor : 	파라미터가 없는 기본 생성자 자동 생성,	force = true 옵션으로 final 필드를 null 또는 기본값으로 초기화하는 생성자 생성 가능
+@AllArgsConstructor	: 클래스의 모든 필드를 파라미터로 받는 생성자 자동 생성	
+@RequiredArgsConstructor :	final 필드 또는 @NonNull 어노테이션이 붙은 필드를 파라미터로 받는 생성자 자동 생성	의존성 주입에 유용
+@Data	@Getter, @Setter, @NoArgsConstructor, @AllArgsConstructor, @EqualsAndHashCode, @ToString을 한 번에 적용	데이터 객체(DTO, POJO) 생성 시 편리
+
+@EqualsAndHashCode: 	equals()와 hashCode() 메서드 자동 생성	필드 기반 동등성 비교 로직 생성, callSuper = true 옵션으로 상위 클래스 메서드 포함 가능
+@ToString	: 객체의 정보를 문자열로 표현하는 toString() 메서드 자동 생성	출력 형식 및 포함 필드 지정 가능
+@Builder	: 빌더 패턴 자동 생성	복잡한 객체 생성 과정을 단순화하고 가독성 향상
+@Value	 : @Data와 유사하지만 모든 필드가 final이며 setter 메서드가 생성되지 않는 불변(immutable) 객체 생성	
+
+@NonNull	:해당 필드가 null이 될 수 없음을 명시.
+@Cleanup	: 특정 리소스를 자동으로 해제하는 코드 생성 (try-finally 블록 처리)	I/O 스트림, 데이터베이스 연결 등 리소스 관리에 유용
+@Synchronized :	메서드에 대한 동기화 처리 (synchronized 키워드와 동일한 효과)	멀티 스레드 환경에서 공유 자원에 대한 동시 접근 제어
+@SneakyThrows:	예외를 Checked Exception으로 처리하지 않고 던질 수 있도록 함 (주의해서 사용해야 함),	Checked Exception 처리의 번거로움 감소 (사용 시 주의 필요)
+
+
+
+
+
+
+
+
+
+
+
+
+

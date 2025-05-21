@@ -1,0 +1,129 @@
+< 주요 DB 접근 Case 분류 (총 6가지) >>
+
+Case 1: Spring Boot + JdbcTemplate (직접 SQL)
+- 가장 기본적인 방법
+- SQL을 직접 작성
+- JdbcTemplate으로 CRUD 수행
+
+Case 2: Spring Boot + JdbcTemplate + JdbcDaoSupport
+- JdbcDaoSupport를 상속받아 getJdbcTemplate() 사용
+- 전통적인 XML 기반 구조에서 주로 사용됨
+
+Case 3: Spring Boot + Spring Data JDBC
+- Spring 공식 제공 간소화된 ORM 대안
+- Entity 클래스와 Repository만으로 SQL 자동 처리
+- 복잡한 매핑은 어려움
+
+Case 4: Spring Boot + MyBatis (XML Mapper)
+- SQL을 직접 XML 또는 어노테이션으로 작성
+- 복잡한 쿼리 제어 용이
+- Mapper 인터페이스 + Mapper.xml
+
+Case 5: Spring Boot + MyBatis (어노테이션 Mapper)
+- XML 대신 @Select, @Insert 등의 어노테이션 사용
+- 간단한 쿼리에 적합
+
+Case 6: Spring Boot + Spring Data JPA (Hibernate)
+- JPA 표준 기반의 ORM
+- Repository 인터페이스로 CRUD 처리
+- 복잡한 엔티티 연관관계 및 JPQL 처리 가능
+
+ 요약: 어떤 상황에 어떤 Case를?
+- SQL을 직접 작성하고 싶다: Case 1, 4, 5
+- 단순한 엔티티 중심의 CRUD: Case 3 (Spring Data JDBC)
+- 복잡한 연관관계와 ORM 필요: Case 6 (Spring Data JPA)
+- 유지보수 용이하게 SQL 작성하고 싶다: Case 4 (MyBatis XML)
+- 완전 수동 SQL 관리 & 제어: Case 1 (JdbcTemplate)
+
+[ 참고]
+- Spring Boot는 모든 케이스에서 DataSource, JdbcTemplate, TransactionManager 설정을 자동으로 해주므로, 설정 부담이 적ek
+- Spring Data JDBC는 JPA보다 가볍고 성능도 좋지만, 연관관계 처리에 한계가 있어 단순 도메인에 적합하다.
+- MyBatis는 SQL 제어력이 가장 강하지만, 모든 쿼리를 직접 써야 하므로 생산성이 떨어질 수 있다.
+
+======================================================================================================================
+ -  ORM (Object-Relational Mapping)이란?
+객체(Object)와 관계형 데이터베이스(Relational Database)를 자동으로 매핑(Mapping)해주는 기술이다.
+
+-- 왜 필요해? :  자바(Java)나 파이썬(Python) 같은 객체지향 언어는 클래스와 객체로 데이터를 다루고,
+데이터베이스는 테이블과 행(row)*으로 데이터를 다룬다. → 이 둘 사이의 불일치를 자동으로 연결해주는 것이 ORM이다.
+
+
+-- ORM의 핵심 개념
+객체지향 개념 vs DB 개념 예시
+- 클래스(User) ↔ 테이블(user)
+- 객체(user1) ↔ 행(row)
+- 필드(name) ↔ 컬럼(column)
+
+--  ORM의 주요 기능
+- 클래스 ↔ 테이블 자동 매핑
+- 객체 저장 (Insert), 조회 (Select), 수정 (Update), 삭제 (Delete)
+- 연관관계 자동 매핑 (1:1, 1:N, N:M)
+
+- 사용 예 (Spring Data JPA 기준)
+@Entity
+public class User {
+    @Id @GeneratedValue
+    private Long id;
+    private String name;
+    private String email;
+}
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    List<User> findByName(String name);
+}
+
+[ ORM의 대표 프레임워크]
+- Hibernate: Java 대표 ORM, JPA 구현체
+- JPA: 자바 ORM API 표준, Hibernate가 대표 구현체
+- Spring Data JPA: JPA 기반 스프링 확장 ORM
+- MyBatis: SQL 매핑 중심, ORM보단 SQL Mapper로 분류되기도 함
+- SQLAlchemy: 파이썬 대표 ORM
+- Django ORM: Django 내장 ORM
+
+
+===== 선택 기준  ==============================================================================
+- 단순한 SQL 중심 프로젝트 / 전자 정부프레임워크  → MyBatis
+  https://www.egovframe.go.kr/   https://github.com/mybatis
+  https://mybatis.org/mybatis-3/ko/index.html
+  https://mybatis.org/spring/
+
+- 객체 중심 도메인, 관계가 복잡한 경우 → Hibernate(JPA)
+      https://hibernate.org/orm/  https://github.com/hibernate
+==========================================================================================
+
+use my_emp;
+CREATE TABLE goodsinfo (
+    code VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price INT NOT NULL,
+    maker VARCHAR(50)
+);
+INSERT INTO goodsinfo (code, name, price, maker) VALUES
+('G001', '노트북', 1200000, '삼성'),
+('G002', '무선 이어폰', 250000, '애플'),
+('G003', '기계식 키보드', 150000, '로지텍'),
+('G004', '게이밍 마우스', 80000, '레이저'),
+('G005', '모니터 27인치', 400000, 'LG');
+
+
+======================================================================
+ src/main/java
+├── com.test01
+│   ├── GoodsDao.java       ← XML 방식 (SqlSession + SQL ID)
+│   ├── GoodsVo.java
+│   └── MTest01.java
+├── com.test02
+│   ├── MTest02.java
+│   └── dao
+│       ├── GoodsDao.java   ← Mapper 인터페이스 사용
+│       └── GoodsMapper.java
+
+src/main/resources
+├── applicationContext01.xml   ← test01 설정
+├── applicationContext02.xml   ← test02 설정
+├── mybatis-config.xml         ← 공통 MyBatis 설정
+└── jdbc.properties            ← DB 연결 정보
+
+
+
+

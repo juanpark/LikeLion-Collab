@@ -1,0 +1,22 @@
+
+
+JDBC
+- 온라인 리소스
+    1) Spring Framework -> Data Access
+    2) Spring Projects -> Spring Data JDBC
+
+- API
+    org.springframework.dao -> 어노테이션, 리소스 연결객체
+    org.springframework.jdbc -> 기본 템플릿 CRUD
+
+- 메타데이터 -> bean 생성 확인 -> 메모리 로드
+
+1) pom.xml -> jdbc lib -> mysql 설정
+
+2) DB 연결 속성 정보 db.properties 지정
+
+3) 메타 환경설정 /com/person/config/AppConfig.java 생성
+
+4) 로직을 MVC 패턴으로 구현.  각각의 어노테이션을 지정함
+
+5) VO -> DAO -> Service -> Controller 구현

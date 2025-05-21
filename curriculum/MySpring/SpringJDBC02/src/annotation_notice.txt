@@ -1,0 +1,68 @@
+Spring 6.x  @정리 
+====================================================
+
+1. 컴포넌트 자동 감지 및 빈 등록
+----------------------------------------------------
+@Component          - 일반적인 빈 등록 대상
+@Service            - 비즈니스 로직 처리용 컴포넌트
+@Repository         - DB/DAO 계층, 예외 변환 기능 포함
+@Controller         - 웹 MVC 컨트롤러 (뷰 반환)
+@RestController     - REST API 컨트롤러 (@Controller + @ResponseBody)
+
+2. 의존성 주입 관련
+----------------------------------------------------
+@Autowired          - 타입 기준 자동 주입
+@Qualifier("name")  - 이름 기준 빈 선택
+@Value("${prop}")   - 프로퍼티 값 주입
+@Inject             - @Autowired와 유사 (jakarta 표준)
+@Resource(name="")  - 이름 기준 주입 (jakarta)
+
+3. 설정 및 빈 등록
+----------------------------------------------------
+@Configuration              - 설정 클래스
+@Bean                       - 수동 빈 등록
+@ComponentScan              - 컴포넌트 스캔 경로 지정
+@Import                     - 설정 클래스 import
+@PropertySource("file")     - properties 파일 등록
+
+4. Spring MVC (웹 요청 처리)
+----------------------------------------------------
+@RequestMapping("/path")    - HTTP 경로 매핑
+@GetMapping, @PostMapping   - HTTP 메서드 축약형
+@RequestParam               - 요청 파라미터 바인딩
+@PathVariable               - URL 경로 변수 바인딩
+@RequestBody                - JSON 요청 본문 → 객체
+@ResponseBody               - 반환값을 JSON 응답 본문으로
+@ModelAttribute             - 폼데이터 or 공통 모델 처리
+
+5. 예외 처리
+----------------------------------------------------
+@ExceptionHandler           - 개별 예외 처리 메서드
+@ControllerAdvice           - 전역 예외 처리 클래스
+@ResponseStatus             - 특정 예외 발생 시 응답 상태 지정
+
+6. 트랜잭션 처리
+----------------------------------------------------
+@Transactional              - 트랜잭션 범위 지정 (메서드/클래스)
+
+7. Spring Boot 관련
+----------------------------------------------------
+@SpringBootApplication          - Boot 핵심 애너테이션
+@EnableAutoConfiguration        - 자동설정 기능 활성화
+@EnableConfigurationProperties  - 설정 클래스 활성화
+@ConfigurationProperties        - 설정파일 → 자바 객체
+
+
+8. 테스트 관련
+----------------------------------------------------
+@SpringBootTest             - 통합 테스트 환경 구성
+@WebMvcTest                 - 컨트롤러 계층 테스트
+@MockBean                   - 가짜 빈 주입
+@DataJpaTest                - JPA Repository 테스트
+
+
+[주의사항: Spring 6.x 이후 변경사항]
+----------------------------------------------------
+- javax.* → jakarta.* 로 마이그레이션
+  예: @Resource, @PostConstruct, @PreDestroy 등
+- 최소 JDK 17 이상 필요

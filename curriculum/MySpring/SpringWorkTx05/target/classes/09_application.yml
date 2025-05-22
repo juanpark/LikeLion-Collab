@@ -1,0 +1,3 @@
+logging:
+  level:
+    org.springframework.transaction: DEBUG # 문제9 정답

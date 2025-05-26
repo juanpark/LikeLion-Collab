@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.todo.app.mapper.TodoMapper">
+
+  <select id="selectAll" resultType="com.todo.app.entity.Todo">
+    select * from todo_items
+  </select>
+
+  <insert id="add" parameterType="com.todo.app.entity.Todo">
+    insert into todo_items (title, time_limit)
+    values (#{title}, #{time_limit})
+  </insert>
+
+  <update id="update" parameterType="com.todo.app.entity.Todo">
+    update todo_items set
+      title = #{title},
+      time_limit = #{time_limit},
+      done_flg = #{done_flg}
+    where id = #{id}
+  </update>
+  
+  <select id="selectIncomplete" resultType="com.todo.app.entity.Todo">
+    SELECT * FROM todo_items WHERE done_flg = 0
+  </select>
+  
+  <select id="selectComplete" resultType="com.todo.app.entity.Todo">
+    SELECT * FROM todo_items WHERE done_flg = 1
+  </select>
+  
+  <delete id="delete" parameterType="com.todo.app.entity.Todo">
+  	DELETE FROM todo_items WHERE done_flg = 1;
+  </delete>
+</mapper>

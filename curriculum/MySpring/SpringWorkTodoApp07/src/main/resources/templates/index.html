@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>TodoApp</title>
+	</head>
+	<body>
+		<h1>할 일 목록 (TodoList)</h1>
+		<h3>내 할 일 (마이 태스크)</h3>
+		<form method="post" th:action="@{/update}" th:each="todo : ${todos}" >
+			
+			<input type="checkbox" name="done_flg" value="1" th:checked="${todo.done_flg}" />
+			<input type="hidden" name="done_flg" value="0"/>
+			
+			
+			<input type="hidden" name="id" th:value="${todo.id}" />
+			<input type="text" name="title" th:value="${todo.title}" />
+			<input type="date" name="time_limit"th:value="${todo.time_limit}" />
+			<input type="submit" value="업데이트" />
+		</form>
+
+		<h3>완료됨 (완료된 할 일)</h3>
+		<form method="post" th:action="@{/update}" th:each="todo :${doneTodos}" >
+			<input type="hidden" name="done_flg" value="0"/>
+			<input type="checkbox" name="done_flg" value="1" th:checked="${todo.done_flg}" />
+			
+			<input type="hidden" name="id" th:value="${todo.id}" />
+			<input type="text" name="title" th:value="${todo.title}"style="text-decoration:line-through"/>
+			<input type="date" name="time_limit"th:value="${todo.time_limit}" />
+			<input type="submit" value="업데이트" />
+		</form>
+		
+		<h3>새로운 할 일 추가 (새로운 태스크를 추가)</h3>
+		<form method="post" th:action="@{/add}">
+			<input type="text" name="title" />
+			<input type="date" name="time_limit"/>
+			<input type="submit" value="확인" />
+		</form>	
+		
+		<form method="post" th:action="@{/delete}">
+		    <button type="submit">완료된 항목 삭제</button>
+		</form>
+		
+	</body>
+</html>

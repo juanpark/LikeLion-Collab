@@ -1,0 +1,20 @@
+#1. 서버설정
+server: 
+  port: 9000
+
+#2. 스프링 관련설정
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/Library/Mobile Documents/com~apple~CloudDocs/CS_iCloud/computer.lab/java/inflearn_spring/test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+#3. 콘솔 환경
+h2:
+  console:
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+  show-sql: true

@@ -1,0 +1,30 @@
+# ============================================
+#  Lab02: OAuth2 Client (test02)
+#  - 구글 OAuth2 로그인을 위한 Client 설정
+# ============================================
+spring:
+  
+
+# ============================================
+#  Lab01, Lab03~Lab06: 공통 DB 및 Thymeleaf 설정
+# ============================================
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_lab
+    username:
+    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update  # 개발 시 update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  thymeleaf:
+    cache: false
+
+# ============================================
+#  공통 서버 설정
+# ============================================
+server:
+  port: 9000

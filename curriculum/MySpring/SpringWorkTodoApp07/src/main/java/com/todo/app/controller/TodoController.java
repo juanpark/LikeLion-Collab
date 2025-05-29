@@ -37,7 +37,7 @@ public class TodoController {
 	public String update(Todo todo) {
 		// 콘솔에 로그 출력
 		System.out.println("✅ 업데이트 요청: " + todo);
-
+		
 		todoMapper.update(todo);
 		return "redirect:/";
 	}

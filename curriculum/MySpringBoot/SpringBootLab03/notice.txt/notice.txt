@@ -1,0 +1,223 @@
+===========================================================================================================
+1. 필터 
+ - 필터는 서블릿 스펙(Servlet Spec)에 정의된 컴포넌트로, 요청(Request)과 응답(Response)의 흐름을 가로채어 전/후 처리를 수행한다.
+ -  요청 전 인증/권한 확인, 요청 및 응답의 로깅, 데이터 변환 등을 수행한다. (다국어 사이트 메시지 처리)
+ - javax.servlet.Filter 인터페이스를 구현해 사용한다.
+
+
+2.  기본 동작 흐름
+클라이언트 요청 → 필터 (요청 처리) →서블릿(DispatcherServlet) →컨트롤러 / 비즈니스 로직 처리 →응답 (서블릿 → 필터 → 클라이언트로 전송)
+
+public interface Filter {
+    void init(FilterConfig filterConfig) throws ServletException; 필터 초기화 메서드 (서버 시작 시 1회 호출).
+    void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)요청/응답 처리 메서드(모든 요청마다 호출). 
+            throws IOException, ServletException;
+    void destroy(); 필터 종료 시 호출  
+    
+}
+
+Filter: 요청/응답 전후처리를 직접 구현 → 보안과 상관없는 일반적인 작업에 자주 사용됨 (e.g. 로깅, 인코딩)
+
+SecurityFilterChain: 보안 전담 필터 체인 → 인증/권한, CSRF 등 복잡한 보안 처리 자동화
+
+내부동작 : 
+Servlet Filter → DelegatingFilterProxy → FilterChainProxy → SecurityFilterChain(보안 필터 체인)
+
+[1]Spring Security는 DelegatingFilterProxy를 Servlet Filter로 등록
+
+[2] Proxy는 Spring Security의 FilterChainProxy를 내부적으로 위임.
+
+[3] FilterChainProxy가 SecurityFilterChain을 통해 보안 필터를 순서대로 실행.
+====================================================================================================
+
+3.  Spring Boot에서 필터 등록
+case 1 : @Component + @WebFilter -> @WebFilter를 쓰려면 @ServletComponentScan으로 활성화 필요.
+ 
+@WebFilter(urlPatterns = "/*")
+@Component
+public class MyLoggingFilter implements Filter { ... }
+
+
+case 2:  FilterRegistrationBean 사용
+@Configuration
+public class FilterConfig {
+    @Bean
+    public FilterRegistrationBean<MyLoggingFilter> loggingFilter() {
+        FilterRegistrationBean<MyLoggingFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new MyLoggingFilter());
+        registrationBean.addUrlPatterns("/*"); // URL 패턴 설정
+        registrationBean.setOrder(1); // 필터 순서 설정 (낮을수록 먼저 실행)
+        return registrationBean;
+    }
+}
+
+4. Spring Security의 보안 필터 계층 구조 
+
+SecurityFilterChain
+  ├── WebAsyncManagerIntegrationFilter _ 비동기 요청 처리 시 SecurityContext 연동
+  ├── SecurityContextPersistenceFilter _ SecurityContext (인증 정보) 저장 및 복원
+  ├── HeaderWriterFilter _ 보안 HTTP 헤더 추가 (X-Frame-Options 등)
+  ├── CsrfFilter _ CSRF 공격 방어 (토큰 검증)
+  ├── LogoutFilter _ 로그아웃 처리 (로그아웃 URL 매핑)
+  ├── UsernamePasswordAuthenticationFilter _ 폼 기반 로그인 인증 처리
+  ├── DefaultLoginPageGeneratingFilter _ 기본 로그인 페이지 렌더링 (커스텀 없을 때만)
+  ├── BasicAuthenticationFilter _ HTTP Basic 인증 처리
+  ├── RequestCacheAwareFilter _ 인증 후 원래 요청으로 리다이렉트
+  ├── SecurityContextHolderAwareRequestFilter _ request와 SecurityContextHolder 연계
+  ├── AnonymousAuthenticationFilter _ 인증 안 된 사용자에게 익명 인증 객체 부여
+  ├── SessionManagementFilter _ 세션 관리 및 세션 고정 방어
+  ├── ExceptionTranslationFilter _ 인증/인가 예외 처리 (리다이렉트 등)
+  └── FilterSecurityInterceptor _ 최종 인가(Authorization) 처리
+
+
+5.  Spring Boot 프로젝트에서 의존성  :  기본 SecurityFilterChain을 자동으로 생성
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+}
+  
+  
+ 6. 구현 방법 : SecurityFilterChain 사용자 정의 (권장)
+ 1)자동으로 동작: 의존성만 추가하면 기본 SecurityFilterChain 활성화됨.
+ 2)사용자 정의 필요: 보안 정책에 맞춰 SecurityFilterChain을 @Configuration으로 등록해 맞춤화.
+ 3)사용자 정의 필터를 추가할 때는 .addFilterBefore()나 .addFilterAfter()로 SecurityFilterChain의 순서를 명시적으로 지정한다.
+  
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/public/**").permitAll() // 공개 경로
+                .anyRequest().authenticated() // 나머지 요청은 인증 필요
+            )
+            .formLogin(withDefaults()) // 기본 로그인 폼 제공
+            .logout(logout -> logout
+                .logoutUrl("/logout") // 로그아웃 URL
+                .logoutSuccessUrl("/") // 로그아웃 후 리다이렉트
+            );
+
+        return http.build();
+    }
+}
+애플리케이션 실행 -> Spring Boot가 SecurityFilterChain을 등록 -> 클라이언트 요청 → SecurityFilterChain의 필터들이 순서대로 실행
+->  요청이 허용/거부되거나, 인증/인가 처리됨 ->컨트롤러 또는 에러 페이지로 흐름이 넘어감
+
+7. 필요 시 필터 순서 및 역할 수정  :  SecurityFilterChain을 직접 설정할 때, 특정 필터를 비활성화하거나 추가/제외할 수 있다.  
+http
+    .csrf(csrf -> csrf.disable()) // CSRF 필터 비활성화
+    .addFilterBefore(myCustomFilter, UsernamePasswordAuthenticationFilter.class); // 사용자 정의 필터 추가
+
+============================================================================================
+org.springframework.security.config.annotation.SecurityConfigurerAdapter<T, B>
+   T: 보안 구성 결과 타입 (ex: DefaultSecurityFilterChain)
+   B: 빌더 타입 (ex: HttpSecurity)
+  
+ 
+org.springframework.security.config.annotation.web.builders.HttpSecurity
+
+===========================================================================================   
+
+SecurityConfigurerAdapter<T, B> :  Spring Security의 보안 정책을 정의하는 빌더 패턴 기반의 추상 클래스,
+	보안 설정을 위한 빌더 패턴의 추상 클래스. configure(B builder) 메서드를 구현해 보안 설정을 구성한다.
+	
+HttpSecurity:웹 요청 보안 설정을 담당하는 핵심 클래스. SecurityFilterChain을 만들기 위한 빌더 역할을 수행한다.
+  
+  SecurityConfigurerAdapter<T, B>
+    └── configure(B builder) 메서드
+        └── builder: HttpSecurity
+            └── http.authorizeHttpRequests() ...
+  
+* HttpSecurity는 보안 필터 체인을 만드는 빌더 이고 ,  SecurityConfigurerAdapter는 이 빌더를 어떻게 구성할지를 정하는 "조립자" 역할
+
+Spring Security의 설정 흐름 
+1단계: Spring Security가 HttpSecurity를 초기화한다.
+2️단계: SecurityConfigurerAdapter를 상속한 클래스가 configure(HttpSecurity http)를 오버라이딩한다.
+3️단계 configure() 안에서 http를 매개로 다양한 보안 정책을 체이닝 방식으로 설정한다.
+4️단계 설정된 내용을 기반으로 SecurityFilterChain이 완성된다.
+===============================================================================================
+HttpSecurity 란? : Spring Security에서 웹 요청(HTTP 요청)에 대한 보안 설정을 담당하는 핵심 객체
+  => SecurityConfigurerAdapter를 상속받은 내부 객체로 웹 애플리케이션의 요청/응답 보안 규칙을 설정,
+  =>  인증(Authentication) 설정 , 인가(Authorization) 설정, CSRF, 세션 관리, 
+    로그인/로그아웃, RememberMe 등 모든 보안 옵션 관리한다
+  =>@Configuration 클래스 안에서 SecurityFilterChain Bean을 생성할 때 사용한다.
+  => HttpSecurity로 구성된 설정은 SecurityFilterChain으로 빌드되며, 실제로 서블릿 컨테이너의 보안 필터 체인에 반영된다.
+    
+    
+
+Spring Security의 HttpSecurity에서 제공하는 다양한 옵션
+ 
+authorizeHttpRequests(): 	요청별 접근 권한(인가) 설정 (주로 requestMatchers()와 함께 사용)
+formLogin()	 : 기본 로그인 폼 기반 인증 설정 (URL, 파라미터명 등 커스터마이징 가능)
+httpBasic()	 : HTTP Basic 인증 방식 활성화 (Authorization 헤더)
+logout()	: 로그아웃 처리 설정 (URL, 리다이렉트 경로 등)
+csrf()	  : CSRF 보호 활성화/비활성화 설정 (기본적으로 활성화됨)
+headers()	: 보안 관련 HTTP 헤더 설정 (e.g. X-Frame-Options)
+sessionManagement()	 : 세션 고정 방어, 동시 세션 수 제한, 세션 정책 설정
+rememberMe() :	자동 로그인(쿠키 기반 remember-me) 설정
+exceptionHandling() :	인증/인가 예외 발생 시 처리 방식 (e.g. 403 페이지 리다이렉트)
+oauth2Login()	 : OAuth2 소셜 로그인 처리 (구글, 페이스북 등)
+anonymous()	 : 익명 사용자 처리 설정 (익명 권한 등)
+servletApi() : 	HttpServletRequest에서 security API 사용 가능하게 함 (권장 X)
+requestCache() : 	인증 전 요청 캐시(리다이렉트) 처리 방식 지정
+addFilterBefore(): 	특정 필터를 지정된 필터 이전에 추가
+addFilterAfter(): 	특정 필터를 지정된 필터 이후에 추가
+ 
+================================================================================== 
+ <<  자주 사용하는 예제 >>
+1) 요청별 인가 정책
+
+http.authorizeHttpRequests(auth -> auth
+    .requestMatchers("/admin/**").hasRole("ADMIN")
+    .requestMatchers("/public/**").permitAll()
+    .anyRequest().authenticated()
+);
+2). 기본 로그인 설정
+
+http.formLogin(form -> form
+    .loginPage("/login") // 사용자 정의 로그인 페이지
+    .defaultSuccessUrl("/") // 로그인 성공 후 이동 페이지
+    .permitAll()
+);
+
+3).  로그아웃 처리
+http.logout(logout -> logout
+    .logoutUrl("/logout")
+    .logoutSuccessUrl("/login?logout")
+    .invalidateHttpSession(true) // 세션 초기화
+);
+4.)  CSRF 해제 (예: REST API 개발 시)
+http.csrf(csrf -> csrf.disable());
+
+5.)  커스텀 필터 삽입
+http.addFilterBefore(myFilter, UsernamePasswordAuthenticationFilter.class);
+  
+ ================================================================================================
+ BCryptPasswordEncoder란?:
+비밀번호를 안전하게 암호화(해싱)하기 위해 Spring Security에서 제공하는 비밀번호 인코더(PasswordEncoder) 구현체이다.
+1)특징
+- 단방향 해시: 비밀번호를 해시값으로 변환해 저장하며, 다시 복호화할 수 없다.
+- BCrypt 알고리즘을 사용: 내부적으로 Blowfish 암호를 기반으로 설계되어 보안성이 높다.
+- Salt(해시 생성 시 추가되는 임의의 문자열 랜덤 데이터)를 자동으로 추가해서 해시를 생성: 같은 비밀번호라도 해시값이 매번 달라짐.
+- stretching :  해시 연산을 반복 수행해 계산 비용(연산량)을 높이는 방식 2ⁿ => log rounds=10 → 2¹⁰=1024번 해시 반복      
+- 비밀번호 검증 기능: 입력한 비밀번호와 저장된 해시값을 비교할 수 있다.
+
+ 2)주요 메소드 
+encode(CharSequence rawPassword):	원본 비밀번호를 BCrypt 해시값으로 변환
+matches(CharSequence rawPassword, String encodedPassword):	원본 비밀번호와 암호화된 해시를 비교 (일치 여부 반환)
+
+3) mySecret123 BCrypt 해시 결과 예측 구조 
+$2a$10$C3EdSL8b9aZ01aD5g8iD7e.mAKD2.OIGHEyiUszXPEj5oBuwAkJ.q
+
+ $2a$:	알고리즘 버전 식별자
+10$	 : 스트레칭 라운드 (2¹⁰ = 1024)
+C3EdSL8b9aZ01aD5g8iD7e :	Salt
+mAKD2.OIGHEyiUszXPEj5oBuwAkJ.q:	실제 해시된 비밀번호
+
+
+=========================================================================================
+ 
+ 
+
+

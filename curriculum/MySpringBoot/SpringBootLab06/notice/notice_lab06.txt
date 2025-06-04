@@ -1,0 +1,163 @@
+
+
+
+
+
+
+[1] emp, dept -> Q -> my변수변환
+QEmp emp = QEmp.emp;
+QDept dept = QDept.dept;
+
+select ename, dname from emp join dept using(deptno);
+select e.ename, d. dname
+from emp e, join dept d
+on (e.deptno=d.deptno);
+
+[2] 쿼리문에 해당하는 메서드를 호출해서 실행 리턴
+List(<Tuple>) res=queryFactory.select(emp.ename, dept.dname)
+				.from(emp)
+				.join(emp.dept, dept) //@manyToOne
+				.fetch();
+
+for(Tuple tuple: res) {
+	String ename = tuple.get(emp.ename);
+	String dname = tuple.get(dept.dname);
+	System.out.println(ename + "\t" + dname);
+
+================================================================================
+[1] 개념
+Querydsl :  Java 기반 타입 안전한 동적 쿼리 생성 라이브러리,
+  SQL, JPQL과 달리 Java 문법으로 쿼리를 생성 (오타, 필드명 오류를 컴파일 타임에 확인 가능)
+
+Spring Data JPA :JPA를 편리하게 사용할 수 있도록 제공되는 라이브러리
+기본적인 CRUD, 쿼리 메서드(findByName, findByAgeGreaterThan)를 사용
+복잡한 쿼리는 @Query 또는 Querydsl과 함께 사용 가능
+
+[2]선언 사용방법
+ Querydsl 설정은  Maven/Gradle에 Querydsl 라이브러리 추가하면  Q타입 생성
+  mvn compile 또는 Gradle 빌드 시 자동 생성됨 (예: QScore, QCourse)
+ 
+ ===============Querydsl   
+ @Autowired
+private JPAQueryFactory queryFactory;
+
+QScore score = QScore.score;
+
+List<Score> result = queryFactory
+    .selectFrom(score)
+    .where(score.studentName.eq("홍길동")
+           .and(score.score.gt(80)))
+    .fetch();
+ 
+ =========================Query로 JPQL 또는 네이티브 SQL 직접 작성 가능
+ public interface ScoreRepository extends JpaRepository<Score, Long> {
+    @Query("SELECT s FROM Score s WHERE s.studentName = :name AND s.score > :score")
+    List<Score> findByStudentNameAndScore(@Param("name") String name, @Param("score") int score);
+}
+
+
+
+[3] 주요 인터페이스 : https://javadoc.io/doc/com.querydsl/querydsl-jpa/latest/index.html
+JpaRepository:Spring Data JPA의 기본 CRUD 및 페이징/정렬 기능을 제공하는 인터페이스
+
+JPAQueryFactory:Querydsl의 쿼리 빌더 역할을 수행하는 클래스. selectFrom, where 등의 체이닝 메서드 제공
+
+QuerydslPredicateExecutor:Querydsl의 Predicate를 인자로 받아 동적 쿼리를 바로 수행할 수 있게 해주는 인터페이스
+
+QuerydslRepositorySupport: Querydsl과 JPA를 함께 사용할 때, JPAQueryFactory를 쉽게 사용하도록 도와주는 추상 클래스
+
+
+[4] QuerydslRepositorySupport  사용방법 
+
+Q) 사원 테이블 Emp에서 부서명과 나이를 조건으로 동적으로 사원을 검색해 보자.  
+   조건  :  부서명 = 특정 부서명 & 나이 > 특정 나이 
+   ex) "HR" 부서 & 나이 25세 이상인 사원들을  리턴받자.  
+   
+   
+    1) 인터페이스 선언
+    public interface EmpRepositoryCustom {
+    List<Emp> searchByDepartmentAndAge(String department, int minAge);
+    }
+ 
+    2)QuerydslRepositorySupport 구현 클래스 
+ 
+@Repository
+public class EmpRepositoryImpl extends QuerydslRepositorySupport implements EmpRepositoryCustom {
+
+    @Autowired
+     private  JPAQueryFactory queryFactory;
+
+    @Override
+    public List<Emp> searchByDepartmentAndAge(String department, int minAge) {
+        QEmp emp = QEmp.emp;
+
+        return queryFactory
+                .selectFrom(emp)
+                .where(emp.department.eq(department)
+                       .and(emp.age.gt(minAge)))
+                .fetch();
+    }
+}
+  3) Spring Data JPA의 JpaRepository와 연결
+  public interface EmpRepository extends JpaRepository<Emp, Long>, EmpRepositoryCustom {
+    // JpaRepository의 CRUD + EmpRepositoryCustom의 사용자 정의 메서드
+}
+  
+  =================================
+SprintEL
+1) #{...} : 런타임 시에 객체 그래프를 쿼리에 적용할 때 사용
+	스프링 빈 참조 #{emp}, 빈 메서드 호출 #{emp.getDept()}, 빈 속성 접근 #{emp.ename}, 즉시 계산 #{1+1}
+	
+	case 1:
+	@value(#{emp.toString() +/ '결과' })
+	private String getConfig;
+
+	case 2:
+	파일 내용 myapp.name=내꺼야
+	
+	@Value( ${my.app.name} )	-> property placeholder
+	private String projectName;
+
+ 
+ 2) ?#{…}/?${…}. 	-> 공식 문법이 아님  : JPA 문법에서도 매개변수의 위치지정, 선택적으로 사용한다.
+ 										- MVC 패턴에 @Query에 적용된다.
+ 
+ 	* https://docs.spring.io/spring-data/jpa/reference/jpa/value-expressions.html_ EvaluationContextProvider
+ 	Example 4. Expression Evaluation Examples: 루트 객체, 속성, 함수, 별칭 함수를 사용한 컨텍스를 확장 코드 확인 
+ ========================================================================================================
+ @SqlResultSetMapping, @NativeQuery(resultSetMapping = "...")
+ -> 	실제 DB에서 사용하는 필드와 프로그램 entity=dbtable, dto=requests, response 객체인데 
+ 		혹, 리턴되는 속성이나 필드명, 객체 타입이 다를 경우 위 @을 사용한다. 
+ 		
+ ========================================================================================================
+select * from emp;
+select empno, enmae from emp;
+select ename, empno, sal from emp;
+ 
+ ========================================================================================================
+ 
+ @Entity
+ @NamedStoredProcedureQuery(name = "User.multiple_out_parameters, // 프로시저 이름
+ 	 procedureName = "multiple_out_parameters", // 실제 DB에 있는 프로시저 이름
+ 	 parameters = {
+ 	@StoredProcedureParameter(mode = ParameterMode.In, name = "arg", type = Integer.class), // 입력파라미터
+ 	@StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, name = "some_cursor", type = void.class), // 리턴 커서
+ 	@StoredProcedureParameter(mode = ParameterMode.OUT, name = "res", type = Integer.class) }) // 출력 파라미터
+ public class User {}
+ 
+ 저장 프로시저는 서비스 객체에서 EntityManager 객체로 호출해서 사용된다.
+========================================================================================================
+ 
+ <a th:href="@{/students/delete/{id}{id=${student.id})}" />
+ @{} : create URL
+ /students/delete/{id} <-- {id=${student.id} : saves dynamic value of the dynamic property place holder for id
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+ 	

@@ -1,0 +1,110 @@
+- @JoinColumn의 주요 속성
+
+name	: 	FK 컬럼명 (DB에 실제로 저장되는 컬럼명)
+referenced :  	FK가 참조할 대상 테이블의 컬럼명
+unique	 :	FK 컬럼에 유니크 제약조건 추가
+nullable	:	FK 컬럼의 NULL 허용 여부
+insertable	:	INSERT SQL문 생성 시 FK 컬럼을 포함할지 여부
+updatable	:	UPDATE SQL문 생성 시 FK 컬럼을 포함할지 여부
+columnDefinition	:	DDL 생성 시 FK 컬럼의 정의를 직접 작성 (varchar(255) 등)
+table	:	FK 컬럼이 다른 테이블에 있는 경우에만 지정 (거의 사용하지 않음)
+
+@Entity
+public class Emp {
+
+    @Id
+    private int empno;
+    private String ename;
+
+    @ManyToOne
+    @JoinColumn(
+        name = "deptno",                   // FK 컬럼명
+        referencedColumnName = "deptno",   // 참조하는 Dept 엔티티의 PK 컬럼명
+        nullable = false,                  // NOT NULL
+        unique = false,                    // 유니크하지 않음
+        insertable = true,                 // INSERT문에 포함
+        updatable = true,                  // UPDATE문에 포함
+        columnDefinition = "BIGINT(10)"    // FK 컬럼 DDL 정의
+    )
+    private Dept dept;
+}
+
+1) N:1 = @ManyToOne : 여러 사원이 하나의 부서에 소속
+여러 Emp가 하나의 Dept를 가진다.
+
+class Emp{
+@ManyToOne
+@JoinColumn(
+	name = "deptno",						//FK column name
+	referencedColumnName = "deptno",		//PK column name of the Dept entity that is being referenced
+	nullable = false,						// NOT NULL
+	unique = false,							// not unique
+	insertable = true,						// part of INSERT query
+	updatable = true,						// part of UPDATE query
+	columDefinition = "BIGINT(10)"			// DDL definition for FK column
+	)
+	private Dept dept;
+}
+
+class Dept{
+
+// one to many : one dept to many emp
+@OneToMany(mappedBy = "dept")			// mappedBy : FK column exists by the entity(emp) and is not part of the dept table
+private List<Emp> emps;
+}
+
+2) 1:1 example (@OneToOne)
+class Emp{
+
+@OneToOne
+@JoinColumn(
+	name = "emp_info_id",
+	referencedColumnName = "id",
+	nullable = false,
+	)
+private EmpInfo empInfo;
+}
+
+class EmpInfo{
+
+@OneToOne(mappedBy = "empInfo")
+	private Emp emp;
+}
+
+3) n : m @ManyToMany	// 학생과 강의 관계 -> 학생은 여러 대의 강의를 듣고, 강의는 여러 학생이 듣는다.
+
+class Student {
+
+	@ManyToMany
+	@joinTable(
+		name = "student_course",						//중간테이블
+		joinColumns = @JoinColumn("student_id")			//Student FK
+		inverseJoinColumns = @JoinColumn("course_id")	// Course FK
+	private List<Course> courses;
+}
+
+class Course {
+
+	@Id
+	private int course_id;
+	
+	@ManyToMany(mappedBy="courses")
+	private List<Student> students;
+}
+
+================================================================================================
+<<관계 정리>>
+				주								주테이블의 FK컬럼 존재		중간테이블 필요
+N : 1	-> 	@ManyToOne									O					X
+1 : N	-> 	@OneToMany (mappedBy)						X					X
+1 : 1	-> 	@OneToOne + @JoinColumn/mappedBy			O,X					X
+N : M	-> 	@ManyToMany + @JoinTable					X					O
+
+exam)
+1:N (Dept - Emp)	: N(Emp) FK @JoinColumn
+1:1 				-> Fk를 한쪽 테이블에 만들고, 반대쪽은 mappedBy
+N:M					-> 반드시 중간 테이블 @JoinTable 생성
+
+
+		
+		

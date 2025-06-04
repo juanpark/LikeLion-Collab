@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>부서 목록</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1>부서 목록</h1>
+<table border="1">
+    <tr>
+        <th>부서번호</th>
+        <th>부서명</th>
+        <th>지역</th>
+    </tr>
+    <tr th:each="dept : ${depts}">
+        <td th:text="${dept.deptno}"></td>
+        <td th:text="${dept.dname}"></td>
+        <td th:text="${dept.loc}"></td>
+    </tr>
+</table>
+</body>
+</html>

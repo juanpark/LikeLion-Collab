@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>사원 상세 정보</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>사원 상세 정보</h2>
+
+    <div>
+        <label>사번:</label>
+        <span th:text="${emp.empno}">1001</span>
+    </div>
+
+    <div>
+        <label>이름:</label>
+        <span th:text="${emp.ename}">홍길동</span>
+    </div>
+
+    <div>
+        <label>직무:</label>
+        <span th:text="${emp.job}">개발자</span>
+    </div>
+
+    <div>
+        <label>급여:</label>
+        <span th:text="${emp.sal}">5000</span>
+    </div>
+
+    <div>
+        <label>부서:</label>
+        <span th:text="${emp.dept.dname}">개발부</span>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a th:href="@{|/emp/${emp.empno}/edit|}">수정하기</a> |
+        
+        <form th:action="@{|/emp/${emp.empno}/delete|}" method="post" style="display:inline;">
+            <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+        </form> |
+        
+        <a th:href="@{/emp/list}">목록으로</a>
+    </div>
+</body>
+</html>

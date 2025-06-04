@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>사원 수정</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>사원 정보 수정</h2>
+
+    <form th:action="@{|/emp/${emp.empno}/edit|}" th:object="${emp}" method="post">
+        <div>
+            <label>사번:</label>
+            <span th:text="*{empno}">1001</span>
+        </div>
+
+        <div>
+            <label>이름:</label>
+            <input type="text" th:field="*{ename}" />
+        </div>
+
+        <div>
+            <label>직무:</label>
+            <input type="text" th:field="*{job}" />
+        </div>
+
+        <div>
+            <label>급여:</label>
+            <input type="number" th:field="*{sal}" />
+        </div>
+
+        <div>
+            <label>부서:</label>
+            <select th:field="*{dept.deptno}">
+                <option value="">== 부서 선택 ==</option>
+                <option th:each="dept : ${deptList}"
+                        th:value="${dept.deptno}"
+                        th:text="${dept.dname}"
+                        th:selected="${dept.deptno} == *{dept.deptno}">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <button type="submit">수정 완료</button>
+            <a th:href="@{/emp/list}">목록으로</a>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>수강 학생 목록</title>
+</head>
+<body>
+ 
+    <table border="1">
+        <thead>
+            <tr>
+                <th>학생 이름</th>
+                <th>학생 과목명</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="row : ${studentscourses}">
+                <td th:text="${row.studentName}"></td>
+                <td th:text="${row.courseTitle}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/students">← 학생 목록으로 돌아가기</a>
+</body>
+</html>

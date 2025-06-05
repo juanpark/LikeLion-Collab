@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>수강 학생 목록</title>
+</head>
+<body>
+    <h1>과목명으로 수강 학생 검색</h1>
+
+    <!-- 🔍 과목 검색 폼 -->
+    <form action="/students/by-course" method="get">
+        <label for="title">과목명:</label>
+        <input type="text" id="title" name="title" placeholder="예: 자바 프로그래밍">
+        <button type="submit">검색</button>
+    </form>
+
+    <hr>
+
+    <h2 th:text="'과목명: ' + ${courseTitle}"></h2>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>학생 ID</th>
+                <th>학생 이름</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.id}"></td>
+                <td th:text="${student.name}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/students">← 학생 목록으로 돌아가기</a>
+</body>
+</html>

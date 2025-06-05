@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class StudentCourseController {
     private final StudentCourseService service;
 
     // [1] 모든 학생 + 과목 목록 조회 (courses 포함)
-    @GetMapping("/students-with-courses")
+    @GetMapping("/students") // ("/students-with-courses")???
     public StudentsAndCoursesResponse showStudents() {
         List<Student> students = service.getAllStudents(); //DB return Entity
         List<Course> courses = service.getAllCourses(); //DB return Entity

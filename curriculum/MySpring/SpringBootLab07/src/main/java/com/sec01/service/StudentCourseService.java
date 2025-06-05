@@ -1,11 +1,9 @@
 package com.sec01.service;
 
 import com.sec01.entity.Student;
-import com.sec01.dto.StudentCourseDto;
 import com.sec01.entity.Course;
 import com.sec01.repository.StudentRepository;
 import com.sec01.repository.CourseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +13,21 @@ import java.util.List;
 @Transactional
 public class StudentCourseService {
 
+/*	// 필드 주입 (권장사항 아님) 보다는 생성자 주입을 권장함 	-> 런타임까지 의존석 누락 유무를 감지 못한다.
 	@Autowired
 	private StudentRepository studentRepository;
 
 	@Autowired
 	private CourseRepository courseRepository;
+*/
+	// 생성자 주입 (권장 사항)	-> final로 불변 유지, 컴파일 타입시 확인가능, 컴파일 시점 명확하게 주소 확인!
+	private final StudentRepository studentRepository;
+	private final CourseRepository courseRepository;
+	
+	public StudentCourseService(StudentRepository studentRepository, CourseRepository courseRepository) {
+		this.studentRepository = studentRepository;
+		this.courseRepository = courseRepository;
+	}
 
 	// [1] 전체 학생 목록 조회
 	public List<Student> getAllStudents() {
@@ -64,7 +72,7 @@ public class StudentCourseService {
 	public void deleteCourse(Long id) {
 		courseRepository.deleteById(id);
 	}
-	
+	/*
 	// [7] 특정 과목명을 수강하는 학생 목록 조회
 	public List<Student> getStudentsByCourseTitle(String courseTitle) {
         return studentRepository.findByCourseTitle(courseTitle);
@@ -73,5 +81,5 @@ public class StudentCourseService {
 	// [8]
 	public List<StudentCourseDto> getStudentCourseList() {
 		return studentRepository.findStudentCourseDtoList();
-	}
+	}*/
 }

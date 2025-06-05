@@ -16,10 +16,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student {
+public @Data class Student {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;

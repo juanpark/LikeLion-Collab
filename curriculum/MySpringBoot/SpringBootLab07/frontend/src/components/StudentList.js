@@ -1,7 +1,7 @@
 // src/components/StudentList.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const StudentList = () => {
   // [1] 상태 선언
@@ -9,7 +9,7 @@ const StudentList = () => {
   const [courses, setCourses] = useState([]);   
   const [name, setName] = useState('');
   const [selectedCourses, setSelectedCourses] = useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // [2] 학생+강의 목록 불러오기
   const loadStudents = async () => {
@@ -89,8 +89,8 @@ const StudentList = () => {
           <button
             type="button"
             className="btn btn-secondary w-100"
-            // onClick={() => window.location.href = 'api/courses'}
-            onClick={() => navigate('/courses')}
+            onClick={() => window.location.href = 'courses'}
+            // onClick={() => navigate('/courses')}
           >
             강의 목록으로 이동
           </button>

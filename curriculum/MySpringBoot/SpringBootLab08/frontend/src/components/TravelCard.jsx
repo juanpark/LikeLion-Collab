@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function TravelCard(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -103,18 +105,29 @@ export default function TravelCard(props) {
           <Modal.Title>여행지 수정</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {Object.entries(editedData).map(([key, value]) => (
-            <div className="mb-2" key={key}>
-              <label className="form-label">{key}</label>
-              <input
-                type="text"
-                className="form-control"
-                name={key}
-                value={value}
-                onChange={handleEditChange}
-              />
-            </div>
-          ))}
+		{Object.entries(editedData).map(([key, value]) => (
+		  <div className="mb-2" key={key}>
+		    <label className="form-label">{key}</label>
+		    {key === "startDate" || key === "endDate" ? (
+		      <DatePicker
+		        selected={value ? new Date(value) : null}
+		        onChange={(date) =>
+		          setEditedData({ ...editedData, [key]: date.toISOString().split("T")[0] })
+		        }
+		        dateFormat="yyyy-MM-dd"
+		        className="form-control"
+		      />
+		    ) : (
+		      <input
+		        type="text"
+		        className="form-control"
+		        name={key}
+		        value={value}
+		        onChange={handleEditChange}
+		      />
+		    )}
+		  </div>
+		))}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>

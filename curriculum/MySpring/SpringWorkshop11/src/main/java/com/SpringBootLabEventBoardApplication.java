@@ -32,6 +32,8 @@ Content-Type: application/json
   "content": "나도 그렇게 생각함"
 }
 
-DELETE http://localhost:8080/posts/1
+[3] Postman
+DELETE 
+http://localhost:8080/posts/1
 
  */

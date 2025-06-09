@@ -3,7 +3,7 @@ package com.board.service;
 import com.board.entity.Post;
 import com.board.event.PostCreatedEvent;
 import com.board.repository.PostRepository;
-
+import com.board.event.PostDeletedEvent;
 import java.util.List;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -14,7 +14,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final ApplicationEventPublisher publisher;
-
+    
     public PostService(PostRepository postRepository, ApplicationEventPublisher publisher) {
         this.postRepository = postRepository;
         this.publisher = publisher;
@@ -38,5 +38,6 @@ public class PostService {
 
     public void deletePost(Long id) {
         postRepository.deleteById(id);
+        publisher.publishEvent(new PostDeletedEvent(id));
     }
 }

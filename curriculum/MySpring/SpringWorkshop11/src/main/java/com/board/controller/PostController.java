@@ -3,6 +3,7 @@ package com.board.controller;
 import com.board.entity.Post;
 import com.board.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +34,8 @@ public class PostController {
 
     // [3] DELETE POST BY ID
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
         postService.deletePost(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  sql:
+    init:
+      mode: always
+  jpa:
+    hibernate:
+      ddl-auto: none  # Hibernate auto-DDL 끄기
+    defer-datasource-initialization: true  # Hibernate @Entity table 생성 후 schema.sql, data.sql 실행하기

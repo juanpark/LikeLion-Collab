@@ -1,0 +1,15 @@
+
+TaskScheduler -> https://docs.spring.io/spring-framework/reference/integration/scheduling.html#scheduling-task-scheduler
+
+TaskScheduler(I)				: Spring Scheduler
+ThreadPoolTaskScheduler(C)		: Used as given
+@Scheduled
+
+========================================================================================================
+@EnableScheduling	-> 환경설정
+
+@Scheduled			-> method to run in background
+
+========================================================================================================
+
+https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/annotation/SchedulingConfigurer.html

@@ -11,5 +11,33 @@ ThreadPoolTaskScheduler(C)		: Used as given
 @Scheduled			-> method to run in background
 
 ========================================================================================================
-
+com.sec05:
+[1] Single background
+[2] Thread pool custom
 https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/annotation/SchedulingConfigurer.html
+
+========================================================================================================
+Select Scheduling
+1) 단순 비동기 실행		-> TaskExecutor, @Async 
+2) 예약/반복 작업      	-> TaskScheduler, @Scheduled, schedule()
+3) 복잡한 병렬 제어  	-> ExecutorService스레드 풀 관리, 
+					CompletableFuture비동기 작업 연결, 
+					Project Reactor_논블로킹 리액티브 스트림 등 사용 가능
+					
+========================================================================================================
+com.sec06:
+Async Scheduling in Spring MVC	-> TaskExecutor + @Async
+
+
+cron scheduling
+1)0 0 9  * * * : 매일  오전 9시에
+
+2)매주 월요일 오전  8시에 주간보고서 전송
+ 0 0 8  *  *  MON
+
+3) 월간 보고  매달 1일 자정 
+0 0 0 1 * * 
+
+4) 평일 오전 9시 ~ 오후 6시 까지 
+매 10분마다 쉬고 싶다.  
+0  */10    9-18   *  *  MON-FRI

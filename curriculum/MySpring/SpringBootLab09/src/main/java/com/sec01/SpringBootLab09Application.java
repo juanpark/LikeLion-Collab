@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.sec05"})
+@ComponentScan(basePackages = {"com.sec06"})
 public class SpringBootLab09Application {
 
 	public static void main(String[] args) {

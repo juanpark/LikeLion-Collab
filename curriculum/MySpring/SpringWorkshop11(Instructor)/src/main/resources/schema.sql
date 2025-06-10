@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS post;
+
+CREATE TABLE post (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT
+);
+
+CREATE TABLE comment (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    post_id BIGINT NOT NULL,
+    writer VARCHAR(100),
+    content TEXT,
+    FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE
+);

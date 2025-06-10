@@ -1,0 +1,516 @@
+[1m[7m%[27m[1m[0m                                                                                        ]2;juanpark@mini:~/computer.lab/멋사/LikeLion-Collab/curriculum/MyMongoDB]1;..lum/MyMongoDB]7;file://mini.local/Users/juanpark/computer.lab/%EB%A9%8B%EC%82%AC/LikeLion-Collab/curriculum/MyMongoDB\[0m[27m[24m[J[34mmini[01;32m➜  [36mMyMongoDB[00m [K[?1h=[?2004h[0m[27m[24m[J[34mmini[01;32m➜  [36mMyMongoDB[00m [01;34mgit:([31mmain[34m) [33m✗[00m [Km[1m[31mm[0m[39m[1m[31mm[0m[39m[90mongosh[39m[1m[31mm[1m[31mo[0m[39m[1m[31mm[1m[31mo[1m[31mn[0m[39m[1m[31mn[1m[31mg[0m[39m[1m[31mg[1m[31mo[0m[39m[1m[31mo[1m[31ms[0m[39m[0m[32mm[0m[32mo[0m[32mn[0m[32mg[0m[32mo[0m[32ms[39m[32ms[32mh[39m[?1l>[?2004l
+]2;mongosh]1;mongosh]0;mongosh mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000Current Mongosh Log ID:	684809191161f5eb3d840ba1
+Connecting to:		[1m[32mmongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.2[0m
+Using MongoDB:		8.0.10
+[1m[33mUsing Mongosh[0m:		2.5.2
+
+For mongosh info see: [1mhttps://www.mongodb.com/docs/mongodb-shell/[0m
+
+[1G[0J [1G[?2004h[1m[33m------[0m
+   [1m[33mThe server generated these startup warnings when booting[0m
+   2025-06-10T10:57:40.591+09:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+[1m[33m------[0m
+
+[1G[0Jtest> [7Gshowd[1G[0Jtest> show[11G dbs
+[1madmin[0m   40.00 KiB
+[1mconfig[0m  72.00 KiB
+[1mlocal[0m   40.00 KiB
+[1mmydb[0m    40.00 KiB
+[1mmyemp[0m   56.00 KiB
+[1G[0Jtest> [7Guse lab01
+switched to db lab01
+[1G[0Jlab01> [8Gdbs[1G[0Jlab01> db[10G
+lab01
+[1G[0Jlab01> [8Gshow dbs
+[1madmin[0m   40.00 KiB
+[1mconfig[0m  72.00 KiB
+[1mlocal[0m   40.00 KiB
+[1mmydb[0m    40.00 KiB
+[1mmyemp[0m   56.00 KiB
+[1G[0Jlab01> [8Gdb.Score.insert({name[33mname[39m:[32m"[39m[32ma[39m[32ma[39m[32ma[39m[32m"[39m,kor:[33m9[39m[33m0[39m,eng[33meng[39m:[33m8[39m[33m0[39m,mat[33mmat[39m:[33m9[39m[33m8[39m,test[33mtest[39m:[32m"[39m[32mm[39m[32mi[39m[32md[39m[32mt[39m[32me[39m[32mr[39m[32mm[39m[32m"[39m})[1D[1G[0Jlab01> db.Score.insert[44m([49m{[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[72G[1D[1G[0Jlab01> db.Score.insert([44m{[49m[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[71G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[44m[32m"[49mmidterm"[39m})[70G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[69G[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm[44m"[39m[49m})[62G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[61G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[44m[32m"[49maaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[34G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[33G[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"aaa[44m"[39m[49m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[30G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[29G[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m[44m}[49m)[24G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[23G[1G[0Jlab01> db.Score.insertO({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[24G[1G[0Jlab01> db.Score.insertOn({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[25G[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[26G[50C[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"aaa"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[76G
+{
+  acknowledged: [33mtrue[39m,
+  insertedId: ObjectId([32m'684809561161f5eb3d840ba2'[39m)
+}
+[1G[0Jlab01> [8Gdb.Score.insert({name[33mname[39m:[32m"[39m[32mb[39m[32mb[39m[32mb[39m[32m"[39m,kor:[33m1[39m[33m0[39m[33m0[39m,eng[33meng[39m:[33m1[39m[33m0[39m[33m0[39m,mat[33mmat[39m:[33m7[39m[33m6[39m,test[33mtest[39m:[32m"[39m[32mf[39m[32mi[39m[32mn[39m[32ma[39m[32ml[39m[32m"[39m})[1D[1G[0Jlab01> db.Score.insert[44m([49m{[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m})[72G[1D[1G[0Jlab01> db.Score.insert([44m{[49m[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m})[71G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[44m[32m"[49mfinal"[39m})[70G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m})[69G[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final[44m"[39m[49m})[64G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m})[63G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[44m[32m"[49mbbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m})[34G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m})[33G[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"bbb[44m"[39m[49m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m})[30G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m})[29G[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m[44m}[49m)[24G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[23G[1G[0Jlab01> db.Score.insertO({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[24G[1G[0Jlab01> db.Score.insertOn({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[25G[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[26G[50C[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"bbb"[39m,[33mkor[39m:[33m100[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m76[39m,[33mtest[39m:[32m"final"[39m})[76G
+{
+  acknowledged: [33mtrue[39m,
+  insertedId: ObjectId([32m'684809671161f5eb3d840ba3'[39m)
+}
+[1G[0Jlab01> [8Gdb.Score.insert({name[33mname[39m:[32m"[39m[32mc[39m[32mc[39m[32mc[39m[32m"[39m,kor:[33m9[39m[33m0[39m,eng[33meng[39m:[33m5[39m[33m5[39m,mat[33mmat[39m:[33m6[39m[33m7[39m,test[33mtest[39m:[32m"[39m[32mm[39m[32mi[39m[32md[39m[32mt[39m[32me[39m[32mr[39m[32mm[39m[32m"[39m})[1D[1G[0Jlab01> db.Score.insert[44m([49m{[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m})[72G[1D[1G[0Jlab01> db.Score.insert([44m{[49m[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m})[71G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[44m[32m"[49mmidterm"[39m})[70G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m})[69G[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm[44m"[39m[49m})[62G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m})[61G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[44m[32m"[49mccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m})[34G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m})[33G[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ccc[44m"[39m[49m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m})[30G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m})[29G[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m[44m}[49m)[24G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[23G[1G[0Jlab01> db.Score.insertO({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[24G[1G[0Jlab01> db.Score.insertOn({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[25G[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[26G[50C[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"ccc"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m55[39m,[33mmat[39m:[33m67[39m,[33mtest[39m:[32m"midterm"[39m})[76G
+{
+  acknowledged: [33mtrue[39m,
+  insertedId: ObjectId([32m'684809741161f5eb3d840ba4'[39m)
+}
+[1G[0Jlab01> [8Gdb.Score.insert({name[33mname[39m:[32m"[39m[32md[39m[32md[39m[32md[39m[32m"[39m,kor:[33m7[39m[33m0[39m,eng[33meng[39m:[33m6[39m[33m9[39m,mat[33mmat[39m:[33m8[39m[33m9[39m,test[33mtest[39m:[32m"[39m[32mm[39m[32mi[39m[32md[39m[32mt[39m[32me[39m[32mr[39m[32mm[39m[32m"[39m})[1D[1G[0Jlab01> db.Score.insert[44m([49m{[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m})[72G[1D[1G[0Jlab01> db.Score.insert([44m{[49m[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m})[71G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[44m[32m"[49mmidterm"[39m})[70G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m})[69G[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm[44m"[39m[49m})[62G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m})[61G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[44m[32m"[49mddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m})[34G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m})[33G[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ddd[44m"[39m[49m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m})[30G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m})[29G[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m[44m}[49m)[24G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[23G[1G[0Jlab01> db.Score.insertO({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[24G[1G[0Jlab01> db.Score.insertOn({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[25G[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[26G[50C[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"ddd"[39m,[33mkor[39m:[33m70[39m,[33meng[39m:[33m69[39m,[33mmat[39m:[33m89[39m,[33mtest[39m:[32m"midterm"[39m})[76G
+{
+  acknowledged: [33mtrue[39m,
+  insertedId: ObjectId([32m'684809841161f5eb3d840ba5'[39m)
+}
+[1G[0Jlab01> [8Gdb.Score.insert({name[33mname[39m:[32m"[39m[32me[39m[32me[39m[32me[39m[32m"[39m,kor:[33m6[39m[33m0[39m,eng[33meng[39m:[33m8[39m[33m0[39m,mat[33mmat[39m:[33m7[39m[33m8[39m,test[33mtest[39m:[32m"[39m[32mf[39m[32mi[39m[32mn[39m[32ma[39m[32ml[39m[32m"[39m})[1D[1G[0Jlab01> db.Score.insert[44m([49m{[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m})[70G[1D[1G[0Jlab01> db.Score.insert([44m{[49m[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m})[69G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[44m[32m"[49mfinal"[39m})[68G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m})[67G[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final[44m"[39m[49m})[62G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m})[61G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[44m[32m"[49meee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m})[34G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m})[33G[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"eee[44m"[39m[49m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m})[30G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m})[29G[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m[44m}[49m)[24G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[23G[1G[0Jlab01> db.Score.insertO({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[24G[1G[0Jlab01> db.Score.insertOn({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[25G[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[26G[48C[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"eee"[39m,[33mkor[39m:[33m60[39m,[33meng[39m:[33m80[39m,[33mmat[39m:[33m78[39m,[33mtest[39m:[32m"final"[39m})[74G
+{
+  acknowledged: [33mtrue[39m,
+  insertedId: ObjectId([32m'684809901161f5eb3d840ba6'[39m)
+}
+[1G[0Jlab01> [8Gdb.Score.insert({name[33mname[39m:[32m"[39m[32mf[39m[32mf[39m[32mf[39m[32m"[39m,kor:[33m9[39m[33m0[39m,eng[33meng[39m:[33m6[39m[33m5[39m,mat[33mmat[39m:[33m9[39m[33m8[39m,test[33mtest[39m:[32m"[39m[32mm[39m[32mi[39m[32md[39m[32mt[39m[32me[39m[32mr[39m[32mm[39m[32m"[39m})[1D[1G[0Jlab01> db.Score.insert[44m([49m{[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[72G[1D[1G[0Jlab01> db.Score.insert([44m{[49m[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[71G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[44m[32m"[49mmidterm"[39m})[70G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[69G[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm[44m"[39m[49m})[62G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[61G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[44m[32m"[49mfff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[34G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[33G[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"fff[44m"[39m[49m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[30G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[29G[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m[44m}[49m)[24G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[23G[1G[0Jlab01> db.Score.insertO({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[24G[1G[0Jlab01> db.Score.insertOn({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[25G[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m}[44m)[49m[26G[50C[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"fff"[39m,[33mkor[39m:[33m90[39m,[33meng[39m:[33m65[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"midterm"[39m})[76G
+{
+  acknowledged: [33mtrue[39m,
+  insertedId: ObjectId([32m'6848099e1161f5eb3d840ba7'[39m)
+}
+[1G[0Jlab01> [8Gdb.Score.insert({name[33mname[39m:[32m"[39m[32mg[39m[32mg[39m[32mg[39m[32m"[39m,kor:[33m7[39m[33m5[39m,eng[33meng[39m:[33m1[39m[33m0[39m[33m0[39m,mat[33mmat[39m:[33m9[39m[33m8[39m,test[33mtest[39m:[32m"[39m[32mf[39m[32mi[39m[32mn[39m[32ma[39m[32ml[39m[32m"[39m})[1D[1G[0Jlab01> db.Score.insert[44m([49m{[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m})[71G[1D[1G[0Jlab01> db.Score.insert([44m{[49m[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m})[70G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[44m[32m"[49mfinal"[39m})[69G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m})[68G[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final[44m"[39m[49m})[63G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m})[62G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[44m[32m"[49mggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m})[34G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m})[33G[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ggg[44m"[39m[49m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m})[30G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m})[29G[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m[44m}[49m)[24G[1D[1G[0Jlab01> db.Score.insert({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[23G[1G[0Jlab01> db.Score.insertO({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[24G[1G[0Jlab01> db.Score.insertOn({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[25G[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m}[44m)[49m[26G[49C[1G[0Jlab01> db.Score.insertOne({[33mname[39m:[32m"ggg"[39m,[33mkor[39m:[33m75[39m,[33meng[39m:[33m100[39m,[33mmat[39m:[33m98[39m,[33mtest[39m:[32m"final"[39m})[75G
+{
+  acknowledged: [33mtrue[39m,
+  insertedId: ObjectId([32m'684809ad1161f5eb3d840ba8'[39m)
+}
+[1G[0Jlab01> [8Gshow collections
+[1mScore[0m
+[1G[0Jlab01> [8Gshow dbs
+[1madmin[0m   40.00 KiB
+[1mconfig[0m  72.00 KiB
+[1mlab01[0m   72.00 KiB
+[1mlocal[0m   40.00 KiB
+[1mmydb[0m    40.00 KiB
+[1mmyemp[0m   56.00 KiB
+[1G[0Jlab01> [8Gprint([32m"[39m[32m#[39m [32mQ[39m[32m1[39m[32m)[39m [32mS[39m[32mc[39m[32mo[39m[32mr[39m[32me[39m [32m의[39m [32m전[39m[32m체[39m [32m출[39m[32m력[39m [32m해[39m[32m보[39m[32m자[39m[32m.[39m[32m"[39m)
+# Q1) Score 의 전체 출력 해보자.
+
+[1G[0Jlab01> [8Gdb.Score.find().count();
+(node:1478) [MONGODB DRIVER] Warning: cursor.count is deprecated and will be removed in the next major version, please use `collection.estimatedDocumentCount` or `collection.countDocuments` instead 
+(Use `node --trace-warnings ...` to show where the warning was created)
+[33m7[39m
+[1G[0Jlab01> [8G[1G[0Jlab01> db.Score.find().count();[32G[1D[1D[1G[0Jlab01> db.Score.find().count[44m([49m);[30G[1D[1G[0Jlab01> db.Score.find().count([44m)[49m;[29G[1D[1G[0Jlab01> db.Score.find().count();[28G[1C[1G[0Jlab01> db.Score.find().count([44m)[49m;[29G[1G[0Jlab01> db.Score.find().countD([44m)[49m;[30G[1G[0Jlab01> db.Score.find().countDo([44m)[49m;[31G[1G[0Jlab01> db.Score.find().countDoc([44m)[49m;[32G[1G[0Jlab01> db.Score.find().countDocu([44m)[49m;[33G[1G[0Jlab01> db.Score.find().countDocum([44m)[49m;[34G[1G[0Jlab01> db.Score.find().countDocume([44m)[49m;[35G[1G[0Jlab01> db.Score.find().countDocumen([44m)[49m;[36G[1G[0Jlab01> db.Score.find().countDocument([44m)[49m;[37G[1G[0Jlab01> db.Score.find().countDocuments([44m)[49m;[38G[3C[1G[0Jlab01> db.Score.find().countDocuments();[41G
+Uncaught [1m[31mTypeError[0m: db.Score.find().countDocuments is not a function
+[1G[0Jlab01> [8G[1G[0Jlab01> db.Score.find().countDocuments();[41G[1D[1D[1G[0Jlab01> db.Score.find().countDocuments[44m([49m);[39G[1D[1G[0Jlab01> db.Score.find().countDocuments([44m)[49m;[38G[1D[1G[0Jlab01> db.Score.find().countDocuments();[37G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.find(.countDocuments();[22G[1G[0Jlab01> db.Score.find.countDocuments();[21G[1G[0Jlab01> db.Score.fin.countDocuments();[20G[1G[0Jlab01> db.Score.fi.countDocuments();[19G[1G[0Jlab01> db.Score.f.countDocuments();[18G[1G[0Jlab01> db.Score..countDocuments();[17G[1G[0Jlab01> db.Score.c.countDocuments();[18G[1G[0Jlab01> db.Score.co.countDocuments();[19G[1G[0Jlab01> db.Score.col.countDocuments();[20G[1G[0Jlab01> db.Score.coll.countDocuments();[21G[1G[0Jlab01> db.Score.colle.countDocuments();[22G[1G[0Jlab01> db.Score.collec.countDocuments();[23G[1G[0Jlab01> db.Score.collect.countDocuments();[24G[1G[0Jlab01> db.Score.collecti.countDocuments();[25G[1G[0Jlab01> db.Score.collectio.countDocuments();[26G[1G[0Jlab01> db.Score.collection.countDocuments();[27G[1G[0Jlab01> db.Score.collections.countDocuments();[28G[18C
+[33m0[39m
+[1G[0Jlab01> [8G[1G[0Jlab01> db.Score.collections.countDocuments();[46G[1D[1D[1G[0Jlab01> db.Score.collections.countDocuments[44m([49m);[44G[1D[1G[0Jlab01> db.Score.collections.countDocuments([44m)[49m;[43G[1D[1G[0Jlab01> db.Score.collections.countDocuments();[42G[1D[1D[1D[1D[1C[1C[1C[1C[1C[1G[0Jlab01> db.Score.collections.countDocuments([44m)[49m;[43G[1C[1G[0Jlab01> db.Score.collections.countDocuments[44m([49m);[44G[1C[1G[0Jlab01> db.Score.collections.countDocuments();[45G[1C[1G[0Jlab01> db.Score.collections.countDocuments()[45G[1G[0Jlab01> db.Score.collections.countDocuments([44G[1G[0Jlab01> db.Score.collections.countDocuments[43G[1G[0Jlab01> db.Score.collections.countDocument[42G[1G[0Jlab01> db.Score.collections.countDocumen[41G[1G[0Jlab01> db.Score.collections.countDocume[40G[1G[0Jlab01> db.Score.collections.countDocum[39G[1G[0Jlab01> db.Score.collections.countDocu[38G[1G[0Jlab01> db.Score.collections.countDoc[37G[1G[0Jlab01> db.Score.collections.countDo[36G[1G[0Jlab01> db.Score.collections.countD[35G[1G[0Jlab01> db.Score.collections.count[34G[1G[0Jlab01> db.Score.collections.coun[33G[1G[0Jlab01> db.Score.collections.cou[32G[1G[0Jlab01> db.Score.collections.co[31G[1G[0Jlab01> db.Score.collections.c[30G[1G[0Jlab01> db.Score.collections.[29G[1G[0Jlab01> db.Score.collections[28G[1G[0Jlab01> db.Score.collection[27G[1G[0Jlab01> db.Score.collectio[26G[1G[0Jlab01> db.Score.collecti[25G[1G[0Jlab01> db.Score.collect[24G[1G[0Jlab01> db.Score.collec[23G[1G[0Jlab01> db.Score.colle[22G[1G[0Jlab01> db.Score.coll[21G[1G[0Jlab01> db.Score.col[20G[1G[0Jlab01> db.Score.co[19G[1G[0Jlab01> db.Score.c[18G[1G[0Jlab01> db.Score.[17GcountDocument()
+Uncaught [1m[31mTypeError[0m: db.Score.countDocument is not a function
+[1G[0Jlab01> [8Gdb.Score.[1G[0Jlab01> db.Score[16G[1G[0Jlab01> db.Scor[15G[1G[0Jlab01> db.Sco[14G[1G[0Jlab01> db.Sc[13G[1G[0Jlab01> db.S[12G[1G[0Jlab01> db.[11G[1G[0Jlab01> db[10G[1G[0Jlab01> d[9G[1G[0Jlab01> [8Gdb collections
+Uncaught:
+[1m[31mSyntaxError[0m: Missing semicolon. (1:2)
+
+[0m[31m[1m>[22m[39m[90m 1 |[39m db collections
+ [90m   |[39m   [31m[1m^[22m[39m
+ [90m 2 |[39m[0m
+
+[1G[0Jlab01> [8Gdb co[1G[0Jlab01> db c[12G[1G[0Jlab01> db [11G[1G[0Jlab01> db[10G[1G[0Jlab01> d[9G[1G[0Jlab01> [8Gshow collections
+[1mScore[0m
+[1G[0Jlab01> [8Gdb.Score.find()
+[
+  {
+    _id: ObjectId([32m'684809561161f5eb3d840ba2'[39m),
+    name: [32m'aaa'[39m,
+    kor: [33m90[39m,
+    eng: [33m80[39m,
+    mat: [33m98[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809671161f5eb3d840ba3'[39m),
+    name: [32m'bbb'[39m,
+    kor: [33m100[39m,
+    eng: [33m100[39m,
+    mat: [33m76[39m,
+    test: [32m'final'[39m
+  },
+  {
+    _id: ObjectId([32m'684809741161f5eb3d840ba4'[39m),
+    name: [32m'ccc'[39m,
+    kor: [33m90[39m,
+    eng: [33m55[39m,
+    mat: [33m67[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809841161f5eb3d840ba5'[39m),
+    name: [32m'ddd'[39m,
+    kor: [33m70[39m,
+    eng: [33m69[39m,
+    mat: [33m89[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809901161f5eb3d840ba6'[39m),
+    name: [32m'eee'[39m,
+    kor: [33m60[39m,
+    eng: [33m80[39m,
+    mat: [33m78[39m,
+    test: [32m'final'[39m
+  },
+  {
+    _id: ObjectId([32m'6848099e1161f5eb3d840ba7'[39m),
+    name: [32m'fff'[39m,
+    kor: [33m90[39m,
+    eng: [33m65[39m,
+    mat: [33m98[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809ad1161f5eb3d840ba8'[39m),
+    name: [32m'ggg'[39m,
+    kor: [33m75[39m,
+    eng: [33m100[39m,
+    mat: [33m98[39m,
+    test: [32m'final'[39m
+  }
+]
+[1G[0Jlab01> [8Gdb.Score.count()
+DeprecationWarning: Collection.count() is deprecated. Use countDocuments or estimatedDocumentCount.
+[33m7[39m
+[1G[0Jlab01> [8Gdb.countDocuments()
+Uncaught [1m[31mTypeError[0m: db.countDocuments is not a function
+[1G[0Jlab01> [8G[1G[0Jlab01> db.countDocuments()[27G[1G[0Jlab01> db.countDocuments([26G[1G[0Jlab01> db.countDocuments[25G[1G[0Jlab01> db.countDocument[24Gs
+lab01.countDocuments
+[1G[0Jlab01> [8Gdb.Score.countDocuments()
+[33m7[39m
+[1G[0Jlab01> [8Gpr[1G[0Jlab01> p[9G[1G[0Jlab01> [8Gprint([32m"[39m[32m#[39m [32mQ[39m[32m2[39m[32m)[39m [32mS[39m[32mc[39m[32mo[39m[32mr[39m[32me[39m [32m의[39m [32m이[39m[32m름[39m[32m과[39m [32m수[39m[32m학[39m [32m점[39m[32m수[39m[32m만[39m [32m출[39m[32m력[39m [32m해[39m[32m보[39m[32m자[39m[32m.[39m[32m"[39m)
+# Q2) Score 의 이름과 수학 점수만 출력 해보자.
+
+[1G[0Jlab01> [8Gdb.Score.find({}, {name[33mname[39m:[33m1[39m,mat[33mmat[39m:[33m1[39m,_id0[33m_id0[39m:[1G[0Jlab01> db.Score.find({}, {[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,_id0[44G[1G[0Jlab01> db.Score.find({}, {[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,_id[43G[33m_id[39m:[33m0[39m})
+[
+  { name: [32m'aaa'[39m, mat: [33m98[39m },
+  { name: [32m'bbb'[39m, mat: [33m76[39m },
+  { name: [32m'ccc'[39m, mat: [33m67[39m },
+  { name: [32m'ddd'[39m, mat: [33m89[39m },
+  { name: [32m'eee'[39m, mat: [33m78[39m },
+  { name: [32m'fff'[39m, mat: [33m98[39m },
+  { name: [32m'ggg'[39m, mat: [33m98[39m }
+]
+[1G[0Jlab01> [8Gprint([32m"[39m[32m#[39m [32mQ[39m[32m3[39m[32m)[39m [32mS[39m[32mc[39m[32mo[39m[32mr[39m[32me[39m [32m의[39m [32m수[39m[32m학[39m [32m점[39m[32m수[39m [32m중[39m [32m7[39m[32m0[39m [32m점[39m [32m이[39m[32m상[39m[32m만[39m [32m출[39m[32m력[39m [32m해[39m[32m보[39m[32m자[39m[32m.[39m[32m)[39m
+Uncaught:
+[1m[31mSyntaxError[0m: Unterminated string constant. (1:6)
+
+[0m[31m[1m>[22m[39m[90m 1 |[39m print([32m"# Q3) Score 의 수학 점수 중 70 점 이상만 출력 해보자.)[39m
+ [90m   |[39m       [31m[1m^[22m[39m
+ [90m 2 |[39m[0m
+
+[1G[0Jlab01> [8G[1G[0Jlab01> print([32m"# Q3) Score 의 수학 점수 중 70 점 이상만 출력 해보자.)[39m[69G[1D[1G[0Jlab01> print([32m"# Q3) Score 의 수학 점수 중 70 점 이상만 출력 해보자.)[39m[68G[1G[0Jlab01> print[44m([49m[32m"# Q3) Score 의 수학 점수 중 70 점 이상만 출력 해보자."[39m)[69G[1C[1G[0Jlab01> print([32m"# Q3) Score 의 수학 점수 중 70 점 이상만 출력 해보자."[39m)[70G
+# Q3) Score 의 수학 점수 중 70 점 이상만 출력 해보자.
+
+[1G[0Jlab01> [8Gdb.Score.find({mat[33mmat[39m:[1G[0Jlab01> db.Score.find({mat[26G[1G[0Jlab01> db.Score.find({ma[25G[1G[0Jlab01> db.Score.find({m[24G[1G[0Jlab01> db.Score.find({[23Gnamd[33mnamd[39m:[1G[0Jlab01> db.Score.find({namd[27G[1G[0Jlab01> db.Score.find({nam[26Ge[33mname[39m:[33m1[39m[1G[0Jlab01> db.Score.find({[33mname[39m:[28G[1G[0Jlab01> db.Score.find({name[27G[1G[0Jlab01> db.Score.find({nam[26G[1G[0Jlab01> db.Score.find({na[25G[1G[0Jlab01> db.Score.find({n[24G[1G[0Jlab01> db.Score.find({[23Gmat[33mmat[39m:($gte:[33m7[39m[33m0[39m)[1G[0Jlab01> db.Score.find({[33mmat[39m:($gte:[33m70[39m[35G}[1D[1G[0Jlab01> db.Score.find([44m{[49m[33mmat[39m:($gte:[33m70[39m}[35G[1D[1G[0Jlab01> db.Score.find({[33mmat[39m:($gte:[33m70[39m}[34G[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.find({[33mmat[39m:($gte:[33m70[39m}[28G[1G[0Jlab01> db.Score.find({[33mmat[39m:$gte:[33m70[39m}[27G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}[28G[1C[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}[29G[1C[1C[1C[1C[1C[1C[1G[0Jlab01> db.Score.find({[33mmat[39m:[44m{[49m[33m$gte[39m:[33m70[39m}[35G[1C[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}[36G}).count()
+[33m6[39m
+[1G[0Jlab01> [8G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}}).count()[46G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}}).count([45G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}}).count[44G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}}).coun[43G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}}).cou[42G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}}).co[41G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}}).c[40G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}}).[39G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}})[38G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}}[37G,{name[33mname[39m:[33m1[39m,mat[33mmat[39m:[33m1[39m,_id[33m_id[39m:[33m0[39m})
+[
+  { name: [32m'aaa'[39m, mat: [33m98[39m },
+  { name: [32m'bbb'[39m, mat: [33m76[39m },
+  { name: [32m'ddd'[39m, mat: [33m89[39m },
+  { name: [32m'eee'[39m, mat: [33m78[39m },
+  { name: [32m'fff'[39m, mat: [33m98[39m },
+  { name: [32m'ggg'[39m, mat: [33m98[39m }
+]
+[1G[0Jlab01> [8G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}},{[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[59G[1D[1G[0Jlab01> db.Score.find[44m([49m{[33mmat[39m:{[33m$gte[39m:[33m70[39m}},{[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[58G[1D[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}},[44m{[49m[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[57G[1D[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}},{[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[56G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}},{[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,[33m_id[39m:[33m0[39m[44m}[49m)[38G[1D[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}},{[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[37G[1D[1G[0Jlab01> db.Score.find([44m{[49m[33mmat[39m:{[33m$gte[39m:[33m70[39m}},{[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[36G[1D[1G[0Jlab01> db.Score.find({[33mmat[39m:[44m{[49m[33m$gte[39m:[33m70[39m}},{[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[35G[1D[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m70[39m}},{[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[34G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m0[39m}},{[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[33G[1G[0Jlab01> db.Score.find({[33mmat[39m:{[33m$gte[39m:[33m90[39m}},{[33mname[39m:[33m1[39m,[33mmat[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[34G[25C
+[
+  { name: [32m'aaa'[39m, mat: [33m98[39m },
+  { name: [32m'fff'[39m, mat: [33m98[39m },
+  { name: [32m'ggg'[39m, mat: [33m98[39m }
+]
+[1G[0Jlab01> [8Gprint([32m"[39m[32m#[39m [32mQ[39m[32m4[39m[32m)[39m [32mS[39m[32mc[39m[32mo[39m[32mr[39m[32me[39m [32m의[39m [32m이[39m[32m름[39m[32m과[39m [32m국[39m[32m어[39m[32m점[39m[32m수[39m[32m를[39m [32m출[39m[32m력[39m[32m하[39m[32m되[39m [32m국[39m[32m어[39m[32m점[39m[32m수[39m[32m가[39m [32m8[39m[32m0[39m [32m점[39m [32m이[39m[32m상[39m[32m만[39m [32m출[39m[32m력[39m[32m하[39m[1G[0Jlab01> print([32m"# Q4) Score 의 이름과 국어점수를 출력하되 국어점수가 80 점 이상만 출력하자[39m [1G[32m.[39m[32m"[39m)
+# Q4) Score 의 이름과 국어점수를 출력하되 국어점수가 80 점 이상만 출력하자.
+
+[1G[0Jlab01> [8Gva[36mvar[39m sr = db.Score.find({kore[33mkore[39m:{$gte[33m$gte[39m:[33m8[39m[33m0[39m},name:[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},name[51G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},nam[50G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},na[49G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},n[48G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},[47G{name[33mname[39m:[33m1[39m,kore[33mkore[39m:[33m1[39m,[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},{[33mname[39m:[33m1[39m,[33mkore[39m:[33m1[39m[61G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},{[33mname[39m:[33m1[39m,[33mkore[39m:[60G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},{[33mname[39m:[33m1[39m,kore[59G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},{[33mname[39m:[33m1[39m,kor[58G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},{[33mname[39m:[33m1[39m,ko[57Gr[33mkor[39m:[33m1[39m,_id[33m_id[39m:[33m0[39m})
+Uncaught:
+[1m[31mSyntaxError[0m: Unexpected token (1:39)
+
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mvar[39m sr [33m=[39m db[33m.[39m[33mScore[39m[33m.[39mfind({kore[33m:[39m{$gte[33m:[39m[35m80[39m}[33m,[39m{name[33m:[39m[35m1[39m[33m,[39mkor[33m:[39m[35m1[39m[33m,[39m_id[33m:[39m[35m0[39m})
+ [90m   |[39m                                        [31m[1m^[22m[39m
+ [90m 2 |[39m[0m
+
+[1G[0Jlab01> [8G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[68G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find[44m([49m{[33mkore[39m:{[33m$gte[39m:[33m80[39m},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[67G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},[44m{[49m[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[66G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[65G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m[44m}[49m)[47G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[46G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[47G[22C
+
+[1G[0Jlab01> [8Gsr
+
+[1G[0Jlab01> [8G[1G[0Jlab01> sr[10G[1D[1G[0Jlab01> show collections[24G[1G[0Jlab01> show dbs[16G[1G[0Jlab01> show collections[24G[1G[0Jlab01> show dbs[16G[1G[0Jlab01> show collections[24G[1G[0Jlab01> sr[10G[1G[0Jlab01> s[9G[1G[0Jlab01> sr[10G\\[1G[0Jlab01> sr\[11G[1G[0Jlab01> sr[10G[1G[0Jlab01> s[9G[1G[0Jlab01> [8G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[69G[1G[0Jlab01> print([32m"# Q4) Score 의 이름과 국어점수를 출력하되 국어점수가 80 점 이상만 출력하자."[39m)[4G[1A[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[69G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find[44m([49m{[33mkore[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[68G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m}},[44m{[49m[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[67G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[66G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m[44m}[49m)[48G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[47G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find([44m{[49m[33mkore[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[46G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:[44m{[49m[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[45G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[44G[1D[1D[1D[1D[1D[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[38G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m[44m}[49m},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[37G[1D[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkore[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[36G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkor[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[35G[33C
+
+[1G[0Jlab01> [8G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkor[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[68G[1G[0Jlab01> sr[10G
+[
+  { name: [32m'aaa'[39m, kor: [33m90[39m },
+  { name: [32m'bbb'[39m, kor: [33m100[39m },
+  { name: [32m'ccc'[39m, kor: [33m90[39m },
+  { name: [32m'fff'[39m, kor: [33m90[39m }
+]
+[1G[0Jlab01> [8Gva[36mvar[39m tot = [33m0[39m
+
+[1G[0Jlab01> [8Gwhil[36mwhile[39m(sr.hasNext()){ [1G[0Jlab01> [36mwhile[39m(sr.hasNext()){[28G...[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){..[30G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){.[29G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){[28Gres = sr.net()[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res = sr.net([41G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res = sr.net[40G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res = sr.ne[39G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res = sr.n[38G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res = sr.[37G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res = sr[36G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res = s[35G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res = [34G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res =[33G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res [32G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res[31G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){re[30G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){r[29G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){[28G
+| 
+[1G[0Jlab01> [8Gres - sr.net[1G[0Jlab01> res - sr.ne[19G[1G[0Jlab01> res - sr.n[18G[1G[0Jlab01> res - sr.[17Gxt()
+Uncaught [1m[31mReferenceError[0m: res is not defined
+[1G[0Jlab01> [8Gedit
+Opening an editor...
+(node:1478) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+
+[1G[0Jlab01> [8Gl[1G[0Jlab01> [8Gload([32m"[39m[32m/[39m[32mU[39m[32ms[39m[32me[39m[32mr[39m[32ms[39m[32m/[39m[32mj[39m[1G[0Jlab01> load([32m"/Users/JSON[39m[25G[1G[0Jlab01> load([32m"/Users/JSO[39m[24G[1G[0Jlab01> load([32m"/Users/JS[39m[23G[1G[0Jlab01> load([32m"/Users/J[39m[22G[1G[0Jlab01> load([32m"/Users/[39m[21G[32mj[39m[32mu[39m[32ma[39m[32mn[39m[32mp[39m[32ma[39m[32mr[39m[32mk[39m[32m/[39m[32m.[39m[32mm[39m[32mo[39m[32mn[39m[1G[0Jlab01> load([32m"/Users/juanpark/.Mongo[39m[36G
+load("/Users/juanpark/.Mongo
+load("/Users/juanpark/.MongoshAsyncWriterError
+
+[1G[0Jlab01> load([32m"/Users/juanpark/.Mongo[39m[36G[1G[0Jlab01> load([32m"/Users/juanpark/.Mong[39m[35G[1G[0Jlab01> load([32m"/Users/juanpark/.Mon[39m[34G[1G[0Jlab01> load([32m"/Users/juanpark/.Mo[39m[33G[1G[0Jlab01> load([32m"/Users/juanpark/.M[39m[32G[32mm[39m[32mo[39m[32mn[39m[1G[0Jlab01> load([32m"/Users/juanpark/.Mmo[39m[34G[1G[0Jlab01> load([32m"/Users/juanpark/.Mm[39m[33G[1G[0Jlab01> load([32m"/Users/juanpark/.M[39m[32G[1G[0Jlab01> load([32m"/Users/juanpark/.[39m[31G[32mm[39m[32mo[39m[32mn[39m[32mg[39m[32mo[39m[32md[39m[32mb[39m[32m/[39m[32mm[39m[32mo[39m[32mn[39m[32mg[39m[32mo[39m[32ms[39m[32mh[39m[32m/[39m[32me[39m[32md[39m[32mi[39m[32mt[39m[32mo[39m[32mr[39m[32m/[39m[32me[39m[32md[39m[32mi[39m[32mt[39m[32m-[39m[32m6[39m[32m8[39m[32m4[39m[32m8[39m[32m0[39m[32me[39m[32m4[39m[32mf[39m[32m1[39m[32m1[39m[32m6[39m[32m1[39m[32mf[39m[32m5[39m[32me[39m[32mb[39m[32m3[39m[32md[39m[32m8[39m[32m4[39m[32m0[39m[32mb[39m[32ma[39m[32m9[39m[32m.[39m[32mj[39m[32ms[39m
+Uncaught:
+[1m[31mSyntaxError[0m: Unterminated string constant. (1:5)
+
+[0m[31m[1m>[22m[39m[90m 1 |[39m load([32m"/Users/juanpark/.mongodb/mongosh/editor/edit-68480e4f1161f5eb3d840ba9.js[39m
+ [90m   |[39m      [31m[1m^[22m[39m
+ [90m 2 |[39m[0m
+
+[1G[0Jlab01> [8G[1G[0Jlab01> load([32m"/Users/juanpark/.mongodb/mongosh/editor/edit-68480e4f1161f5eb3d840ba9.js[39m[86G[32m"[39m)
+[33mtrue[39m
+[1G[0Jlab01> [8Gprint([32m"[39m[32mt[39m[32mo[39m[32mt[39m[32m-[39m[1G[0Jlab01> print([32m"tot[39m[18G[32m=[39m[32m"[39m _ [1G[0Jlab01> print([32m"tot="[39m _[22G[1G[0Jlab01> print([32m"tot="[39m [21G+ tot);
+tot=0
+
+[1G[0Jlab01> [8Gsr
+[
+  { name: [32m'aaa'[39m, kor: [33m90[39m },
+  { name: [32m'bbb'[39m, kor: [33m100[39m },
+  { name: [32m'ccc'[39m, kor: [33m90[39m },
+  { name: [32m'fff'[39m, kor: [33m90[39m }
+]
+[1G[0Jlab01> [8Gwhil[36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m"[39m[32m:[39m[32m"[39m + res.kor); tot += res.kor[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; [1G print([32m"[39m[32mt[39m[32mo[39m[32mt[39m[32m=[39m[32m"[39m + tot);
+Uncaught:
+[1m[31mSyntaxError[0m: Missing semicolon. (1:32)
+
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mwhile[39m(sr[33m.[39mhasNext()){res[33m=[39msr[33m.[39mnet() print(res[33m.[39mname [33m+[39m [32m":"[39m [33m+[39m res[33m.[39mkor)[33m;[39m tot [33m+=[39m res[33m.[39mkor[33m;[39m print([32m"tot="[39m [33m+[39m tot)[33m;[39m
+ [90m   |[39m                                 [31m[1m^[22m[39m
+ [90m 2 |[39m[0m
+
+[1G[0Jlab01> [8G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[22G[1D[1D[1A[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print[44m([49m[32m"tot="[39m + tot);[20G[1D[1A[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[19G[1D[1D[1D[1D[1D[1D[1A[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([44m[32m"[49mtot="[39m + tot);[13G[1D[1A[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[12G[1D[1D[1D[1D[1A[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot=[44m"[39m[49m + tot);[8G[1D[1A[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot[44m)[49m;[7G[1D[1A[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[6G[1D[1D[1D[1D[1D[1A[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[88G[1A[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print[44m([49mres.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[71G[1A[1D[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[70G[1A[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [44m[32m"[49m:"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[60G[1A[1D[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[59G[1A[1D[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":[44m"[39m[49m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[58G[1A[1D[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[57G[1A[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor[44m)[49m; tot += res.kor; print([32m"tot="[39m + tot);[46G[1A[1D[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net() print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[45G[1A[1D[1D[1D[1D[1D[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net(); print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[41G[1A[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net(); print(res.name + [32m":"[39m + res.kor); tot += res.kor; print([32m"tot="[39m + tot);[23G
+[1A[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.net();
+|  print(res.name + ":" + res.kor); tot += res.kor; print("tot=" + tot);[70D[70C
+[1G[0Jlab01> [8G
+
+[1G[0Jlab01> [8G
+
+[1G[0Jlab01> [8G[1G[0Jlab01> sr[10G[1G[0Jlab01> print([32m"tot="[39m + tot);[28G[1G[0Jlab01> sr[10G[1G[0Jlab01> [8Gsr
+[
+  { name: [32m'aaa'[39m, kor: [33m90[39m },
+  { name: [32m'bbb'[39m, kor: [33m100[39m },
+  { name: [32m'ccc'[39m, kor: [33m90[39m },
+  { name: [32m'fff'[39m, kor: [33m90[39m }
+]
+[1G[0Jlab01> [8Gtot
+[33m0[39m
+[1G[0Jlab01> [8Gwhil[36mwhile[39m(sr.hasNext()){res=sr.next();print(res.name+[32m"[39m[32m:[39m[32m"[39m+res.kor);tot+=res.kor;print[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.next();print(res.name+[32m":"[39m+res.kor);tot+=res.kor;print( [1G[32m"[39m[32mt[39m[32mo[39m[32mt[39m[32m=[39m[32m"[39m+tot);}
+
+[1G[0Jlab01> [8Gprint([32m"[39m[32mt[39m[32mo[39m[32mt[39m[32m=[39m[32m"[39m _ [1G[0Jlab01> print([32m"tot="[39m _[22G[1G[0Jlab01> print([32m"tot="[39m [21G[1G[0Jlab01> print([32m"tot="[39m[20G+tot);
+tot=0
+
+[1G[0Jlab01> [8Gva[36mvar[39m[1G[0Jlab01> va[10G[1G[0Jlab01> v[9G[1G[0Jlab01> [8G[1G[0Jlab01> print([32m"tot="[39m+tot);[26G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.next();print(res.name+[32m":"[39m+res.kor);tot+=res.kor;print([32m"tot="[39m+tot);}[14G[1A[1G[0Jlab01> tot[11G[1G[0Jlab01> sr[10G[1G[0Jlab01> print([32m"tot="[39m + tot);[28G[1G[0Jlab01> load([32m"/Users/juanpark/.mongodb/mongosh/editor/edit-68480e4f1161f5eb3d840ba9.js"[39m)[88G[1G[0Jlab01> edit[12G[1G[0Jlab01> [36mvar[39m tot = [33m0[39m[19G[1G[0Jlab01> sr[10G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkor[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[68G\[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkor[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[68G
+
+[1G[0Jlab01> [8Gva[36mvar[39m tot = [33m0[39m
+
+[1G[0Jlab01> [8G[1G[0Jlab01> [36mvar[39m tot = [33m0[39m[19G[1G[0Jlab01> [36mvar[39m sr = db.Score.find({[33mkor[39m:{[33m$gte[39m:[33m80[39m}},{[33mname[39m:[33m1[39m,[33mkor[39m:[33m1[39m,[33m_id[39m:[33m0[39m})[68G[1G[0Jlab01> print([32m"tot="[39m+tot);[26G[1G[0Jlab01> [36mwhile[39m(sr.hasNext()){res=sr.next();print(res.name+[32m":"[39m+res.kor);tot+=res.kor;print([32m"tot="[39m+tot);}[14G
+aaa:90
+tot=90
+bbb:100
+tot=190
+ccc:90
+tot=280
+fff:90
+tot=370
+
+[1G[0Jlab01> [8Gprint([32m"[39m[32mt[39m[32mo[39m[32mt[39m[32m=[39m[32m"[39m + tot);
+tot=370
+
+[1G[0Jlab01> [8Gprint([32m"[39m[32m#[39m [32mQ[39m[32m5[39m[32m)[39m [32mS[39m[32mc[39m[32mo[39m[32mr[39m[32me[39m [32m의[39m [32m전[39m[32m체[39m [32m출[39m[32m력[39m[32m하[39m[32m자[39m [32m.[39m[32m이[39m[32m름[39m[32m과[39m [32mt[39m[32me[39m[32ms[39m[32mt[39m [32m를[39m [32m출[39m[32m력[39m[32m하[39m[32m자[39m[32m.[39m[32m"[39m)
+# Q5) Score 의 전체 출력하자 .이름과 test 를 출력하자.
+
+[1G[0Jlab01> [8Gva[36mvar[39m sm = db.Score.find();
+
+[1G[0Jlab01> [8Gsm
+[
+  {
+    _id: ObjectId([32m'684809561161f5eb3d840ba2'[39m),
+    name: [32m'aaa'[39m,
+    kor: [33m90[39m,
+    eng: [33m80[39m,
+    mat: [33m98[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809671161f5eb3d840ba3'[39m),
+    name: [32m'bbb'[39m,
+    kor: [33m100[39m,
+    eng: [33m100[39m,
+    mat: [33m76[39m,
+    test: [32m'final'[39m
+  },
+  {
+    _id: ObjectId([32m'684809741161f5eb3d840ba4'[39m),
+    name: [32m'ccc'[39m,
+    kor: [33m90[39m,
+    eng: [33m55[39m,
+    mat: [33m67[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809841161f5eb3d840ba5'[39m),
+    name: [32m'ddd'[39m,
+    kor: [33m70[39m,
+    eng: [33m69[39m,
+    mat: [33m89[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809901161f5eb3d840ba6'[39m),
+    name: [32m'eee'[39m,
+    kor: [33m60[39m,
+    eng: [33m80[39m,
+    mat: [33m78[39m,
+    test: [32m'final'[39m
+  },
+  {
+    _id: ObjectId([32m'6848099e1161f5eb3d840ba7'[39m),
+    name: [32m'fff'[39m,
+    kor: [33m90[39m,
+    eng: [33m65[39m,
+    mat: [33m98[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809ad1161f5eb3d840ba8'[39m),
+    name: [32m'ggg'[39m,
+    kor: [33m75[39m,
+    eng: [33m100[39m,
+    mat: [33m98[39m,
+    test: [32m'final'[39m
+  }
+]
+[1G[0Jlab01> [8Gsm.forEach(functio[36mfunction[39m(x) { i[36mif[39m(x.test == [32m"[39m[32mf[39m[32mi[39m[32mn[39m[32ma[39m[32ml[39m[32m"[39m) print(x.name + [32m"[39m[32m;[39m[1G[0Jlab01> sm.forEach([36mfunction[39m(x) { [36mif[39m(x.test == [32m"final"[39m) print(x.name + [32m"[39m[71G[32m:[39m[32m"[39m + x.test)[33mprint[39m(x.name + [32m":"[39m + x.test){)[1G[0Jlab01> sm.forEach([36mfunction[39m(x) { [36mif[39m(x.test == [32m"final"[39m) [33mprint[39m(x.name + [32m":"[39m + x.test){[84G[1G[0Jlab01> sm.forEach([36mfunction[39m(x) { [36mif[39m(x.test == [32m"final"[39m) print(x.name + [32m":"[39m + x.test)[83G})
+
+[1G[0Jlab01> [8Gsm
+[
+  {
+    _id: ObjectId([32m'684809561161f5eb3d840ba2'[39m),
+    name: [32m'aaa'[39m,
+    kor: [33m90[39m,
+    eng: [33m80[39m,
+    mat: [33m98[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809671161f5eb3d840ba3'[39m),
+    name: [32m'bbb'[39m,
+    kor: [33m100[39m,
+    eng: [33m100[39m,
+    mat: [33m76[39m,
+    test: [32m'final'[39m
+  },
+  {
+    _id: ObjectId([32m'684809741161f5eb3d840ba4'[39m),
+    name: [32m'ccc'[39m,
+    kor: [33m90[39m,
+    eng: [33m55[39m,
+    mat: [33m67[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809841161f5eb3d840ba5'[39m),
+    name: [32m'ddd'[39m,
+    kor: [33m70[39m,
+    eng: [33m69[39m,
+    mat: [33m89[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809901161f5eb3d840ba6'[39m),
+    name: [32m'eee'[39m,
+    kor: [33m60[39m,
+    eng: [33m80[39m,
+    mat: [33m78[39m,
+    test: [32m'final'[39m
+  },
+  {
+    _id: ObjectId([32m'6848099e1161f5eb3d840ba7'[39m),
+    name: [32m'fff'[39m,
+    kor: [33m90[39m,
+    eng: [33m65[39m,
+    mat: [33m98[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809ad1161f5eb3d840ba8'[39m),
+    name: [32m'ggg'[39m,
+    kor: [33m75[39m,
+    eng: [33m100[39m,
+    mat: [33m98[39m,
+    test: [32m'final'[39m
+  }
+]
+[1G[0Jlab01> [8Gsm.forEach(functio[36mfunction[39m(x) { [1G[0Jlab01> sm.forEach([36mfunction[39m(x) {[32G[1G[0Jlab01> sm.forEach([36mfunction[39m(x) [31G[1G[0Jlab01> sm.forEach([36mfunction[39m(x)[30G{print(x.name+[32m"[39m[32m-[39m[32m>[39m[32m"[39m+x.test);});
+
+[1G[0Jlab01> [8Gtypeo[36mtypeof[39m(sm)
+object
+[1G[0Jlab01> [8Gva[36mvar[39m sm - db.Score.find();
+Uncaught:
+[1m[31mSyntaxError[0m: Missing semicolon. (1:6)
+
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mvar[39m sm [33m-[39m db[33m.[39m[33mScore[39m[33m.[39mfind()[33m;[39m
+ [90m   |[39m       [31m[1m^[22m[39m
+ [90m 2 |[39m[0m
+
+[1G[0Jlab01> [8G[1G[0Jlab01> [36mvar[39m sm - db.Score.find();[33G[1D[1D[1G[0Jlab01> [36mvar[39m sm - db.Score.find[44m([49m);[31G[1D[1G[0Jlab01> [36mvar[39m sm - db.Score.find([44m)[49m;[30G[1D[1G[0Jlab01> [36mvar[39m sm - db.Score.find();[29G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jlab01> [36mvar[39m sm  db.Score.find();[15G[1G[0Jlab01> [36mvar[39m sm = db.Score.find();[16G[17C
+
+[1G[0Jlab01> [8Gsm
+[
+  {
+    _id: ObjectId([32m'684809561161f5eb3d840ba2'[39m),
+    name: [32m'aaa'[39m,
+    kor: [33m90[39m,
+    eng: [33m80[39m,
+    mat: [33m98[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809671161f5eb3d840ba3'[39m),
+    name: [32m'bbb'[39m,
+    kor: [33m100[39m,
+    eng: [33m100[39m,
+    mat: [33m76[39m,
+    test: [32m'final'[39m
+  },
+  {
+    _id: ObjectId([32m'684809741161f5eb3d840ba4'[39m),
+    name: [32m'ccc'[39m,
+    kor: [33m90[39m,
+    eng: [33m55[39m,
+    mat: [33m67[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809841161f5eb3d840ba5'[39m),
+    name: [32m'ddd'[39m,
+    kor: [33m70[39m,
+    eng: [33m69[39m,
+    mat: [33m89[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809901161f5eb3d840ba6'[39m),
+    name: [32m'eee'[39m,
+    kor: [33m60[39m,
+    eng: [33m80[39m,
+    mat: [33m78[39m,
+    test: [32m'final'[39m
+  },
+  {
+    _id: ObjectId([32m'6848099e1161f5eb3d840ba7'[39m),
+    name: [32m'fff'[39m,
+    kor: [33m90[39m,
+    eng: [33m65[39m,
+    mat: [33m98[39m,
+    test: [32m'midterm'[39m
+  },
+  {
+    _id: ObjectId([32m'684809ad1161f5eb3d840ba8'[39m),
+    name: [32m'ggg'[39m,
+    kor: [33m75[39m,
+    eng: [33m100[39m,
+    mat: [33m98[39m,
+    test: [32m'final'[39m
+  }
+]
+[1G[0Jlab01> [8Gsm.forEach(functio[36mfunction[39m(x){ printjson(x); });
+
+[1G[0Jlab01> [8Gwhil[36mwhile[39m ( [1G[0Jlab01> [36mwhile[39m ([15G[1G[0Jlab01> [36mwhile[39m [14G[1G[0Jlab01> [36mwhile[39m[13G[1G[0Jlab01> whil[12G[1G[0Jlab01> whi[11G[1G[0Jlab01> wh[10G[1G[0Jlab01> w[9G[1G[0Jlab01> [8G[1G[0Jlab01> sm.forEach([36mfunction[39m(x){ printjson(x); });[49G
+
+[1G[0Jlab01> [8Gwhil[36mwhile[39m (sm.hasNext()) {
+| 
+[1G[0Jlab01> [8Gfas[1G[0Jlab01> fa[10G[1G[0Jlab01> f[9G[1G[0Jlab01> [8Gexit
+[?2004l[1m[7m%[27m[1m[0m                                                                                        ]2;juanpark@mini:~/computer.lab/멋사/LikeLion-Collab/curriculum/MyMongoDB]1;..lum/MyMongoDB]7;file://mini.local/Users/juanpark/computer.lab/%EB%A9%8B%EC%82%AC/LikeLion-Collab/curriculum/MyMongoDB\[0m[27m[24m[J[34mmini[01;32m➜  [36mMyMongoDB[00m [01;34mgit:([31mmain[34m) [33m✗[00m [K[?1h=[?2004he[1m[31me[0m[39m[1m[31me[0m[39m[90mxit[39m[1m[31me[1m[31mx[0m[39m[0m[32me[0m[32mx[39m[32me[32mx[32mi[39m[1m[31me[1m[31mx[1m[31mi[0m[39m[1m[31mi[1m[31mt[0m[39m[0m[32me[0m[32mx[0m[32mi[0m[32mt[39m[?1l>[?2004l
+]2;exit]1;exit

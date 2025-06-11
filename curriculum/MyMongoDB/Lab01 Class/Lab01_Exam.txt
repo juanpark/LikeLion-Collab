@@ -190,12 +190,34 @@ db.emp.aggregate([
 
 -- Q3  사원테이블에서 부서 번호가 10,30번인 사원의 월급의 합을 구하자.
 db.emp.aggregate([
-
-
+  {$match:{deptno:{$in:[10,30]}}},
+  {$group:{_id:"Add_10_30", "SAL_SUM":{$sum:"$sal"}}
+},
+{
+  $project:{
+    _id:0, DEPT:"$_id", SAL_SUM:1
+}
+}
+]).forEach(element => {
+  print("DEPT" + element.DEPT + ", SAL_SUM: " + element.SAL_SUM)
+});
 
 
 -- Q4  직업이 세일즈맨인 사원의 평균 월급과 월급의 합을 구해보자.
+db.emp.aggregate([
+  {$match:{job:"SALESMAN"}},
+  {$group:{_id:"SALESMAN", "AVG_SAL":{$avg:"$sal"}, "TOT_SAL":{$sum:"$sal"}}
+},
+{
+  $project:{
+    _id:0, Job:"$_id", AVG_SAL:1, TOT_SAL:1
+}
+}
+])
+
 -- Q5  봉급이  3000 이상 5000 이하의 월급을 몇명이 받는지 개수를 출력해보자.
+
+
 
 
 

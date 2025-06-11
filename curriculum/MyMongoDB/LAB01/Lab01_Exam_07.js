@@ -1,0 +1,22 @@
+db.emp.aggregate([{
+  $match:{ 
+		$or:[
+			{comm:{$eq:""}},
+                {sal:{$gte:2000}}
+               ]
+           }
+},
+{
+  $project:{
+    _id:0,
+    ename:1,
+    sal:1,
+    comm:{
+        $cond:{if:{$eq:["$comm",""]},then:"N/A",else:"$comm"
+    }
+  }
+}
+}
+]).forEach(element => {
+   print(element.ename+","+element.sal+","+element.comm) 
+});

@@ -1,0 +1,115 @@
+조인문제
+Q10. students 컬렉션과 Score 컬렉션을 이름(name)으로 매칭하되, 국어 점수(kor)가 80 이상인 학생만 조회하자
+db.students.aggregate([
+  {
+    $lookup: {
+      from: "_____",   // 조인할 컬렉션 이름
+      localField: "_____",   // 로컬 필드 이름
+      foreignField: "_____",   // 외부 필드 이름
+      as: "studentScores"
+    }
+  },
+  { $unwind: "$_____" },  // 배열을 분리
+  { $match: { "studentScores.kor": { $_____: ____ } } }  // 조건: 국어 점수가 80 이상
+]);
+
+Q11. students 컬렉션과 Score 컬렉션을 이름(name)으로 매칭하되, 성적 정보가 없는 학생의 경우 점수를 0으로 표시하자.  
+db.students.aggregate([
+  {
+    $lookup: {
+      from: "_____",    
+      localField: "_____",   
+      foreignField: "_____", 
+      as: "studentScores"
+    }
+  },
+  {
+    $project: {
+      name: 1,
+      kor: { $_____: [{ $arrayElemAt: ["$studentScores.kor", ____] }, ____] },  // 국어 점수가 없으면 0
+      eng: { $ifNull: [{ $arrayElemAt: ["$studentScores.eng", 0] }, 0] },
+      mat: { $ifNull: [{ $arrayElemAt: ["$studentScores.mat", 0] }, 0] }
+    }
+  }
+]);
+
+Q12. students 컬렉션과 Score 컬렉션을 이름(name)으로 매칭하되, 국어 점수(kor)가 60점 이상 90점 이하인 학생들의 정보를 조회하자. 
+db.students.aggregate([
+  {
+    $lookup: {
+      from: "_____",   
+      localField: "_____",   
+      foreignField: "_____",   
+      as: "studentScores"
+    }
+  },
+  { $unwind: "$_____" },  // 배열을 분리
+  { $match: { "studentScores.kor": { $gte: ____, $lte: ____ } } }  // 조건: 국어 점수 60~90
+]);
+
+Q13. students 컬렉션과 Score 컬렉션을 이름(name)과 시험 종류(test)로 매칭하여, 이름과 시험 종류가 모두 일치하는 경우에만 성적 데이터를 결합하자 
+db.students.aggregate([
+  {
+    $lookup: {
+      from: "_____",    
+      let: { studentName: "$_____", studentTest: "$_____" },  
+      pipeline: [
+        { 
+          $match: { 
+            $expr: { 
+              $and: [
+                { $eq: ["$name", "$$_____"] },  
+                { $eq: ["$test", "$$_____"] }  
+              ] 
+            }
+          }
+        }
+      ],
+      as: "matchedScores"
+    }
+  }
+]);
+
+Q14.students 컬렉션을 자기 자신과 조인하여, 같은 학년(grade)에 속하는 학생 쌍을 조회하자. Self Join
+db.students.aggregate([
+  {
+    $lookup: {
+      from: "_____",   
+      localField: "_____",  
+      foreignField: "_____",  
+      as: "classmates"
+    }
+  },
+  {
+    $project: {
+      name: 1,
+      grade: 1,
+      classmates: { 
+        $_____: { 
+          input: "$classmates", 
+          as: "mate", 
+          cond: { $ne: ["$$_____", "$name"] }  // 자기 자신 제외
+        } 
+      }
+    }
+  }
+]);
+
+Q15. students 컬렉션의 등록된 수업 목록(courses)과 Score 컬렉션의 시험 종류(test)가 일치하는 학생들을 조회하자. 
+
+db.students.aggregate([
+  {
+    $lookup: {
+      from: "_____",   
+      let: { studentCourses: "$_____" },  
+      pipeline: [
+        {
+          $match: {
+            $expr: { $_____: ["$test", "$$_____"] }  
+          }
+        }
+      ],
+      as: "matchedTests"
+    }
+  }
+]);

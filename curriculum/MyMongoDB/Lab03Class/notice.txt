@@ -1,0 +1,255 @@
+3-1) GridFs updload methods:
+  fs.files: saves metadata for file
+  fs.chunks: saves files in set sizes
+
+3-2) GridFs download method:
+
+
+Q1) Help:
+mongofiles --help
+
+Q2) upload text file:
+mongofiles --db myFile put a.txt
+
+Q3) upload apple file:
+mongofiles --db myFile put apple.jpg
+
+Q4) check file list
+mongofiles --db myFile list
+
+Q5) download file:
+mkdir res
+cd res
+mongofiles --db myFile get a.txt
+
+// or download file in a directory of your choice with the name of your choice:
+
+mongofiles --db myFiles get a.txt --local res/a.txt 
+mongofiles --db myFiles get a.txt --local res/b.txt
+
+Q6) get all files at once
+mkdir res02
+cd res02
+mongofiles --db myFile get a.txt apple.jpg 
+
+* Wild cards *.* don't work.
+
+Q7) put a.txt apple.jpg
+mongofiles --db myFile put a.txt apple.jpg
+
+* Appended not overwritten!!!
+
+	•	fs is the default prefix used by GridFS.
+	•	So db.fs.files.find() is really:
+	•	The collection fs.files within the current database (in your case, myFile).
+	•	GridFS splits a file into chunks and stores them in fs.chunks, while the file’s metadata goes into fs.files.
+
+
+Q8) upload mutiple files
+Mac:
+for f in *.txt *.jpg; do
+mongofiles --db myFile put "$f"
+done
+
+Q9) delete files from GridFs storage:
+mongofiles --db myFile delete a.txt apple.jpg
+
+Q10) use shell to delete multiple files
+for f in *.txt *.jpg; do
+mongofiles --db myFile delete "$f"
+done
+
+
+Q11) try out put_id
+mongofiles --db myFile put_id a.txt a0001
+mongofiles --db myFile put_id apple.jpg a0002
+mongofiles --db myFile put_id banana.jpg a0003
+
+Q12) try get_id to download to res/
+mongofiles --db myFile get_id a0001 --local res/a_download.txt
+mongofiles --db myFile get_id a0002 --local res/apple_download.jpg
+mongofiles --db myFile get_id a0003 --local res/banana_download.jpg
+mongofiles --db myFile get_id a0003 --local res/banana_download.png
+
+Q13) try delete_id to delete files from GridFs 
+mongofiles --db myFile delete_id a0001
+mongofiles --db myFile delete_id a0002
+mongofiles --db myFile delete_id a0003
+
+Q14) search: search all files: 'filename' is a regex which listed filenames must match
+get_regix - get files matching the supplied 'regex'
+
+mongofiles --db myFile search a.txt
+mongofiles --db myFile search "^a*\.jpg"
+
+Q15) use get_regex command to download file
+mongofiles --db myFile get_regex "^a.*\.jpg"
+
+
+
+Example:
+mini➜  Lab03Class git:(main) ✗ mongofiles --db myFile put a.txt
+2025-06-13T09:35:59.470+0900    connected to: mongodb://localhost/
+2025-06-13T09:35:59.471+0900    adding gridFile: a.txt
+
+2025-06-13T09:35:59.566+0900    added gridFile: a.txt
+
+myFile> show tables
+fs.chunks
+fs.files
+
+myFile> db.fs.files.find()
+[
+  {
+    _id: ObjectId('684b726f654a877cca14af68'), // need to be the same as the files_id in chunks
+    length: Long('241'),
+    chunkSize: 261120,
+    uploadDate: ISODate('2025-06-13T00:35:59.565Z'),
+    filename: 'a.txt',
+    metadata: {}
+  }
+]
+
+myFile> db.fs.chunks.find()
+[
+  {
+    _id: ObjectId('684b726f654a877cca14af69'),
+    files_id: ObjectId('684b726f654a877cca14af68'), // need to be the same as the related files
+    n: 0,
+    data: Binary.createFromBase64('QUJDREVGR0hJSktMTU4g7ZWc6riA7J20656A64ukIDEyMzQ1Njc4OTAKbGlzdCA8cHJlZml4PgpMaXN0cyB0aGUgZmlsZXMgaW4gdGhlIEdyaWRGUyBzdG9yZS4gVGhlIGNoYXJhY3RlcnMgc3BlY2lmaWVkIGFmdGVyIGxpc3QgKGUuZy4gPHByZWZpeD4pIG9wdGlvbmFsbHkgbGltaXQgdGhlIGxpc3Qgb2YgcmV0dXJuZWQgaXRlbXMgdG8gZmlsZXMgdGhhdCBiZWdpbiB3aXRoIHRoYXQgc3RyaW5nIG9mIGNoYXJhY3RlcnMuCg==', 0)
+  }
+]
+
+mini➜  Lab03Class git:(main) ✗ mongofiles --db myFile list
+2025-06-13T09:58:29.018+0900    connected to: mongodb://localhost/
+a.txt   241
+apple.jpg       9255
+
+
+mini➜  res git:(main) ✗ cd ..
+mini➜  Lab03Class git:(main) ✗ tree
+.
+├── a.txt
+├── apple.jpg
+├── banana.jpg
+├── notice.txt
+└── res
+    └── a.txt
+
+2 directories, 5 files
+mini➜  Lab03Class git:(main) ✗ mongofiles --db myFile get b.txt
+2025-06-13T10:05:32.217+0900    connected to: mongodb://localhost/
+2025-06-13T10:05:32.218+0900    Failed: requested files not found: [b.txt]
+mini➜  Lab03Class git:(main) ✗ mongofiles --db myFile get a.txt --local res/b.txt
+2025-06-13T10:05:51.030+0900    connected to: mongodb://localhost/
+2025-06-13T10:05:51.033+0900    finished writing to res/b.txt
+
+mini➜  Lab03Class git:(main) ✗ tree
+.
+├── a.txt
+├── apple.jpg
+├── banana.jpg
+├── notice.txt
+└── res
+    ├── a.txt
+    └── b.txt
+
+2 directories, 6 files
+
+
+mini➜  Lab03Class git:(main) ✗ mongofiles --db myFile put a.txt apple.jpg
+2025-06-13T10:16:46.139+0900    connected to: mongodb://localhost/
+2025-06-13T10:16:46.139+0900    adding gridFile: a.txt
+
+2025-06-13T10:16:46.141+0900    added gridFile: a.txt
+
+2025-06-13T10:16:46.141+0900    adding gridFile: apple.jpg
+
+2025-06-13T10:16:46.142+0900    added gridFile: apple.jpg
+
+Q8) example:
+mini➜  Lab03Class git:(main) ✗ for ffor f in *.txt *.jpg; do
+mongofiles --db myFile put "$f"
+done
+
+
+2025-06-13T10:54:10.606+0900    connected to: mongodb://localhost/
+2025-06-13T10:54:10.606+0900    adding gridFile: a.txt
+
+2025-06-13T10:54:10.609+0900    added gridFile: a.txt
+
+2025-06-13T10:54:10.620+0900    connected to: mongodb://localhost/
+2025-06-13T10:54:10.621+0900    adding gridFile: notice.txt
+
+2025-06-13T10:54:10.622+0900    added gridFile: notice.txt
+
+2025-06-13T10:54:10.636+0900    connected to: mongodb://localhost/
+2025-06-13T10:54:10.636+0900    adding gridFile: apple.jpg
+
+2025-06-13T10:54:10.637+0900    added gridFile: apple.jpg
+
+2025-06-13T10:54:10.649+0900    connected to: mongodb://localhost/
+2025-06-13T10:54:10.650+0900    adding gridFile: banana.jpg
+
+2025-06-13T10:54:10.655+0900    added gridFile: banana.jpg
+
+Q9) exmple:
+mini➜  Lab03Class git:(main) ✗
+mongofiles --db myFile delete a.txt apple.jpg
+2025-06-13T10:56:32.357+0900    too many non-URI positional arguments (If you are trying to specify a connection string, it must begin with mongodb:// or mongodb+srv://)
+2025-06-13T10:56:32.357+0900    try 'mongofiles --help' for more information
+mini➜  Lab03Class git:(main) ✗      mongofiles --db myFile delete apple.jpg
+2025-06-13T10:57:10.469+0900    connected to: mongodb://localhost/
+2025-06-13T10:57:10.473+0900    successfully deleted all instances of 'apple.jpg' from GridFS
+
+mini➜  Lab03Class git:(main) ✗ mongofiles --db myFile delete a.txt
+2025-06-13T10:57:28.919+0900    connected to: mongodb://localhost/
+2025-06-13T10:57:28.921+0900    successfully deleted all instances of 'a.txt' from GridFS
+
+myFile> db.fs.files.find({}).itcount()
+8
+myFile> db.fs.files.find({}).itcount()
+5
+myFile> db.fs.files.find({}).itcount()
+2
+myFile> db.fs.files.find({})
+[
+  {
+    _id: ObjectId('684b84c292453e053d388ab8'),
+    length: Long('3708'),
+    chunkSize: 261120,
+    uploadDate: ISODate('2025-06-13T01:54:10.622Z'),
+    filename: 'notice.txt',
+    metadata: {}
+  },
+  {
+    _id: ObjectId('684b84c2458f14c83d724a5a'),
+    length: Long('6762'),
+    chunkSize: 261120,
+    uploadDate: ISODate('2025-06-13T01:54:10.655Z'),
+    filename: 'banana.jpg',
+    metadata: {}
+  }
+]
+
+Q10) Example
+mini➜  Lab03Class git:(main) ✗ for ffor f in *.txt *.jpg; do
+mongofiles --db myFile delete "$f"
+done
+2025-06-13T11:00:24.312+0900    connected to: mongodb://localhost/
+2025-06-13T11:00:24.313+0900    successfully deleted all instances of 'a.txt' from GridFS
+
+2025-06-13T11:00:24.326+0900    connected to: mongodb://localhost/
+2025-06-13T11:00:24.328+0900    successfully deleted all instances of 'notice.txt' from GridFS
+
+2025-06-13T11:00:24.341+0900    connected to: mongodb://localhost/
+2025-06-13T11:00:24.342+0900    successfully deleted all instances of 'apple.jpg' from GridFS
+
+2025-06-13T11:00:24.356+0900    connected to: mongodb://localhost/
+2025-06-13T11:00:24.358+0900    successfully deleted all instances of 'banana.jpg' from GridFS
+
+
+myFile> db.fs.files.find({}).itcount()
+6
+myFile> db.fs.files.find({}).itcount()
+0

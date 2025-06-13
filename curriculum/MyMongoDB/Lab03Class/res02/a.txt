@@ -1,0 +1,3 @@
+ABCDEFGHIJKLMN 한글이란다 1234567890
+list <prefix>
+Lists the files in the GridFS store. The characters specified after list (e.g. <prefix>) optionally limit the list of returned items to files that begin with that string of characters.

@@ -1,0 +1,8 @@
+{"_id":{"$oid":"684a689022e165ad7b34b0fa"},"name":"ddd","kor":70,"eng":69,"mat":89,"test":"midterm"}
+{"_id":{"$oid":"684a689022e165ad7b34b0f9"},"name":"ccc","kor":90,"eng":55,"mat":67,"test":"midterm"}
+{"_id":{"$oid":"684a689022e165ad7b34b0fb"},"name":"eee","kor":60,"eng":80,"mat":78,"test":"final"}
+{"_id":{"$oid":"684a689022e165ad7b34b0f7"},"name":"aaa","kor":90,"eng":80,"mat":98,"test":"midterm"}
+{"_id":{"$oid":"684a689022e165ad7b34b0fd"},"name":"ggg","kor":75,"eng":100,"mat":98,"test":"final"}
+{"_id":{"$oid":"684a689022e165ad7b34b0fc"},"name":"fff","kor":90,"eng":65,"mat":98,"test":"midterm"}
+{"_id":{"$oid":"684a689022e165ad7b34b0fe"},"name":"hhh","kor":[100,20,40,100],"eng":100,"mat":98,"test":"final"}
+{"_id":{"$oid":"684a689022e165ad7b34b0f8"},"name":"bbb","kor":100,"eng":100,"mat":76,"test":"final"}

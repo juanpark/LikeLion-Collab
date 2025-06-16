@@ -86,6 +86,17 @@ Q15) use get_regex command to download file
 mongofiles --db myFile get_regex "^a.*\.jpg"
 
 
+Other Examples:
+mongofiles -d=myFile list
+mongofiles -d=myFile put <file>
+mongofiles -d=myFile get <file>
+mongofiles -d=myFile get_id '{"$oid":"684b8e5904153a137e849437"}'
+
+
+
+
+
+
 
 Example:
 mini➜  Lab03Class git:(main) ✗ mongofiles --db myFile put a.txt
@@ -253,3 +264,84 @@ myFile> db.fs.files.find({}).itcount()
 6
 myFile> db.fs.files.find({}).itcount()
 0
+
+
+======================================================================
+mongoimport mongoexport  
+
+Q1. Score  컬렉션을 myscore.json으로 다운받자  
+D:\myWork\mymongo\Lab03>> mongoexport  --db mydb  -c Score   --out myscore.json 
+D:\myWork\mymongo\Lab03>>type myscore.json
+==> mac cat myscore.json
+
+
+Q2. newdb라는 db에   Uscore라는 컬렉션으로  myscore.json 를 업로드 하자.  
+mongoimport  --db newdb  -c Uscore   --file  myscore.json
+
+Q3. Q2에서 임포트 한것을 다시  myscore_res.json으로 export  하자  
+    mongoexport  --db newdb  -c Uscore   --out myscore_res.json 
+
+Q4. newdb라는 db에   Uscore을   myscore.csv로 다운로드 받자 --type=csv
+mongoexport  --db newdb  -c Uscore   --out myscore.csv
+
+파일은 생성되고  문서( 내용)은 --fields 옵션이 필수로   실행오류
+mongoexport  --db newdb  -c Uscore  --type=csv --out myscore01.csv
+
+mongoexport  --db newdb  -c Uscore  --type=csv --fields name,eng,mat --out myscore01.csv
+
+Q5. Extract name, eng from myscore01.csv and upload MScore to newdb
+mongoimport --db newdb -c MScore --type=csv --fields name,eng --file myscore01.csv
+
+
+Q6. import doc sample file
+mongoimport --db newdb --collection=contacts --type=csv --columnsHaveTypes --fields="name.string(),birthdate.date(2006-01-02),contacted.boolean(),followerCount.int32(),thumbnail.binary(base64)" --file=file.csv
+
+This long mongoimport command is used to import a CSV file into a MongoDB collection, with detailed type specifications for each field. Let’s break it down step-by-step:
+
+⸻
+
+🔧 Full Command:
+
+mongoimport --db newdb --collection=contacts --type=csv \
+--columnsHaveTypes \
+--fields="name.string(),birthdate.date(2006-01-02),contacted.boolean(),followerCount.int32(),thumbnail.binary(base64)" \
+--file=file.csv
+
+
+⸻
+
+📌 Breakdown:
+
+Part	Meaning
+--db newdb	Target MongoDB database is newdb.
+--collection=contacts	Import into the contacts collection.
+--type=csv	Specifies the input file is CSV format.
+--columnsHaveTypes	Tells MongoDB that the --fields option will include type annotations.
+--fields=...	Explicitly defines the fields and their data types for import.
+--file=file.csv	The actual file to import is file.csv.
+
+
+⸻
+
+🧪 --fields Option (Field Types):
+	•	name.string() → Import as a string.
+	•	birthdate.date(2006-01-02) → Import as a date using the YYYY-MM-DD format.
+	•	contacted.boolean() → Import as a boolean (true/false).
+	•	followerCount.int32() → Import as a 32-bit integer.
+	•	thumbnail.binary(base64) → Import as binary data, encoded using Base64.
+
+⸻
+
+✅ When and Why You Use This
+	•	When your CSV data includes multiple data types and you want precise control over how each column is interpreted.
+	•	When importing images (e.g., thumbnails) or structured data (e.g., dates, booleans) into MongoDB from an external CSV.
+
+⸻
+
+📁 Example CSV (with matching headers):
+
+name,birthdate,contacted,followerCount,thumbnail
+Alice,1990-05-20,true,1200,aGVsbG8gd29ybGQ=
+Bob,1985-10-11,false,900,c2FtcGxlIGltYWdl
+
+

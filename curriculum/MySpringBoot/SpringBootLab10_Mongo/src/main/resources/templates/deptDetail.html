@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Dept Location</title>
+</head>
+<body>
+	<h2>Dept Details</h2>
+	<p>Dept Number: <span th:text = "${dept.deptno}"></span></p>
+	<p>Dept Name: <span th:text = "${dept.dname}"></span></p>
+	<p>Dept Location: <span th:text = "${dept.loc}"></span></p>
+	<p>Dept longitude: <span th:text = "${dept.longitude}"></span></p>
+	<p>Dept latitude: <span th:text = "${dept.latitude}"></span></p>
+	
+	<h1> Employee Details</h1>
+	<ul>
+		<li th:each="emp:${emplist}">
+			<span th:text="${emp.empno}"></span>
+			<span th:text="${emp.ename}"></span>
+			<span th:text="${emp.job}"></span>
+			<span th:text="${emp.sal}"></span>
+		</li>
+	</ul>
+	<a href="/map">Return</a>
+</body>
+</html>
+	

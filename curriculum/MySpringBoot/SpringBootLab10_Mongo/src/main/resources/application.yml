@@ -1,0 +1,16 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/myemp
+  application:
+    name: SpringBootLab10
+  security:
+    user:
+      name: admin
+      password: 1234
+server:
+  port: 8080
+
+google:
+  map:
+    api-key: AIzaSyAGG17eBfCbRkpGgjeJ6wCowibtDcg4gno

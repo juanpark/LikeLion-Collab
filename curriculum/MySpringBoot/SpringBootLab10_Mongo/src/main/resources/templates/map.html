@@ -1,0 +1,61 @@
+<!-- map.html (Thymeleaf template) -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>부서 위치</title>
+    <script th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${apiKey}"></script>
+</head>
+<body>
+<h2>부서 위치</h2>
+<div id="map" style="width:100%; height:500px;"></div>
+
+<script>
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 7,
+            center: { lat: 36.5, lng: 127.5 }
+        });
+
+        fetch('/dept/api')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(dept => {
+                    if (dept.latitude && dept.longitude) {
+                        const pos = { lat: dept.latitude, lng: dept.longitude };
+
+						const image = {
+						   url: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+						   }
+						   // This marker is 20 pixels wide by 32 pixels high.
+						   
+                        const marker = new google.maps.Marker({
+							icon: image,
+                            position: pos,
+                            map: map,
+                            title: dept.dname
+                        });
+
+                        const infoWindow = new google.maps.InfoWindow({
+							content: `<strong>${dept.dname}</strong><br>${dept.loc}`
+						});
+
+                        marker.addListener('click', () => {
+                            let content = `
+								<strong>${dept.dname}</strong><br>
+								${dept.loc}<br>
+								<a href="/dept/detail/${dept.deptno}" target="_blank">Dept Details</a>`;
+								
+								infoWindow.setContent(content);
+								infoWindow.open(map, marker);
+                            
+                        });
+                    }
+                });
+            });
+    }
+
+    window.onload = initMap;
+</script>
+</body>
+</html>

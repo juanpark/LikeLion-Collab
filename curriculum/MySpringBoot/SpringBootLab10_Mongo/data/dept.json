@@ -1,0 +1,12 @@
+[
+  { "_id": 10, "dname": "총무부", "loc": "서울", "latitude": 37.5665, "longitude": 126.9780 },
+  { "_id": 20, "dname": "연구소", "loc": "대전", "latitude": 36.3504, "longitude": 127.3845 },
+  { "_id": 30, "dname": "영업부", "loc": "부산", "latitude": 35.1796, "longitude": 129.0756 },
+  { "_id": 40, "dname": "기획부", "loc": "광주", "latitude": 35.1595, "longitude": 126.8526 },
+  { "_id": 50, "dname": "마케팅부", "loc": "인천", "latitude": 37.4563, "longitude": 126.7052 },
+  { "_id": 60, "dname": "품질관리부", "loc": "수원", "latitude": 37.2636, "longitude": 127.0286 },
+  { "_id": 70, "dname": "R&D부서", "loc": "성남", "latitude": 37.4200, "longitude": 127.1265 },
+  { "_id": 80, "dname": "고객지원부", "loc": "울산", "latitude": 35.5384, "longitude": 129.3114 },
+  { "_id": 90, "dname": "IT운영팀", "loc": "제주", "latitude": 33.4996, "longitude": 126.5312 },
+  { "_id": 100, "dname": "해외사업팀", "loc": "창원", "latitude": 35.2286, "longitude": 128.6811 }
+]

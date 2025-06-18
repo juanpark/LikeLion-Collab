@@ -1,0 +1,12 @@
+[
+  { "_id": 1001, "ename": "홍길동", "job": "MANAGER", "sal": 5000, "dept": 10 },
+  { "_id": 1002, "ename": "이몽룡", "job": "CLERK", "sal": 3000, "dept": 20 },
+  { "_id": 1003, "ename": "성춘향", "job": "ENGINEER", "sal": 4200, "dept": 20 },
+  { "_id": 1004, "ename": "김철수", "job": "SALES", "sal": 2800, "dept": 30 },
+  { "_id": 1005, "ename": "박영희", "job": "MARKETER", "sal": 3500, "dept": 50 },
+  { "_id": 1006, "ename": "최자영", "job": "DESIGNER", "sal": 3300, "dept": 40 },
+  { "_id": 1007, "ename": "한상훈", "job": "QA", "sal": 3700, "dept": 60 },
+  { "_id": 1008, "ename": "오세훈", "job": "DEVELOPER", "sal": 4800, "dept": 70 },
+  { "_id": 1009, "ename": "조은하", "job": "SUPPORT", "sal": 3100, "dept": 80 },
+  { "_id": 1010, "ename": "정수빈", "job": "PLANNER", "sal": 3900, "dept": 90 }
+]

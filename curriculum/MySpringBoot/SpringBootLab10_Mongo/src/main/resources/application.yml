@@ -13,4 +13,5 @@ server:
 
 google:
   map:
-    api-key: AIzaSyAGG17eBfCbRkpGgjeJ6wCowibtDcg4gno
+    api-key:
+

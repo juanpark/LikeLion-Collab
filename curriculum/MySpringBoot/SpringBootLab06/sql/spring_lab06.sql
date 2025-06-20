@@ -1,5 +1,6 @@
 -- 데이터베이스 생성 및 사용
-CREATE DATABASE IF NOT EXISTS spring_lab06;
+DROP DATABASE spring_lab06;
+CREATE DATABASE spring_lab06 CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE spring_lab06;
 
 -- 학생 테이블

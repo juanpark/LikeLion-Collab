@@ -1,0 +1,2 @@
+FROM alpine
+CMD ["sh", "-c", "echo '[DEV] Hello developer! This is the dev container.'"]

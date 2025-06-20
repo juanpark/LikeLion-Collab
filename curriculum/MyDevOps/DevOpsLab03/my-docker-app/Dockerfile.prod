@@ -1,0 +1,2 @@
+FROM alpine
+CMD ["sh", "-c", "echo '[PROD] Hello user! This is the production container.'"]

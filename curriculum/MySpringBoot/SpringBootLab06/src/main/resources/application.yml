@@ -4,7 +4,10 @@ spring:
     username: root
     password: admin1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+    hikari:
+     connection-timeout: 30000
+     maximum-pool-size: 10
+     initialization-fail-timeout: -1   # <== 중요: 실패해도 계속 재시도
   jpa:
     hibernate:
       ddl-auto: update

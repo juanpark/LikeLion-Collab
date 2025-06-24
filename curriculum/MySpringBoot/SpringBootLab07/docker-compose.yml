@@ -20,8 +20,8 @@ services:
 
   springlab06:
     build: .
-    image: mylab06 #image name
-    container_name: springlab06-app
+    image: mylab07 #image name
+    container_name: springlab07-app
     ports:
       - "8080:8080"
     depends_on:

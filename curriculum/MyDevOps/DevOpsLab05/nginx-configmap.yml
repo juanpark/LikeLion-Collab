@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-html
+data:
+  index.html: |
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>Hello from ConfigMap</title>
+      </head>
+      <body>
+        <h1>🚀 Welcome to NGINX served from a ConfigMap!</h1>
+        <p>This is a custom HTML page.</p>
+      </body>
+    </html>

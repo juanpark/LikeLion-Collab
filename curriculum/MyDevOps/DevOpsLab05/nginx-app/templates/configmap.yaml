@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "nginx-app.fullname" . }}-html
+data:
+  index.html: |
+    <html>
+      <head><title>Hello from ConfigMap</title></head>
+      <body>
+        <h1>Welcome to NGINX served from a ConfigMap!</h1>
+        <p>This is a custom HTML page managed by Helm.</p>
+      </body>
+    </html>

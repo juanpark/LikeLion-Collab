@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>중고로사자 커뮤니티 채팅방</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    #messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      background-color: #f8f9fa;
+      list-style: none;
+      margin: 0;
+    }
+    #messages li {
+      margin-bottom: 0.5rem;
+    }
+    .input-area {
+      background: #fff;
+      padding: 0.5rem;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+<div class="chat-container">
+
+  <div class="container pt-3 pb-1">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5 id="nicknameDisplay" class="text-primary mb-0"></h5>
+      <button class="btn btn-outline-danger btn-sm" onclick="logout()">로그아웃</button>
+    </div>
+    <h6 id="userCount" class="text-secondary mb-2"></h6>
+    <h2 class="text-center mb-3" style="font-size: 1.5rem;">
+      중고로사자 커뮤니티 채팅방<br>
+      <small>(implemented by 박정환 + GPT)</small>
+    </h2>
+  </div>
+
+  <ul id="messages" class="list-group">
+    <!-- Messages will appear here -->
+  </ul>
+
+  <div class="input-area">
+    <div class="container">
+      <div class="input-group">
+        <input type="text" id="content" class="form-control" placeholder="채팅 메시지..." />
+        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let stompClient = null;
+let nickname = localStorage.getItem('nickname');
+
+if (!nickname) {
+  window.location.href = "/";
+}
+
+function loadHistory() {
+  fetch('/chat/history')
+    .then(response => response.json())
+    .then(messages => {
+      messages.forEach(showMessage);
+      scrollToBottom();
+    })
+    .catch(error => {
+      console.error('챗 히스토리 로딩 에러:', error);
+    });
+}
+
+function connect() {
+  const socket = new SockJS('/ws');
+  stompClient = Stomp.over(socket);
+  stompClient.connect({}, function (frame) {
+    console.log('Connected: ' + frame);
+    stompClient.subscribe('/topic/public', function (message) {
+      showMessage(JSON.parse(message.body));
+    });
+    stompClient.subscribe('/topic/userCount', function (message) {
+      const userCount = message.body;
+      document.getElementById('userCount').innerText = `현재 접속 중: ${userCount}명`;
+    });
+    fetch('/chat/userCount')
+      .then(response => response.text())
+      .then(count => {
+        document.getElementById('userCount').innerText = `현재 접속 중: ${count}명`;
+      });
+  });
+}
+
+function sendMessage() {
+  const contentInput = document.getElementById('content');
+  const content = contentInput.value.trim();
+  if (!content) return;
+
+  stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
+    sender: nickname,
+    content: content
+  }));
+  contentInput.value = '';
+}
+
+function showMessage(message) {
+  const li = document.createElement('li');
+  li.className = 'list-group-item';
+  li.innerHTML = `<span class="text-muted" style="font-size:0.85rem;">[${message.timestamp}]</span> <strong>${message.sender}</strong>: ${message.content}`;
+  document.getElementById('messages').appendChild(li);
+  scrollToBottom();
+}
+
+function scrollToBottom() {
+  const messagesDiv = document.getElementById('messages');
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const nicknameDisplay = document.getElementById('nicknameDisplay');
+  if (nicknameDisplay) {
+    nicknameDisplay.innerText = `닉네임: ${nickname}`;
+  }
+
+  const contentInput = document.getElementById('content');
+  contentInput.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter') {
+      sendMessage();
+    }
+  });
+
+  loadHistory();
+  connect();
+});
+
+function logout() {
+  localStorage.removeItem('nickname');
+  window.location.href = "/";
+}
+</script>
+
+</body>
+</html>

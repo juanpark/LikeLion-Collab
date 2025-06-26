@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calc-deploy
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: calc
+  template:
+    metadata:
+      labels:
+        app: calc
+    spec:
+      containers:
+        - name: calc
+          image: juanpark80/calc-demo:3.0
+          command: ["java", "-cp", "/app", "Calculator"]
+          tty: true
+          stdin: true

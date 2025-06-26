@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: q2-hostpath-pod
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: ["sh", "-c", "echo hostpath > /host/hello-host.txt && sleep 3600"]
+    volumeMounts:
+    - mountPath: /host
+      name: host-volume
+  volumes:
+  - name: host-volume
+    hostPath:
+      path: /tmp
+      type: Directory
